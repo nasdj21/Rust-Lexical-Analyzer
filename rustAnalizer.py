@@ -58,6 +58,15 @@ tokens = (
     'INTEGER',
     'FLOAT',
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - FIN
+
+    # AVANCE DELIMITADORES ARRAYS: Carlos TIngo - inicio
+    'LBRACE', 'RBRACE',
+    'LBRACKET', 'RBRACKET',
+    'DOT',
+    # Para arreglos/slices/paths:
+    'RANGE', 'RANGE_INCLUSIVE', 'DOUBLE_COLON',
+    # AVANCE DELIMITADORES ARRAYS: Carlos TIngo - fin
+
 )+tuple(reserved.values())
 
 # OPERADORES ARITMÉTICOS
@@ -104,6 +113,22 @@ t_COMMA = r','
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 # AVANCE SIGNOS: Carlos Flores - FIN
+
+#AVANCE ARRAY CARLOS TINGO - Inicio
+t_LBRACE   = r'\{'
+t_RBRACE   = r'\}'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+
+# Rangos y ::  (el ORDEN importa: primero ..=, luego .., luego ::, luego . y :)
+t_RANGE_INCLUSIVE = r'\.\.='   # ..=
+t_RANGE           = r'\.\.'    # ..
+t_DOUBLE_COLON    = r'::'      # ::
+
+
+t_DOT = r'\.'
+#AVANCE ARRAY CARLOS TINGO - Fin
+
 
 # Ignorar espacios y tabulaciones
 t_ignore = ' \t'
@@ -164,7 +189,8 @@ def t_newline(t):
 
 # Give the lexer some input
 archivos = {"Carlos Flores":["algoritmoVariables.rs"], 
-            "Nicolas Sierra":["algoritmoOperadores.rs"]}
+            "Nicolas Sierra":["algoritmoOperadores.rs"],    
+            "Carlos Tingo":["algoritmoVectoresArreglos.rs"]}
 
 # Build the lexer
 lexer = lex.lex()
@@ -173,12 +199,17 @@ ahora = datetime.datetime.now()
 fecha = ahora.strftime("%d-%m-%Y")
 hora = ahora.strftime("%Hh%M")
 
-for name,archivos in archivos.items():
+for name, lista_archivos in archivos.items():
 
-    nombre_log = f"./logs/{name.replace(" ","_")}/lexico-{name.replace(" ","")}-{fecha}-{hora}.txt"
+    carpeta = f"./logs/{name.replace(' ', '_')}"
+    os.makedirs(carpeta, exist_ok=True)
+
+    nombre_log = f"{carpeta}/lexico-{name.replace(' ', '')}-{fecha}-{hora}.txt"
     log = open(nombre_log, "w", encoding="utf-8")
 
-    for archivo in archivos:
+
+
+for archivo in lista_archivos:
         if not os.path.exists(archivo):
             print(f"ALERTA: El archivo '{archivo}' no existe.")
         else:
