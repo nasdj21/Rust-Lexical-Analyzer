@@ -1,0 +1,7 @@
+===== Análisis Sintáctico (11-11-2025 - 08h29) =====
+
+=== Archivo: algoritmoVariables.rs ===
+❌ Errores sintácticos encontrados:
+   - [ERROR] Sintaxis inválida en 'mut' (línea 2)
+   - [ERROR] Sintaxis inválida en ',' (línea 5)
+

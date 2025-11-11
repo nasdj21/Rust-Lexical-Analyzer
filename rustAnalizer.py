@@ -21,7 +21,9 @@ reserved = {
     'then': 'THEN',
     'main': 'MAIN',
     'println': 'PRINTLN',
-    'fn':'FN',
+    'fn':'FN',        
+    'for':'FOR',
+    'in':'IN',
     # AVANCE DE PALABRAS RESERVADAS: Nicolas Sierra - FIN
 }
 
@@ -45,8 +47,14 @@ tokens = (
     'BIT_AND', 'BIT_OR', 'BIT_XOR', 'BIT_NOT', 'SHIFT_LEFT', 'SHIFT_RIGHT',
 
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - INICIO
-    'IDENTIFICADOR',
-    'TYPE',    
+    'IDENTIFIER',    
+    'TYPE_I32',
+    'TYPE_U64',
+    'TYPE_F64',
+    'TYPE_CHAR',
+    'TYPE_STRING',
+    'TYPE_BOOL',
+    'TYPE_TUPLE',
     'SEMICOLON',
     'COLON',
     'STRING',
@@ -56,7 +64,9 @@ tokens = (
     'RPAREN',
     'BOOLEAN',
     'INTEGER',
-    'FLOAT',
+    'FLOAT',    
+    'PIPE',
+    'ARROW',
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - FIN
 
     # AVANCE DELIMITADORES ARRAYS: Carlos TIngo - inicio
@@ -112,6 +122,8 @@ t_COLON = r'\:'
 t_COMMA = r','
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
+t_PIPE = r'\|'
+t_ARROW = r'->'
 # AVANCE SIGNOS: Carlos Flores - FIN
 
 #AVANCE ARRAY CARLOS TINGO - Inicio
@@ -152,20 +164,51 @@ def t_CHAR(t):
     t.value = t.value[1:-1]  # elimina las comillas simples
     return t
 
+#Regla para String
 def t_STRING(t):
     r'\"([^\\\n]|(\\.))*?\"'
     t.value = t.value.strip('"')
     return t
 
-# Reglas de tipo de datos
-def t_TYPE(t):
-    r'i32|u64|f64|char|String|bool|tupla'
+# Regla para tipo de datos i32
+def t_TYPE_I32(t):
+    r'i32'
+    return t
+
+# Regla para tipo de datos u64
+def t_TYPE_U64(t):
+    r'u64'
+    return t
+
+# Regla para tipo de datos f64
+def t_TYPE_F64(t):
+    r'f64'
+    return t
+
+# Regla para tipo de datos char
+def t_TYPE_CHAR(t):
+    r'char'
+    return t
+
+# Regla para tipo de datos String
+def t_TYPE_STRING(t):
+    r'String'
+    return t
+
+# Regla para tipo de datos bool
+def t_TYPE_BOOL(t):
+    r'bool'
+    return t
+
+# Regla para tipo de datos tupla
+def t_TYPE_TUPLE(t):
+    r'tuple'
     return t
 
 # Regla para identificar variables en Rust
-def t_IDENTIFICADOR(t):
+def t_IDENTIFIER(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value, 'IDENTIFICADOR')
+    t.type = reserved.get(t.value, 'IDENTIFIER')
     return t
 
 # Regla para identificar números decimales

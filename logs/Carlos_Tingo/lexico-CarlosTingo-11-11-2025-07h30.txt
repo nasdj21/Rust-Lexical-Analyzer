@@ -1,0 +1,152 @@
+
+Línea 1: pub fn demo() -> i32 {
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: pub             | Línea: 1   | Posición: 0
+[TOKEN] Tipo: FN              | Valor: fn              | Línea: 1   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: demo            | Línea: 1   | Posición: 7
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 1   | Posición: 11
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 1   | Posición: 12
+[TOKEN] Tipo: MINUS           | Valor: -               | Línea: 1   | Posición: 14
+[TOKEN] Tipo: GREATER_THAN    | Valor: >               | Línea: 1   | Posición: 15
+[TOKEN] Tipo: TYPE            | Valor: i32             | Línea: 1   | Posición: 17
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 1   | Posición: 21
+
+Línea 2: let a = [1, 2, 3, 4];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 2   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 2   | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 2   | Posición: 10
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 2   | Posición: 12
+[TOKEN] Tipo: INTEGER         | Valor: 1               | Línea: 2   | Posición: 13
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 2   | Posición: 14
+[TOKEN] Tipo: INTEGER         | Valor: 2               | Línea: 2   | Posición: 16
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 2   | Posición: 17
+[TOKEN] Tipo: INTEGER         | Valor: 3               | Línea: 2   | Posición: 19
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 2   | Posición: 20
+[TOKEN] Tipo: INTEGER         | Valor: 4               | Línea: 2   | Posición: 22
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 2   | Posición: 23
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 2   | Posición: 24
+
+Línea 3: let tercero = a[2];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 3   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: tercero         | Línea: 3   | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 3   | Posición: 16
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 3   | Posición: 18
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 3   | Posición: 19
+[TOKEN] Tipo: INTEGER         | Valor: 2               | Línea: 3   | Posición: 20
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 3   | Posición: 21
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 3   | Posición: 22
+
+Línea 4: 
+
+Línea 5: let zeros = [0; 5];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 5   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: zeros           | Línea: 5   | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 5   | Posición: 14
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 5   | Posición: 16
+[TOKEN] Tipo: INTEGER         | Valor: 0               | Línea: 5   | Posición: 17
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 5   | Posición: 18
+[TOKEN] Tipo: INTEGER         | Valor: 5               | Línea: 5   | Posición: 20
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 5   | Posición: 21
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 5   | Posición: 22
+
+Línea 6: 
+
+Línea 7: let s1 = &a[1..3];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 7   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: s1              | Línea: 7   | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 7   | Posición: 11
+[TOKEN] Tipo: BIT_AND         | Valor: &               | Línea: 7   | Posición: 13
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 7   | Posición: 14
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 7   | Posición: 15
+[TOKEN] Tipo: INTEGER         | Valor: 1               | Línea: 7   | Posición: 16
+[TOKEN] Tipo: RANGE           | Valor: ..              | Línea: 7   | Posición: 17
+[TOKEN] Tipo: INTEGER         | Valor: 3               | Línea: 7   | Posición: 19
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 7   | Posición: 20
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 7   | Posición: 21
+
+Línea 8: let s2 = &a[1..=3];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 8   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: s2              | Línea: 8   | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 8   | Posición: 11
+[TOKEN] Tipo: BIT_AND         | Valor: &               | Línea: 8   | Posición: 13
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 8   | Posición: 14
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 8   | Posición: 15
+[TOKEN] Tipo: INTEGER         | Valor: 1               | Línea: 8   | Posición: 16
+[TOKEN] Tipo: RANGE_INCLUSIVE | Valor: ..=             | Línea: 8   | Posición: 17
+[TOKEN] Tipo: INTEGER         | Valor: 3               | Línea: 8   | Posición: 20
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 8   | Posición: 21
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 8   | Posición: 22
+
+Línea 9: 
+
+Línea 10: let mut v = vec![10, 20, 30];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 10  | Posición: 4
+[TOKEN] Tipo: MUT             | Valor: mut             | Línea: 10  | Posición: 8
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: v               | Línea: 10  | Posición: 12
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 10  | Posición: 14
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: vec             | Línea: 10  | Posición: 16
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 10  | Posición: 19
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 10  | Posición: 20
+[TOKEN] Tipo: INTEGER         | Valor: 10              | Línea: 10  | Posición: 21
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 10  | Posición: 23
+[TOKEN] Tipo: INTEGER         | Valor: 20              | Línea: 10  | Posición: 25
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 10  | Posición: 27
+[TOKEN] Tipo: INTEGER         | Valor: 30              | Línea: 10  | Posición: 29
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 10  | Posición: 31
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 10  | Posición: 32
+
+Línea 11: let primero = v[0];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 11  | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: primero         | Línea: 11  | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 11  | Posición: 16
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: v               | Línea: 11  | Posición: 18
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 11  | Posición: 19
+[TOKEN] Tipo: INTEGER         | Valor: 0               | Línea: 11  | Posición: 20
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 11  | Posición: 21
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 11  | Posición: 22
+
+Línea 12: let sv = &v[0..2];
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 12  | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: sv              | Línea: 12  | Posición: 8
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 12  | Posición: 11
+[TOKEN] Tipo: BIT_AND         | Valor: &               | Línea: 12  | Posición: 13
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: v               | Línea: 12  | Posición: 14
+[TOKEN] Tipo: LBRACKET        | Valor: [               | Línea: 12  | Posición: 15
+[TOKEN] Tipo: INTEGER         | Valor: 0               | Línea: 12  | Posición: 16
+[TOKEN] Tipo: RANGE           | Valor: ..              | Línea: 12  | Posición: 17
+[TOKEN] Tipo: INTEGER         | Valor: 2               | Línea: 12  | Posición: 19
+[TOKEN] Tipo: RBRACKET        | Valor: ]               | Línea: 12  | Posición: 20
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 12  | Posición: 21
+
+Línea 13: return tercero + primero + s1.len() as i32 + s2.len() as i32 + sv.len() as i32;
+[TOKEN] Tipo: RETURN          | Valor: return          | Línea: 13  | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: tercero         | Línea: 13  | Posición: 11
+[TOKEN] Tipo: PLUS            | Valor: +               | Línea: 13  | Posición: 19
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: primero         | Línea: 13  | Posición: 21
+[TOKEN] Tipo: PLUS            | Valor: +               | Línea: 13  | Posición: 29
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: s1              | Línea: 13  | Posición: 31
+[TOKEN] Tipo: DOT             | Valor: .               | Línea: 13  | Posición: 33
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: len             | Línea: 13  | Posición: 34
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 13  | Posición: 37
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 13  | Posición: 38
+[TOKEN] Tipo: AS              | Valor: as              | Línea: 13  | Posición: 40
+[TOKEN] Tipo: TYPE            | Valor: i32             | Línea: 13  | Posición: 43
+[TOKEN] Tipo: PLUS            | Valor: +               | Línea: 13  | Posición: 47
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: s2              | Línea: 13  | Posición: 49
+[TOKEN] Tipo: DOT             | Valor: .               | Línea: 13  | Posición: 51
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: len             | Línea: 13  | Posición: 52
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 13  | Posición: 55
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 13  | Posición: 56
+[TOKEN] Tipo: AS              | Valor: as              | Línea: 13  | Posición: 58
+[TOKEN] Tipo: TYPE            | Valor: i32             | Línea: 13  | Posición: 61
+[TOKEN] Tipo: PLUS            | Valor: +               | Línea: 13  | Posición: 65
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: sv              | Línea: 13  | Posición: 67
+[TOKEN] Tipo: DOT             | Valor: .               | Línea: 13  | Posición: 69
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: len             | Línea: 13  | Posición: 70
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 13  | Posición: 73
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 13  | Posición: 74
+[TOKEN] Tipo: AS              | Valor: as              | Línea: 13  | Posición: 76
+[TOKEN] Tipo: TYPE            | Valor: i32             | Línea: 13  | Posición: 79
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 13  | Posición: 82
+
+Línea 14: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 14  | Posición: 0

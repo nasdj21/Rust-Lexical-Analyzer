@@ -1,0 +1,7 @@
+===== Análisis Sintáctico (11-11-2025 - 08h40) =====
+
+=== Archivo: algoritmoVariables.rs ===
+❌ Errores sintácticos encontrados:
+   - [ERROR] Sintaxis inválida en 'const' (línea 3)
+   - [ERROR] Sintaxis inválida en ',' (línea 5)
+

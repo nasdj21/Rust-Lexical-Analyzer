@@ -1,0 +1,191 @@
+
+Línea 1: fn main() {
+[TOKEN] Tipo: FN              | Valor: fn              | Línea: 1   | Posición: 0
+[TOKEN] Tipo: MAIN            | Valor: main            | Línea: 1   | Posición: 3
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 1   | Posición: 7
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 1   | Posición: 8
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 1   | Posición: 10
+
+Línea 2: let mut a = true;
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 2   | Posición: 4
+[TOKEN] Tipo: MUT             | Valor: mut             | Línea: 2   | Posición: 8
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 2   | Posición: 12
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 2   | Posición: 14
+[TOKEN] Tipo: BOOLEAN         | Valor: true            | Línea: 2   | Posición: 16
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 2   | Posición: 20
+
+Línea 3: let mut b = false;
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 3   | Posición: 4
+[TOKEN] Tipo: MUT             | Valor: mut             | Línea: 3   | Posición: 8
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 3   | Posición: 12
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 3   | Posición: 14
+[TOKEN] Tipo: BOOLEAN         | Valor: false           | Línea: 3   | Posición: 16
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 3   | Posición: 21
+
+Línea 4: let mut contador = 0;
+[TOKEN] Tipo: LET             | Valor: let             | Línea: 4   | Posición: 4
+[TOKEN] Tipo: MUT             | Valor: mut             | Línea: 4   | Posición: 8
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: contador        | Línea: 4   | Posición: 12
+[TOKEN] Tipo: ASIGNED_TO      | Valor: =               | Línea: 4   | Posición: 21
+[TOKEN] Tipo: INTEGER         | Valor: 0               | Línea: 4   | Posición: 23
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 4   | Posición: 24
+
+Línea 5: 
+
+Línea 6: 
+
+Línea 7: if a && !b {
+[TOKEN] Tipo: IF              | Valor: if              | Línea: 7   | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 7   | Posición: 7
+[TOKEN] Tipo: CONJUNCTION     | Valor: &&              | Línea: 7   | Posición: 9
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 7   | Posición: 12
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 7   | Posición: 13
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 7   | Posición: 15
+
+Línea 8: println!("Caso 1: a && !b es verdadero");
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 8   | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 8   | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 8   | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 1: a && !b es verdadero | Línea: 8   | Posición: 17
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 8   | Posición: 47
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 8   | Posición: 48
+
+Línea 9: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 9   | Posición: 4
+
+Línea 10: 
+
+Línea 11: 
+
+Línea 12: if a || b {
+[TOKEN] Tipo: IF              | Valor: if              | Línea: 12  | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 12  | Posición: 7
+[TOKEN] Tipo: DISJUNCTION     | Valor: ||              | Línea: 12  | Posición: 9
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 12  | Posición: 12
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 12  | Posición: 14
+
+Línea 13: println!("Caso 2: a || b es verdadero");
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 13  | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 13  | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 13  | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 2: a || b es verdadero | Línea: 13  | Posición: 17
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 13  | Posición: 46
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 13  | Posición: 47
+
+Línea 14: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 14  | Posición: 4
+
+Línea 15: 
+
+Línea 16: 
+
+Línea 17: if (a && b) || !b {
+[TOKEN] Tipo: IF              | Valor: if              | Línea: 17  | Posición: 4
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 17  | Posición: 7
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 17  | Posición: 8
+[TOKEN] Tipo: CONJUNCTION     | Valor: &&              | Línea: 17  | Posición: 10
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 17  | Posición: 13
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 17  | Posición: 14
+[TOKEN] Tipo: DISJUNCTION     | Valor: ||              | Línea: 17  | Posición: 16
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 17  | Posición: 19
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 17  | Posición: 20
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 17  | Posición: 22
+
+Línea 18: println!("Caso 3: (a && b) || !b es verdadero");
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 18  | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 18  | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 18  | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 3: (a && b) || !b es verdadero | Línea: 18  | Posición: 17
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 18  | Posición: 54
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 18  | Posición: 55
+
+Línea 19: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 19  | Posición: 4
+
+Línea 20: 
+
+Línea 21: 
+
+Línea 22: while contador < 3 && a {
+[TOKEN] Tipo: WHILE           | Valor: while           | Línea: 22  | Posición: 4
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: contador        | Línea: 22  | Posición: 10
+[TOKEN] Tipo: LESS_THAN       | Valor: <               | Línea: 22  | Posición: 19
+[TOKEN] Tipo: INTEGER         | Valor: 3               | Línea: 22  | Posición: 21
+[TOKEN] Tipo: CONJUNCTION     | Valor: &&              | Línea: 22  | Posición: 23
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 22  | Posición: 26
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 22  | Posición: 28
+
+Línea 23: println!("Caso 4: while con contador = {}", contador);
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 23  | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 23  | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 23  | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 4: while con contador = {} | Línea: 23  | Posición: 17
+[TOKEN] Tipo: COMMA           | Valor: ,               | Línea: 23  | Posición: 50
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: contador        | Línea: 23  | Posición: 52
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 23  | Posición: 60
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 23  | Posición: 61
+
+Línea 24: contador += 1;
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: contador        | Línea: 24  | Posición: 8
+[TOKEN] Tipo: PLUS_EQUAL      | Valor: +=              | Línea: 24  | Posición: 17
+[TOKEN] Tipo: INTEGER         | Valor: 1               | Línea: 24  | Posición: 20
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 24  | Posición: 21
+
+Línea 25: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 25  | Posición: 4
+
+Línea 26: 
+
+Línea 27: 
+
+Línea 28: if !a && !b || (a && !(!b)) {
+[TOKEN] Tipo: IF              | Valor: if              | Línea: 28  | Posición: 4
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 28  | Posición: 7
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 28  | Posición: 8
+[TOKEN] Tipo: CONJUNCTION     | Valor: &&              | Línea: 28  | Posición: 10
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 28  | Posición: 13
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 28  | Posición: 14
+[TOKEN] Tipo: DISJUNCTION     | Valor: ||              | Línea: 28  | Posición: 16
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 28  | Posición: 19
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: a               | Línea: 28  | Posición: 20
+[TOKEN] Tipo: CONJUNCTION     | Valor: &&              | Línea: 28  | Posición: 22
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 28  | Posición: 25
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 28  | Posición: 26
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 28  | Posición: 27
+[TOKEN] Tipo: IDENTIFICADOR   | Valor: b               | Línea: 28  | Posición: 28
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 28  | Posición: 29
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 28  | Posición: 30
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 28  | Posición: 32
+
+Línea 29: println!("Caso 5: expresión lógica más compleja");
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 29  | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 29  | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 29  | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 5: expresión lógica más compleja | Línea: 29  | Posición: 17
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 29  | Posición: 56
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 29  | Posición: 57
+
+Línea 30: } else {
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 30  | Posición: 4
+[TOKEN] Tipo: ELSE            | Valor: else            | Línea: 30  | Posición: 6
+[TOKEN] Tipo: LBRACE          | Valor: {               | Línea: 30  | Posición: 11
+
+Línea 31: println!("Caso 5: rama else ejecutada");
+[TOKEN] Tipo: PRINTLN         | Valor: println         | Línea: 31  | Posición: 8
+[TOKEN] Tipo: NOT             | Valor: !               | Línea: 31  | Posición: 15
+[TOKEN] Tipo: LPAREN          | Valor: (               | Línea: 31  | Posición: 16
+[TOKEN] Tipo: STRING          | Valor: Caso 5: rama else ejecutada | Línea: 31  | Posición: 17
+[TOKEN] Tipo: RPAREN          | Valor: )               | Línea: 31  | Posición: 46
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 31  | Posición: 47
+
+Línea 32: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 32  | Posición: 4
+
+Línea 33: 
+
+Línea 34: return;
+[TOKEN] Tipo: RETURN          | Valor: return          | Línea: 34  | Posición: 4
+[TOKEN] Tipo: SEMICOLON       | Valor: ;               | Línea: 34  | Posición: 10
+
+Línea 35: }
+[TOKEN] Tipo: RBRACE          | Valor: }               | Línea: 35  | Posición: 0
