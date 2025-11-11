@@ -1,0 +1,3564 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BIT_NOT
+    BIT_OR
+    BIT_XOR
+    BREAK
+    CONST
+    CONTINUE
+    DIVIDE_EQUAL
+    ELSE
+    ENUM
+    LOOP
+    MATCH
+    MINUS_EQUAL
+    MOD_EQUAL
+    PLUS_EQUAL
+    SHIFT_LEFT
+    SHIFT_RIGHT
+    THEN
+    TIMES_EQUAL
+    WHERE
+    WHILE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> program sentencia
+Rule 2     program -> sentencia
+Rule 3     program_opt -> program
+Rule 4     program_opt -> empty
+Rule 5     empty -> <empty>
+Rule 6     sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+Rule 7     sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+Rule 8     expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+Rule 9     expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+Rule 10    argumentos_opt -> lista_argumentos
+Rule 11    argumentos_opt -> empty
+Rule 12    lista_argumentos -> lista_argumentos COMMA expresion
+Rule 13    lista_argumentos -> expresion
+Rule 14    expresion -> LPAREN expresion RPAREN
+Rule 15    expresion -> expresion PLUS expresion
+Rule 16    expresion -> expresion MINUS expresion
+Rule 17    expresion -> expresion TIMES expresion
+Rule 18    expresion -> expresion DIVIDE expresion
+Rule 19    expresion -> expresion MOD expresion
+Rule 20    expresion -> NOT expresion
+Rule 21    expresion -> INTEGER
+Rule 22    expresion -> FLOAT
+Rule 23    expresion -> STRING
+Rule 24    expresion -> CHAR
+Rule 25    expresion -> BOOLEAN
+Rule 26    expresion -> IDENTIFICADOR
+Rule 27    expresion -> BIT_AND expresion
+Rule 28    expresion -> BIT_AND MUT IDENTIFICADOR
+Rule 29    expresion -> expresion AS TYPE
+Rule 30    condicion -> expresion EQUAL_TO expresion
+Rule 31    condicion -> expresion NOT_EQUAL expresion
+Rule 32    condicion -> expresion LESS_THAN expresion
+Rule 33    condicion -> expresion GREATER_THAN expresion
+Rule 34    condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion
+Rule 35    condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion
+Rule 36    condicion -> condicion CONJUNCTION condicion
+Rule 37    condicion -> condicion DISJUNCTION condicion
+Rule 38    condicion -> NOT condicion
+Rule 39    condicion -> LPAREN condicion RPAREN
+Rule 40    sentencia -> IF condicion LBRACE program_opt RBRACE
+Rule 41    tipo -> TYPE
+Rule 42    tipo -> LBRACKET tipo RBRACKET
+Rule 43    tipo -> BIT_AND tipo
+Rule 44    tipo -> BIT_AND MUT tipo
+Rule 45    sentencia -> let_decl
+Rule 46    let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+Rule 47    maybe_mut -> MUT
+Rule 48    maybe_mut -> empty
+Rule 49    maybe_type -> COLON tipo
+Rule 50    maybe_type -> empty
+Rule 51    maybe_init -> ASIGNED_TO expresion
+Rule 52    maybe_init -> empty
+Rule 53    lista_elementos -> lista_elementos COMMA expresion
+Rule 54    lista_elementos -> expresion
+Rule 55    expresion -> LBRACKET lista_elementos RBRACKET
+Rule 56    expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET
+Rule 57    expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET
+Rule 58    expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+Rule 59    expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+Rule 60    expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+Rule 61    maybe_pub -> IDENTIFICADOR
+Rule 62    maybe_pub -> empty
+Rule 63    nombre_fn -> IDENTIFICADOR
+Rule 64    nombre_fn -> MAIN
+Rule 65    sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+Rule 66    sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+Rule 67    sentencia -> RETURN expresion SEMICOLON
+
+Terminals, with rules where they appear
+
+AS                   : 29
+ASIGNED_TO           : 51
+BIT_AND              : 27 28 43 44
+BIT_NOT              : 
+BIT_OR               : 
+BIT_XOR              : 
+BOOLEAN              : 25
+BREAK                : 
+CHAR                 : 24
+COLON                : 49
+COMMA                : 12 53
+CONJUNCTION          : 36
+CONST                : 
+CONTINUE             : 
+DISJUNCTION          : 37
+DIVIDE               : 18
+DIVIDE_EQUAL         : 
+DOT                  : 9
+DOUBLE_COLON         : 8
+ELSE                 : 
+ENUM                 : 
+EQUAL_TO             : 30
+FLOAT                : 22
+FN                   : 65 66
+GREATER_THAN         : 33 65
+GREATER_THAN_OR_EQUAL_TO : 35
+IDENTIFICADOR        : 8 8 9 26 28 46 57 58 59 60 61 63
+IF                   : 40
+INTEGER              : 21 56 58 58 59 59
+LBRACE               : 40 65 66
+LBRACKET             : 42 55 56 57 58 59 60
+LESS_THAN            : 32
+LESS_THAN_OR_EQUAL_TO : 34
+LET                  : 46
+LOOP                 : 
+LPAREN               : 6 7 8 9 14 39 65 66
+MAIN                 : 64
+MATCH                : 
+MINUS                : 16 65
+MINUS_EQUAL          : 
+MOD                  : 19
+MOD_EQUAL            : 
+MUT                  : 28 44 47
+NOT                  : 6 7 20 38 60
+NOT_EQUAL            : 31
+PLUS                 : 15
+PLUS_EQUAL           : 
+PRINTLN              : 6 7
+RANGE                : 58
+RANGE_INCLUSIVE      : 59
+RBRACE               : 40 65 66
+RBRACKET             : 42 55 56 57 58 59 60
+RETURN               : 67
+RPAREN               : 6 7 8 9 14 39 65 66
+SEMICOLON            : 6 7 46 56 67
+SHIFT_LEFT           : 
+SHIFT_RIGHT          : 
+STRING               : 6 23
+THEN                 : 
+TIMES                : 17
+TIMES_EQUAL          : 
+TYPE                 : 29 41 65
+WHERE                : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+argumentos_opt       : 9
+condicion            : 36 36 37 37 38 39 40
+empty                : 4 11 48 50 52 62
+expresion            : 7 9 12 13 14 15 15 16 16 17 17 18 18 19 19 20 27 29 30 30 31 31 32 32 33 33 34 34 35 35 51 53 54 56 57 67
+let_decl             : 45
+lista_argumentos     : 10 12
+lista_elementos      : 53 55 60
+maybe_init           : 46
+maybe_mut            : 46
+maybe_pub            : 65 66
+maybe_type           : 46
+nombre_fn            : 65 66
+program              : 1 3 0
+program_opt          : 40 65 66
+sentencia            : 1 2
+tipo                 : 42 43 44 49
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . program sentencia
+    (2) program -> . sentencia
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+    (5) empty -> .
+
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+    FN              reduce using rule 5 (empty -> .)
+
+    program                        shift and go to state 1
+    sentencia                      shift and go to state 2
+    let_decl                       shift and go to state 5
+    maybe_pub                      shift and go to state 6
+    empty                          shift and go to state 10
+
+state 1
+
+    (0) S' -> program .
+    (1) program -> program . sentencia
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+    (5) empty -> .
+
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+    FN              reduce using rule 5 (empty -> .)
+
+    sentencia                      shift and go to state 11
+    let_decl                       shift and go to state 5
+    maybe_pub                      shift and go to state 6
+    empty                          shift and go to state 10
+
+state 2
+
+    (2) program -> sentencia .
+
+    PRINTLN         reduce using rule 2 (program -> sentencia .)
+    IF              reduce using rule 2 (program -> sentencia .)
+    RETURN          reduce using rule 2 (program -> sentencia .)
+    LET             reduce using rule 2 (program -> sentencia .)
+    IDENTIFICADOR   reduce using rule 2 (program -> sentencia .)
+    $end            reduce using rule 2 (program -> sentencia .)
+    FN              reduce using rule 2 (program -> sentencia .)
+    RBRACE          reduce using rule 2 (program -> sentencia .)
+
+
+state 3
+
+    (6) sentencia -> PRINTLN . NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> PRINTLN . NOT LPAREN expresion RPAREN SEMICOLON
+
+    NOT             shift and go to state 12
+
+
+state 4
+
+    (40) sentencia -> IF . condicion LBRACE program_opt RBRACE
+    (30) condicion -> . expresion EQUAL_TO expresion
+    (31) condicion -> . expresion NOT_EQUAL expresion
+    (32) condicion -> . expresion LESS_THAN expresion
+    (33) condicion -> . expresion GREATER_THAN expresion
+    (34) condicion -> . expresion LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> . expresion GREATER_THAN_OR_EQUAL_TO expresion
+    (36) condicion -> . condicion CONJUNCTION condicion
+    (37) condicion -> . condicion DISJUNCTION condicion
+    (38) condicion -> . NOT condicion
+    (39) condicion -> . LPAREN condicion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    NOT             shift and go to state 15
+    LPAREN          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    condicion                      shift and go to state 13
+    expresion                      shift and go to state 14
+
+state 5
+
+    (45) sentencia -> let_decl .
+
+    PRINTLN         reduce using rule 45 (sentencia -> let_decl .)
+    IF              reduce using rule 45 (sentencia -> let_decl .)
+    RETURN          reduce using rule 45 (sentencia -> let_decl .)
+    LET             reduce using rule 45 (sentencia -> let_decl .)
+    IDENTIFICADOR   reduce using rule 45 (sentencia -> let_decl .)
+    $end            reduce using rule 45 (sentencia -> let_decl .)
+    FN              reduce using rule 45 (sentencia -> let_decl .)
+    RBRACE          reduce using rule 45 (sentencia -> let_decl .)
+
+
+state 6
+
+    (65) sentencia -> maybe_pub . FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> maybe_pub . FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+
+    FN              shift and go to state 25
+
+
+state 7
+
+    (67) sentencia -> RETURN . expresion SEMICOLON
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 26
+
+state 8
+
+    (46) let_decl -> LET . maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (47) maybe_mut -> . MUT
+    (48) maybe_mut -> . empty
+    (5) empty -> .
+
+    MUT             shift and go to state 30
+    IDENTIFICADOR   reduce using rule 5 (empty -> .)
+
+    maybe_mut                      shift and go to state 29
+    empty                          shift and go to state 31
+
+state 9
+
+    (61) maybe_pub -> IDENTIFICADOR .
+
+    FN              reduce using rule 61 (maybe_pub -> IDENTIFICADOR .)
+
+
+state 10
+
+    (62) maybe_pub -> empty .
+
+    FN              reduce using rule 62 (maybe_pub -> empty .)
+
+
+state 11
+
+    (1) program -> program sentencia .
+
+    PRINTLN         reduce using rule 1 (program -> program sentencia .)
+    IF              reduce using rule 1 (program -> program sentencia .)
+    RETURN          reduce using rule 1 (program -> program sentencia .)
+    LET             reduce using rule 1 (program -> program sentencia .)
+    IDENTIFICADOR   reduce using rule 1 (program -> program sentencia .)
+    $end            reduce using rule 1 (program -> program sentencia .)
+    FN              reduce using rule 1 (program -> program sentencia .)
+    RBRACE          reduce using rule 1 (program -> program sentencia .)
+
+
+state 12
+
+    (6) sentencia -> PRINTLN NOT . LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> PRINTLN NOT . LPAREN expresion RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 32
+
+
+state 13
+
+    (40) sentencia -> IF condicion . LBRACE program_opt RBRACE
+    (36) condicion -> condicion . CONJUNCTION condicion
+    (37) condicion -> condicion . DISJUNCTION condicion
+
+    LBRACE          shift and go to state 33
+    CONJUNCTION     shift and go to state 34
+    DISJUNCTION     shift and go to state 35
+
+
+state 14
+
+    (30) condicion -> expresion . EQUAL_TO expresion
+    (31) condicion -> expresion . NOT_EQUAL expresion
+    (32) condicion -> expresion . LESS_THAN expresion
+    (33) condicion -> expresion . GREATER_THAN expresion
+    (34) condicion -> expresion . LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> expresion . GREATER_THAN_OR_EQUAL_TO expresion
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        shift and go to state 36
+    NOT_EQUAL       shift and go to state 37
+    LESS_THAN       shift and go to state 38
+    GREATER_THAN    shift and go to state 39
+    LESS_THAN_OR_EQUAL_TO shift and go to state 40
+    GREATER_THAN_OR_EQUAL_TO shift and go to state 41
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 15
+
+    (38) condicion -> NOT . condicion
+    (20) expresion -> NOT . expresion
+    (30) condicion -> . expresion EQUAL_TO expresion
+    (31) condicion -> . expresion NOT_EQUAL expresion
+    (32) condicion -> . expresion LESS_THAN expresion
+    (33) condicion -> . expresion GREATER_THAN expresion
+    (34) condicion -> . expresion LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> . expresion GREATER_THAN_OR_EQUAL_TO expresion
+    (36) condicion -> . condicion CONJUNCTION condicion
+    (37) condicion -> . condicion DISJUNCTION condicion
+    (38) condicion -> . NOT condicion
+    (39) condicion -> . LPAREN condicion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    NOT             shift and go to state 15
+    LPAREN          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    condicion                      shift and go to state 49
+    expresion                      shift and go to state 50
+
+state 16
+
+    (39) condicion -> LPAREN . condicion RPAREN
+    (14) expresion -> LPAREN . expresion RPAREN
+    (30) condicion -> . expresion EQUAL_TO expresion
+    (31) condicion -> . expresion NOT_EQUAL expresion
+    (32) condicion -> . expresion LESS_THAN expresion
+    (33) condicion -> . expresion GREATER_THAN expresion
+    (34) condicion -> . expresion LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> . expresion GREATER_THAN_OR_EQUAL_TO expresion
+    (36) condicion -> . condicion CONJUNCTION condicion
+    (37) condicion -> . condicion DISJUNCTION condicion
+    (38) condicion -> . NOT condicion
+    (39) condicion -> . LPAREN condicion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    NOT             shift and go to state 15
+    LPAREN          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    condicion                      shift and go to state 51
+    expresion                      shift and go to state 52
+
+state 17
+
+    (8) expresion -> IDENTIFICADOR . DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (26) expresion -> IDENTIFICADOR .
+    (57) expresion -> IDENTIFICADOR . LBRACKET expresion RBRACKET
+    (58) expresion -> IDENTIFICADOR . LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> IDENTIFICADOR . LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> IDENTIFICADOR . NOT LBRACKET lista_elementos RBRACKET
+
+    DOUBLE_COLON    shift and go to state 53
+    EQUAL_TO        reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    NOT_EQUAL       reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    LESS_THAN       reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    GREATER_THAN    reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    DOT             reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    PLUS            reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    MINUS           reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    TIMES           reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    DIVIDE          reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    MOD             reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    AS              reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    SEMICOLON       reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    RPAREN          reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    RBRACKET        reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    COMMA           reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    LBRACE          reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    CONJUNCTION     reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    DISJUNCTION     reduce using rule 26 (expresion -> IDENTIFICADOR .)
+    LBRACKET        shift and go to state 54
+    NOT             shift and go to state 55
+
+
+state 18
+
+    (21) expresion -> INTEGER .
+
+    EQUAL_TO        reduce using rule 21 (expresion -> INTEGER .)
+    NOT_EQUAL       reduce using rule 21 (expresion -> INTEGER .)
+    LESS_THAN       reduce using rule 21 (expresion -> INTEGER .)
+    GREATER_THAN    reduce using rule 21 (expresion -> INTEGER .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 21 (expresion -> INTEGER .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 21 (expresion -> INTEGER .)
+    DOT             reduce using rule 21 (expresion -> INTEGER .)
+    PLUS            reduce using rule 21 (expresion -> INTEGER .)
+    MINUS           reduce using rule 21 (expresion -> INTEGER .)
+    TIMES           reduce using rule 21 (expresion -> INTEGER .)
+    DIVIDE          reduce using rule 21 (expresion -> INTEGER .)
+    MOD             reduce using rule 21 (expresion -> INTEGER .)
+    AS              reduce using rule 21 (expresion -> INTEGER .)
+    SEMICOLON       reduce using rule 21 (expresion -> INTEGER .)
+    RPAREN          reduce using rule 21 (expresion -> INTEGER .)
+    RBRACKET        reduce using rule 21 (expresion -> INTEGER .)
+    COMMA           reduce using rule 21 (expresion -> INTEGER .)
+    LBRACE          reduce using rule 21 (expresion -> INTEGER .)
+    CONJUNCTION     reduce using rule 21 (expresion -> INTEGER .)
+    DISJUNCTION     reduce using rule 21 (expresion -> INTEGER .)
+
+
+state 19
+
+    (22) expresion -> FLOAT .
+
+    EQUAL_TO        reduce using rule 22 (expresion -> FLOAT .)
+    NOT_EQUAL       reduce using rule 22 (expresion -> FLOAT .)
+    LESS_THAN       reduce using rule 22 (expresion -> FLOAT .)
+    GREATER_THAN    reduce using rule 22 (expresion -> FLOAT .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 22 (expresion -> FLOAT .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 22 (expresion -> FLOAT .)
+    DOT             reduce using rule 22 (expresion -> FLOAT .)
+    PLUS            reduce using rule 22 (expresion -> FLOAT .)
+    MINUS           reduce using rule 22 (expresion -> FLOAT .)
+    TIMES           reduce using rule 22 (expresion -> FLOAT .)
+    DIVIDE          reduce using rule 22 (expresion -> FLOAT .)
+    MOD             reduce using rule 22 (expresion -> FLOAT .)
+    AS              reduce using rule 22 (expresion -> FLOAT .)
+    SEMICOLON       reduce using rule 22 (expresion -> FLOAT .)
+    RPAREN          reduce using rule 22 (expresion -> FLOAT .)
+    RBRACKET        reduce using rule 22 (expresion -> FLOAT .)
+    COMMA           reduce using rule 22 (expresion -> FLOAT .)
+    LBRACE          reduce using rule 22 (expresion -> FLOAT .)
+    CONJUNCTION     reduce using rule 22 (expresion -> FLOAT .)
+    DISJUNCTION     reduce using rule 22 (expresion -> FLOAT .)
+
+
+state 20
+
+    (23) expresion -> STRING .
+
+    EQUAL_TO        reduce using rule 23 (expresion -> STRING .)
+    NOT_EQUAL       reduce using rule 23 (expresion -> STRING .)
+    LESS_THAN       reduce using rule 23 (expresion -> STRING .)
+    GREATER_THAN    reduce using rule 23 (expresion -> STRING .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 23 (expresion -> STRING .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 23 (expresion -> STRING .)
+    DOT             reduce using rule 23 (expresion -> STRING .)
+    PLUS            reduce using rule 23 (expresion -> STRING .)
+    MINUS           reduce using rule 23 (expresion -> STRING .)
+    TIMES           reduce using rule 23 (expresion -> STRING .)
+    DIVIDE          reduce using rule 23 (expresion -> STRING .)
+    MOD             reduce using rule 23 (expresion -> STRING .)
+    AS              reduce using rule 23 (expresion -> STRING .)
+    SEMICOLON       reduce using rule 23 (expresion -> STRING .)
+    RPAREN          reduce using rule 23 (expresion -> STRING .)
+    RBRACKET        reduce using rule 23 (expresion -> STRING .)
+    COMMA           reduce using rule 23 (expresion -> STRING .)
+    LBRACE          reduce using rule 23 (expresion -> STRING .)
+    CONJUNCTION     reduce using rule 23 (expresion -> STRING .)
+    DISJUNCTION     reduce using rule 23 (expresion -> STRING .)
+
+
+state 21
+
+    (24) expresion -> CHAR .
+
+    EQUAL_TO        reduce using rule 24 (expresion -> CHAR .)
+    NOT_EQUAL       reduce using rule 24 (expresion -> CHAR .)
+    LESS_THAN       reduce using rule 24 (expresion -> CHAR .)
+    GREATER_THAN    reduce using rule 24 (expresion -> CHAR .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 24 (expresion -> CHAR .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 24 (expresion -> CHAR .)
+    DOT             reduce using rule 24 (expresion -> CHAR .)
+    PLUS            reduce using rule 24 (expresion -> CHAR .)
+    MINUS           reduce using rule 24 (expresion -> CHAR .)
+    TIMES           reduce using rule 24 (expresion -> CHAR .)
+    DIVIDE          reduce using rule 24 (expresion -> CHAR .)
+    MOD             reduce using rule 24 (expresion -> CHAR .)
+    AS              reduce using rule 24 (expresion -> CHAR .)
+    SEMICOLON       reduce using rule 24 (expresion -> CHAR .)
+    RPAREN          reduce using rule 24 (expresion -> CHAR .)
+    RBRACKET        reduce using rule 24 (expresion -> CHAR .)
+    COMMA           reduce using rule 24 (expresion -> CHAR .)
+    LBRACE          reduce using rule 24 (expresion -> CHAR .)
+    CONJUNCTION     reduce using rule 24 (expresion -> CHAR .)
+    DISJUNCTION     reduce using rule 24 (expresion -> CHAR .)
+
+
+state 22
+
+    (25) expresion -> BOOLEAN .
+
+    EQUAL_TO        reduce using rule 25 (expresion -> BOOLEAN .)
+    NOT_EQUAL       reduce using rule 25 (expresion -> BOOLEAN .)
+    LESS_THAN       reduce using rule 25 (expresion -> BOOLEAN .)
+    GREATER_THAN    reduce using rule 25 (expresion -> BOOLEAN .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 25 (expresion -> BOOLEAN .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 25 (expresion -> BOOLEAN .)
+    DOT             reduce using rule 25 (expresion -> BOOLEAN .)
+    PLUS            reduce using rule 25 (expresion -> BOOLEAN .)
+    MINUS           reduce using rule 25 (expresion -> BOOLEAN .)
+    TIMES           reduce using rule 25 (expresion -> BOOLEAN .)
+    DIVIDE          reduce using rule 25 (expresion -> BOOLEAN .)
+    MOD             reduce using rule 25 (expresion -> BOOLEAN .)
+    AS              reduce using rule 25 (expresion -> BOOLEAN .)
+    SEMICOLON       reduce using rule 25 (expresion -> BOOLEAN .)
+    RPAREN          reduce using rule 25 (expresion -> BOOLEAN .)
+    RBRACKET        reduce using rule 25 (expresion -> BOOLEAN .)
+    COMMA           reduce using rule 25 (expresion -> BOOLEAN .)
+    LBRACE          reduce using rule 25 (expresion -> BOOLEAN .)
+    CONJUNCTION     reduce using rule 25 (expresion -> BOOLEAN .)
+    DISJUNCTION     reduce using rule 25 (expresion -> BOOLEAN .)
+
+
+state 23
+
+    (27) expresion -> BIT_AND . expresion
+    (28) expresion -> BIT_AND . MUT IDENTIFICADOR
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    MUT             shift and go to state 57
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 56
+
+state 24
+
+    (55) expresion -> LBRACKET . lista_elementos RBRACKET
+    (56) expresion -> LBRACKET . expresion SEMICOLON INTEGER RBRACKET
+    (53) lista_elementos -> . lista_elementos COMMA expresion
+    (54) lista_elementos -> . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    lista_elementos                shift and go to state 58
+    expresion                      shift and go to state 59
+
+state 25
+
+    (65) sentencia -> maybe_pub FN . nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> maybe_pub FN . nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (63) nombre_fn -> . IDENTIFICADOR
+    (64) nombre_fn -> . MAIN
+
+    IDENTIFICADOR   shift and go to state 61
+    MAIN            shift and go to state 62
+
+    nombre_fn                      shift and go to state 60
+
+state 26
+
+    (67) sentencia -> RETURN expresion . SEMICOLON
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    SEMICOLON       shift and go to state 63
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 27
+
+    (14) expresion -> LPAREN . expresion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 64
+
+state 28
+
+    (20) expresion -> NOT . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 65
+
+state 29
+
+    (46) let_decl -> LET maybe_mut . IDENTIFICADOR maybe_type maybe_init SEMICOLON
+
+    IDENTIFICADOR   shift and go to state 66
+
+
+state 30
+
+    (47) maybe_mut -> MUT .
+
+    IDENTIFICADOR   reduce using rule 47 (maybe_mut -> MUT .)
+
+
+state 31
+
+    (48) maybe_mut -> empty .
+
+    IDENTIFICADOR   reduce using rule 48 (maybe_mut -> empty .)
+
+
+state 32
+
+    (6) sentencia -> PRINTLN NOT LPAREN . STRING RPAREN SEMICOLON
+    (7) sentencia -> PRINTLN NOT LPAREN . expresion RPAREN SEMICOLON
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    STRING          shift and go to state 67
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 68
+
+state 33
+
+    (40) sentencia -> IF condicion LBRACE . program_opt RBRACE
+    (3) program_opt -> . program
+    (4) program_opt -> . empty
+    (1) program -> . program sentencia
+    (2) program -> . sentencia
+    (5) empty -> .
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+
+    RBRACE          reduce using rule 5 (empty -> .)
+    FN              reduce using rule 5 (empty -> .)
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+
+    program_opt                    shift and go to state 69
+    program                        shift and go to state 70
+    empty                          shift and go to state 71
+    sentencia                      shift and go to state 2
+    let_decl                       shift and go to state 5
+    maybe_pub                      shift and go to state 6
+
+state 34
+
+    (36) condicion -> condicion CONJUNCTION . condicion
+    (30) condicion -> . expresion EQUAL_TO expresion
+    (31) condicion -> . expresion NOT_EQUAL expresion
+    (32) condicion -> . expresion LESS_THAN expresion
+    (33) condicion -> . expresion GREATER_THAN expresion
+    (34) condicion -> . expresion LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> . expresion GREATER_THAN_OR_EQUAL_TO expresion
+    (36) condicion -> . condicion CONJUNCTION condicion
+    (37) condicion -> . condicion DISJUNCTION condicion
+    (38) condicion -> . NOT condicion
+    (39) condicion -> . LPAREN condicion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    NOT             shift and go to state 15
+    LPAREN          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    condicion                      shift and go to state 72
+    expresion                      shift and go to state 14
+
+state 35
+
+    (37) condicion -> condicion DISJUNCTION . condicion
+    (30) condicion -> . expresion EQUAL_TO expresion
+    (31) condicion -> . expresion NOT_EQUAL expresion
+    (32) condicion -> . expresion LESS_THAN expresion
+    (33) condicion -> . expresion GREATER_THAN expresion
+    (34) condicion -> . expresion LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> . expresion GREATER_THAN_OR_EQUAL_TO expresion
+    (36) condicion -> . condicion CONJUNCTION condicion
+    (37) condicion -> . condicion DISJUNCTION condicion
+    (38) condicion -> . NOT condicion
+    (39) condicion -> . LPAREN condicion RPAREN
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    NOT             shift and go to state 15
+    LPAREN          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 17
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    condicion                      shift and go to state 73
+    expresion                      shift and go to state 14
+
+state 36
+
+    (30) condicion -> expresion EQUAL_TO . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 74
+
+state 37
+
+    (31) condicion -> expresion NOT_EQUAL . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 75
+
+state 38
+
+    (32) condicion -> expresion LESS_THAN . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 76
+
+state 39
+
+    (33) condicion -> expresion GREATER_THAN . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 77
+
+state 40
+
+    (34) condicion -> expresion LESS_THAN_OR_EQUAL_TO . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 78
+
+state 41
+
+    (35) condicion -> expresion GREATER_THAN_OR_EQUAL_TO . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 79
+
+state 42
+
+    (9) expresion -> expresion DOT . IDENTIFICADOR LPAREN argumentos_opt RPAREN
+
+    IDENTIFICADOR   shift and go to state 80
+
+
+state 43
+
+    (15) expresion -> expresion PLUS . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 81
+
+state 44
+
+    (16) expresion -> expresion MINUS . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 82
+
+state 45
+
+    (17) expresion -> expresion TIMES . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 83
+
+state 46
+
+    (18) expresion -> expresion DIVIDE . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 84
+
+state 47
+
+    (19) expresion -> expresion MOD . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 85
+
+state 48
+
+    (29) expresion -> expresion AS . TYPE
+
+    TYPE            shift and go to state 86
+
+
+state 49
+
+    (38) condicion -> NOT condicion .
+    (36) condicion -> condicion . CONJUNCTION condicion
+    (37) condicion -> condicion . DISJUNCTION condicion
+
+    LBRACE          reduce using rule 38 (condicion -> NOT condicion .)
+    CONJUNCTION     reduce using rule 38 (condicion -> NOT condicion .)
+    DISJUNCTION     reduce using rule 38 (condicion -> NOT condicion .)
+    RPAREN          reduce using rule 38 (condicion -> NOT condicion .)
+
+  ! CONJUNCTION     [ shift and go to state 34 ]
+  ! DISJUNCTION     [ shift and go to state 35 ]
+
+
+state 50
+
+    (20) expresion -> NOT expresion .
+    (30) condicion -> expresion . EQUAL_TO expresion
+    (31) condicion -> expresion . NOT_EQUAL expresion
+    (32) condicion -> expresion . LESS_THAN expresion
+    (33) condicion -> expresion . GREATER_THAN expresion
+    (34) condicion -> expresion . LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> expresion . GREATER_THAN_OR_EQUAL_TO expresion
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    DOT             reduce using rule 20 (expresion -> NOT expresion .)
+    RPAREN          reduce using rule 20 (expresion -> NOT expresion .)
+    EQUAL_TO        shift and go to state 36
+    NOT_EQUAL       shift and go to state 37
+    LESS_THAN       shift and go to state 38
+    GREATER_THAN    shift and go to state 39
+    LESS_THAN_OR_EQUAL_TO shift and go to state 40
+    GREATER_THAN_OR_EQUAL_TO shift and go to state 41
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+  ! EQUAL_TO        [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! NOT_EQUAL       [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! LESS_THAN       [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! GREATER_THAN    [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! LESS_THAN_OR_EQUAL_TO [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! GREATER_THAN_OR_EQUAL_TO [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! PLUS            [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! MINUS           [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! TIMES           [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! DIVIDE          [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! MOD             [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! AS              [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+
+
+state 51
+
+    (39) condicion -> LPAREN condicion . RPAREN
+    (36) condicion -> condicion . CONJUNCTION condicion
+    (37) condicion -> condicion . DISJUNCTION condicion
+
+    RPAREN          shift and go to state 87
+    CONJUNCTION     shift and go to state 34
+    DISJUNCTION     shift and go to state 35
+
+
+state 52
+
+    (14) expresion -> LPAREN expresion . RPAREN
+    (30) condicion -> expresion . EQUAL_TO expresion
+    (31) condicion -> expresion . NOT_EQUAL expresion
+    (32) condicion -> expresion . LESS_THAN expresion
+    (33) condicion -> expresion . GREATER_THAN expresion
+    (34) condicion -> expresion . LESS_THAN_OR_EQUAL_TO expresion
+    (35) condicion -> expresion . GREATER_THAN_OR_EQUAL_TO expresion
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RPAREN          shift and go to state 88
+    EQUAL_TO        shift and go to state 36
+    NOT_EQUAL       shift and go to state 37
+    LESS_THAN       shift and go to state 38
+    GREATER_THAN    shift and go to state 39
+    LESS_THAN_OR_EQUAL_TO shift and go to state 40
+    GREATER_THAN_OR_EQUAL_TO shift and go to state 41
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 53
+
+    (8) expresion -> IDENTIFICADOR DOUBLE_COLON . IDENTIFICADOR LPAREN RPAREN
+
+    IDENTIFICADOR   shift and go to state 89
+
+
+state 54
+
+    (57) expresion -> IDENTIFICADOR LBRACKET . expresion RBRACKET
+    (58) expresion -> IDENTIFICADOR LBRACKET . INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> IDENTIFICADOR LBRACKET . INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    INTEGER         shift and go to state 91
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 90
+
+state 55
+
+    (60) expresion -> IDENTIFICADOR NOT . LBRACKET lista_elementos RBRACKET
+
+    LBRACKET        shift and go to state 92
+
+
+state 56
+
+    (27) expresion -> BIT_AND expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for AS resolved as shift
+    EQUAL_TO        reduce using rule 27 (expresion -> BIT_AND expresion .)
+    NOT_EQUAL       reduce using rule 27 (expresion -> BIT_AND expresion .)
+    LESS_THAN       reduce using rule 27 (expresion -> BIT_AND expresion .)
+    GREATER_THAN    reduce using rule 27 (expresion -> BIT_AND expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 27 (expresion -> BIT_AND expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 27 (expresion -> BIT_AND expresion .)
+    SEMICOLON       reduce using rule 27 (expresion -> BIT_AND expresion .)
+    RPAREN          reduce using rule 27 (expresion -> BIT_AND expresion .)
+    RBRACKET        reduce using rule 27 (expresion -> BIT_AND expresion .)
+    COMMA           reduce using rule 27 (expresion -> BIT_AND expresion .)
+    LBRACE          reduce using rule 27 (expresion -> BIT_AND expresion .)
+    CONJUNCTION     reduce using rule 27 (expresion -> BIT_AND expresion .)
+    DISJUNCTION     reduce using rule 27 (expresion -> BIT_AND expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+  ! DOT             [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! PLUS            [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! MINUS           [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! TIMES           [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! DIVIDE          [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! MOD             [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+  ! AS              [ reduce using rule 27 (expresion -> BIT_AND expresion .) ]
+
+
+state 57
+
+    (28) expresion -> BIT_AND MUT . IDENTIFICADOR
+
+    IDENTIFICADOR   shift and go to state 93
+
+
+state 58
+
+    (55) expresion -> LBRACKET lista_elementos . RBRACKET
+    (53) lista_elementos -> lista_elementos . COMMA expresion
+
+    RBRACKET        shift and go to state 94
+    COMMA           shift and go to state 95
+
+
+state 59
+
+    (56) expresion -> LBRACKET expresion . SEMICOLON INTEGER RBRACKET
+    (54) lista_elementos -> expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    SEMICOLON       shift and go to state 96
+    RBRACKET        reduce using rule 54 (lista_elementos -> expresion .)
+    COMMA           reduce using rule 54 (lista_elementos -> expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 60
+
+    (65) sentencia -> maybe_pub FN nombre_fn . LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> maybe_pub FN nombre_fn . LPAREN RPAREN LBRACE program_opt RBRACE
+
+    LPAREN          shift and go to state 97
+
+
+state 61
+
+    (63) nombre_fn -> IDENTIFICADOR .
+
+    LPAREN          reduce using rule 63 (nombre_fn -> IDENTIFICADOR .)
+
+
+state 62
+
+    (64) nombre_fn -> MAIN .
+
+    LPAREN          reduce using rule 64 (nombre_fn -> MAIN .)
+
+
+state 63
+
+    (67) sentencia -> RETURN expresion SEMICOLON .
+
+    PRINTLN         reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    IF              reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    RETURN          reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    LET             reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    IDENTIFICADOR   reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    $end            reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    FN              reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+    RBRACE          reduce using rule 67 (sentencia -> RETURN expresion SEMICOLON .)
+
+
+state 64
+
+    (14) expresion -> LPAREN expresion . RPAREN
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RPAREN          shift and go to state 88
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 65
+
+    (20) expresion -> NOT expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    SEMICOLON       reduce using rule 20 (expresion -> NOT expresion .)
+    DOT             reduce using rule 20 (expresion -> NOT expresion .)
+    EQUAL_TO        reduce using rule 20 (expresion -> NOT expresion .)
+    NOT_EQUAL       reduce using rule 20 (expresion -> NOT expresion .)
+    LESS_THAN       reduce using rule 20 (expresion -> NOT expresion .)
+    GREATER_THAN    reduce using rule 20 (expresion -> NOT expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 20 (expresion -> NOT expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 20 (expresion -> NOT expresion .)
+    RPAREN          reduce using rule 20 (expresion -> NOT expresion .)
+    RBRACKET        reduce using rule 20 (expresion -> NOT expresion .)
+    COMMA           reduce using rule 20 (expresion -> NOT expresion .)
+    LBRACE          reduce using rule 20 (expresion -> NOT expresion .)
+    CONJUNCTION     reduce using rule 20 (expresion -> NOT expresion .)
+    DISJUNCTION     reduce using rule 20 (expresion -> NOT expresion .)
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+  ! PLUS            [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! MINUS           [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! TIMES           [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! DIVIDE          [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! MOD             [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! AS              [ reduce using rule 20 (expresion -> NOT expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+
+
+state 66
+
+    (46) let_decl -> LET maybe_mut IDENTIFICADOR . maybe_type maybe_init SEMICOLON
+    (49) maybe_type -> . COLON tipo
+    (50) maybe_type -> . empty
+    (5) empty -> .
+
+    COLON           shift and go to state 99
+    ASIGNED_TO      reduce using rule 5 (empty -> .)
+    SEMICOLON       reduce using rule 5 (empty -> .)
+
+    maybe_type                     shift and go to state 98
+    empty                          shift and go to state 100
+
+state 67
+
+    (6) sentencia -> PRINTLN NOT LPAREN STRING . RPAREN SEMICOLON
+    (23) expresion -> STRING .
+
+  ! shift/reduce conflict for RPAREN resolved as shift
+    RPAREN          shift and go to state 101
+    DOT             reduce using rule 23 (expresion -> STRING .)
+    PLUS            reduce using rule 23 (expresion -> STRING .)
+    MINUS           reduce using rule 23 (expresion -> STRING .)
+    TIMES           reduce using rule 23 (expresion -> STRING .)
+    DIVIDE          reduce using rule 23 (expresion -> STRING .)
+    MOD             reduce using rule 23 (expresion -> STRING .)
+    AS              reduce using rule 23 (expresion -> STRING .)
+
+  ! RPAREN          [ reduce using rule 23 (expresion -> STRING .) ]
+
+
+state 68
+
+    (7) sentencia -> PRINTLN NOT LPAREN expresion . RPAREN SEMICOLON
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RPAREN          shift and go to state 102
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 69
+
+    (40) sentencia -> IF condicion LBRACE program_opt . RBRACE
+
+    RBRACE          shift and go to state 103
+
+
+state 70
+
+    (3) program_opt -> program .
+    (1) program -> program . sentencia
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+    (5) empty -> .
+
+    RBRACE          reduce using rule 3 (program_opt -> program .)
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+    FN              reduce using rule 5 (empty -> .)
+
+    sentencia                      shift and go to state 11
+    let_decl                       shift and go to state 5
+    maybe_pub                      shift and go to state 6
+    empty                          shift and go to state 10
+
+state 71
+
+    (4) program_opt -> empty .
+    (62) maybe_pub -> empty .
+
+    RBRACE          reduce using rule 4 (program_opt -> empty .)
+    FN              reduce using rule 62 (maybe_pub -> empty .)
+
+
+state 72
+
+    (36) condicion -> condicion CONJUNCTION condicion .
+    (36) condicion -> condicion . CONJUNCTION condicion
+    (37) condicion -> condicion . DISJUNCTION condicion
+
+    LBRACE          reduce using rule 36 (condicion -> condicion CONJUNCTION condicion .)
+    CONJUNCTION     reduce using rule 36 (condicion -> condicion CONJUNCTION condicion .)
+    DISJUNCTION     reduce using rule 36 (condicion -> condicion CONJUNCTION condicion .)
+    RPAREN          reduce using rule 36 (condicion -> condicion CONJUNCTION condicion .)
+
+  ! CONJUNCTION     [ shift and go to state 34 ]
+  ! DISJUNCTION     [ shift and go to state 35 ]
+
+
+state 73
+
+    (37) condicion -> condicion DISJUNCTION condicion .
+    (36) condicion -> condicion . CONJUNCTION condicion
+    (37) condicion -> condicion . DISJUNCTION condicion
+
+    LBRACE          reduce using rule 37 (condicion -> condicion DISJUNCTION condicion .)
+    DISJUNCTION     reduce using rule 37 (condicion -> condicion DISJUNCTION condicion .)
+    RPAREN          reduce using rule 37 (condicion -> condicion DISJUNCTION condicion .)
+    CONJUNCTION     shift and go to state 34
+
+  ! CONJUNCTION     [ reduce using rule 37 (condicion -> condicion DISJUNCTION condicion .) ]
+  ! DISJUNCTION     [ shift and go to state 35 ]
+
+
+state 74
+
+    (30) condicion -> expresion EQUAL_TO expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 30 (condicion -> expresion EQUAL_TO expresion .)
+    CONJUNCTION     reduce using rule 30 (condicion -> expresion EQUAL_TO expresion .)
+    DISJUNCTION     reduce using rule 30 (condicion -> expresion EQUAL_TO expresion .)
+    RPAREN          reduce using rule 30 (condicion -> expresion EQUAL_TO expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 75
+
+    (31) condicion -> expresion NOT_EQUAL expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 31 (condicion -> expresion NOT_EQUAL expresion .)
+    CONJUNCTION     reduce using rule 31 (condicion -> expresion NOT_EQUAL expresion .)
+    DISJUNCTION     reduce using rule 31 (condicion -> expresion NOT_EQUAL expresion .)
+    RPAREN          reduce using rule 31 (condicion -> expresion NOT_EQUAL expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 76
+
+    (32) condicion -> expresion LESS_THAN expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 32 (condicion -> expresion LESS_THAN expresion .)
+    CONJUNCTION     reduce using rule 32 (condicion -> expresion LESS_THAN expresion .)
+    DISJUNCTION     reduce using rule 32 (condicion -> expresion LESS_THAN expresion .)
+    RPAREN          reduce using rule 32 (condicion -> expresion LESS_THAN expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 77
+
+    (33) condicion -> expresion GREATER_THAN expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 33 (condicion -> expresion GREATER_THAN expresion .)
+    CONJUNCTION     reduce using rule 33 (condicion -> expresion GREATER_THAN expresion .)
+    DISJUNCTION     reduce using rule 33 (condicion -> expresion GREATER_THAN expresion .)
+    RPAREN          reduce using rule 33 (condicion -> expresion GREATER_THAN expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 78
+
+    (34) condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 34 (condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion .)
+    CONJUNCTION     reduce using rule 34 (condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion .)
+    DISJUNCTION     reduce using rule 34 (condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion .)
+    RPAREN          reduce using rule 34 (condicion -> expresion LESS_THAN_OR_EQUAL_TO expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 79
+
+    (35) condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    LBRACE          reduce using rule 35 (condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion .)
+    CONJUNCTION     reduce using rule 35 (condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion .)
+    DISJUNCTION     reduce using rule 35 (condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion .)
+    RPAREN          reduce using rule 35 (condicion -> expresion GREATER_THAN_OR_EQUAL_TO expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 80
+
+    (9) expresion -> expresion DOT IDENTIFICADOR . LPAREN argumentos_opt RPAREN
+
+    LPAREN          shift and go to state 104
+
+
+state 81
+
+    (15) expresion -> expresion PLUS expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    NOT_EQUAL       reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    LESS_THAN       reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    GREATER_THAN    reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    DOT             reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    PLUS            reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    MINUS           reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    SEMICOLON       reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    RPAREN          reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    RBRACKET        reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    COMMA           reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    LBRACE          reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    CONJUNCTION     reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    DISJUNCTION     reduce using rule 15 (expresion -> expresion PLUS expresion .)
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+  ! TIMES           [ reduce using rule 15 (expresion -> expresion PLUS expresion .) ]
+  ! DIVIDE          [ reduce using rule 15 (expresion -> expresion PLUS expresion .) ]
+  ! MOD             [ reduce using rule 15 (expresion -> expresion PLUS expresion .) ]
+  ! AS              [ reduce using rule 15 (expresion -> expresion PLUS expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+  ! PLUS            [ shift and go to state 43 ]
+  ! MINUS           [ shift and go to state 44 ]
+
+
+state 82
+
+    (16) expresion -> expresion MINUS expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    NOT_EQUAL       reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    LESS_THAN       reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    GREATER_THAN    reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    DOT             reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    PLUS            reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    MINUS           reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    SEMICOLON       reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    RPAREN          reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    RBRACKET        reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    COMMA           reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    LBRACE          reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    CONJUNCTION     reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    DISJUNCTION     reduce using rule 16 (expresion -> expresion MINUS expresion .)
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+  ! TIMES           [ reduce using rule 16 (expresion -> expresion MINUS expresion .) ]
+  ! DIVIDE          [ reduce using rule 16 (expresion -> expresion MINUS expresion .) ]
+  ! MOD             [ reduce using rule 16 (expresion -> expresion MINUS expresion .) ]
+  ! AS              [ reduce using rule 16 (expresion -> expresion MINUS expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+  ! PLUS            [ shift and go to state 43 ]
+  ! MINUS           [ shift and go to state 44 ]
+
+
+state 83
+
+    (17) expresion -> expresion TIMES expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    NOT_EQUAL       reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    LESS_THAN       reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    GREATER_THAN    reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    DOT             reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    PLUS            reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    MINUS           reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    TIMES           reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    DIVIDE          reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    MOD             reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    SEMICOLON       reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    RPAREN          reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    RBRACKET        reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    COMMA           reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    LBRACE          reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    CONJUNCTION     reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    DISJUNCTION     reduce using rule 17 (expresion -> expresion TIMES expresion .)
+    AS              shift and go to state 48
+
+  ! AS              [ reduce using rule 17 (expresion -> expresion TIMES expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+  ! PLUS            [ shift and go to state 43 ]
+  ! MINUS           [ shift and go to state 44 ]
+  ! TIMES           [ shift and go to state 45 ]
+  ! DIVIDE          [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+
+
+state 84
+
+    (18) expresion -> expresion DIVIDE expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    NOT_EQUAL       reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    LESS_THAN       reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    GREATER_THAN    reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    DOT             reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    PLUS            reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    MINUS           reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    TIMES           reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    DIVIDE          reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    MOD             reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    SEMICOLON       reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    RPAREN          reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    RBRACKET        reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    COMMA           reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    LBRACE          reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    CONJUNCTION     reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    DISJUNCTION     reduce using rule 18 (expresion -> expresion DIVIDE expresion .)
+    AS              shift and go to state 48
+
+  ! AS              [ reduce using rule 18 (expresion -> expresion DIVIDE expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+  ! PLUS            [ shift and go to state 43 ]
+  ! MINUS           [ shift and go to state 44 ]
+  ! TIMES           [ shift and go to state 45 ]
+  ! DIVIDE          [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+
+
+state 85
+
+    (19) expresion -> expresion MOD expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    EQUAL_TO        reduce using rule 19 (expresion -> expresion MOD expresion .)
+    NOT_EQUAL       reduce using rule 19 (expresion -> expresion MOD expresion .)
+    LESS_THAN       reduce using rule 19 (expresion -> expresion MOD expresion .)
+    GREATER_THAN    reduce using rule 19 (expresion -> expresion MOD expresion .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 19 (expresion -> expresion MOD expresion .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 19 (expresion -> expresion MOD expresion .)
+    DOT             reduce using rule 19 (expresion -> expresion MOD expresion .)
+    PLUS            reduce using rule 19 (expresion -> expresion MOD expresion .)
+    MINUS           reduce using rule 19 (expresion -> expresion MOD expresion .)
+    TIMES           reduce using rule 19 (expresion -> expresion MOD expresion .)
+    DIVIDE          reduce using rule 19 (expresion -> expresion MOD expresion .)
+    MOD             reduce using rule 19 (expresion -> expresion MOD expresion .)
+    SEMICOLON       reduce using rule 19 (expresion -> expresion MOD expresion .)
+    RPAREN          reduce using rule 19 (expresion -> expresion MOD expresion .)
+    RBRACKET        reduce using rule 19 (expresion -> expresion MOD expresion .)
+    COMMA           reduce using rule 19 (expresion -> expresion MOD expresion .)
+    LBRACE          reduce using rule 19 (expresion -> expresion MOD expresion .)
+    CONJUNCTION     reduce using rule 19 (expresion -> expresion MOD expresion .)
+    DISJUNCTION     reduce using rule 19 (expresion -> expresion MOD expresion .)
+    AS              shift and go to state 48
+
+  ! AS              [ reduce using rule 19 (expresion -> expresion MOD expresion .) ]
+  ! DOT             [ shift and go to state 42 ]
+  ! PLUS            [ shift and go to state 43 ]
+  ! MINUS           [ shift and go to state 44 ]
+  ! TIMES           [ shift and go to state 45 ]
+  ! DIVIDE          [ shift and go to state 46 ]
+  ! MOD             [ shift and go to state 47 ]
+
+
+state 86
+
+    (29) expresion -> expresion AS TYPE .
+
+    EQUAL_TO        reduce using rule 29 (expresion -> expresion AS TYPE .)
+    NOT_EQUAL       reduce using rule 29 (expresion -> expresion AS TYPE .)
+    LESS_THAN       reduce using rule 29 (expresion -> expresion AS TYPE .)
+    GREATER_THAN    reduce using rule 29 (expresion -> expresion AS TYPE .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 29 (expresion -> expresion AS TYPE .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 29 (expresion -> expresion AS TYPE .)
+    DOT             reduce using rule 29 (expresion -> expresion AS TYPE .)
+    PLUS            reduce using rule 29 (expresion -> expresion AS TYPE .)
+    MINUS           reduce using rule 29 (expresion -> expresion AS TYPE .)
+    TIMES           reduce using rule 29 (expresion -> expresion AS TYPE .)
+    DIVIDE          reduce using rule 29 (expresion -> expresion AS TYPE .)
+    MOD             reduce using rule 29 (expresion -> expresion AS TYPE .)
+    AS              reduce using rule 29 (expresion -> expresion AS TYPE .)
+    SEMICOLON       reduce using rule 29 (expresion -> expresion AS TYPE .)
+    RPAREN          reduce using rule 29 (expresion -> expresion AS TYPE .)
+    RBRACKET        reduce using rule 29 (expresion -> expresion AS TYPE .)
+    COMMA           reduce using rule 29 (expresion -> expresion AS TYPE .)
+    LBRACE          reduce using rule 29 (expresion -> expresion AS TYPE .)
+    CONJUNCTION     reduce using rule 29 (expresion -> expresion AS TYPE .)
+    DISJUNCTION     reduce using rule 29 (expresion -> expresion AS TYPE .)
+
+
+state 87
+
+    (39) condicion -> LPAREN condicion RPAREN .
+
+    LBRACE          reduce using rule 39 (condicion -> LPAREN condicion RPAREN .)
+    CONJUNCTION     reduce using rule 39 (condicion -> LPAREN condicion RPAREN .)
+    DISJUNCTION     reduce using rule 39 (condicion -> LPAREN condicion RPAREN .)
+    RPAREN          reduce using rule 39 (condicion -> LPAREN condicion RPAREN .)
+
+
+state 88
+
+    (14) expresion -> LPAREN expresion RPAREN .
+
+    EQUAL_TO        reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    NOT_EQUAL       reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    LESS_THAN       reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    GREATER_THAN    reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    DOT             reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    PLUS            reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    MINUS           reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    TIMES           reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    DIVIDE          reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    MOD             reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    AS              reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    SEMICOLON       reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    RPAREN          reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    RBRACKET        reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    COMMA           reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    LBRACE          reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    CONJUNCTION     reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+    DISJUNCTION     reduce using rule 14 (expresion -> LPAREN expresion RPAREN .)
+
+
+state 89
+
+    (8) expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR . LPAREN RPAREN
+
+    LPAREN          shift and go to state 105
+
+
+state 90
+
+    (57) expresion -> IDENTIFICADOR LBRACKET expresion . RBRACKET
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RBRACKET        shift and go to state 106
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 91
+
+    (58) expresion -> IDENTIFICADOR LBRACKET INTEGER . RANGE INTEGER RBRACKET
+    (59) expresion -> IDENTIFICADOR LBRACKET INTEGER . RANGE_INCLUSIVE INTEGER RBRACKET
+    (21) expresion -> INTEGER .
+
+    RANGE           shift and go to state 107
+    RANGE_INCLUSIVE shift and go to state 108
+    RBRACKET        reduce using rule 21 (expresion -> INTEGER .)
+    DOT             reduce using rule 21 (expresion -> INTEGER .)
+    PLUS            reduce using rule 21 (expresion -> INTEGER .)
+    MINUS           reduce using rule 21 (expresion -> INTEGER .)
+    TIMES           reduce using rule 21 (expresion -> INTEGER .)
+    DIVIDE          reduce using rule 21 (expresion -> INTEGER .)
+    MOD             reduce using rule 21 (expresion -> INTEGER .)
+    AS              reduce using rule 21 (expresion -> INTEGER .)
+
+
+state 92
+
+    (60) expresion -> IDENTIFICADOR NOT LBRACKET . lista_elementos RBRACKET
+    (53) lista_elementos -> . lista_elementos COMMA expresion
+    (54) lista_elementos -> . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    lista_elementos                shift and go to state 109
+    expresion                      shift and go to state 110
+
+state 93
+
+    (28) expresion -> BIT_AND MUT IDENTIFICADOR .
+
+    EQUAL_TO        reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    NOT_EQUAL       reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    LESS_THAN       reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    GREATER_THAN    reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    DOT             reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    PLUS            reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    MINUS           reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    TIMES           reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    DIVIDE          reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    MOD             reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    AS              reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    SEMICOLON       reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    RPAREN          reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    RBRACKET        reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    COMMA           reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    LBRACE          reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    CONJUNCTION     reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+    DISJUNCTION     reduce using rule 28 (expresion -> BIT_AND MUT IDENTIFICADOR .)
+
+
+state 94
+
+    (55) expresion -> LBRACKET lista_elementos RBRACKET .
+
+    EQUAL_TO        reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    NOT_EQUAL       reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    LESS_THAN       reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    GREATER_THAN    reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    DOT             reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    PLUS            reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    MINUS           reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    TIMES           reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    DIVIDE          reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    MOD             reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    AS              reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    SEMICOLON       reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    RPAREN          reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    RBRACKET        reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    COMMA           reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    LBRACE          reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    CONJUNCTION     reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+    DISJUNCTION     reduce using rule 55 (expresion -> LBRACKET lista_elementos RBRACKET .)
+
+
+state 95
+
+    (53) lista_elementos -> lista_elementos COMMA . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 111
+
+state 96
+
+    (56) expresion -> LBRACKET expresion SEMICOLON . INTEGER RBRACKET
+
+    INTEGER         shift and go to state 112
+
+
+state 97
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN . RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> maybe_pub FN nombre_fn LPAREN . RPAREN LBRACE program_opt RBRACE
+
+    RPAREN          shift and go to state 113
+
+
+state 98
+
+    (46) let_decl -> LET maybe_mut IDENTIFICADOR maybe_type . maybe_init SEMICOLON
+    (51) maybe_init -> . ASIGNED_TO expresion
+    (52) maybe_init -> . empty
+    (5) empty -> .
+
+    ASIGNED_TO      shift and go to state 115
+    SEMICOLON       reduce using rule 5 (empty -> .)
+
+    maybe_init                     shift and go to state 114
+    empty                          shift and go to state 116
+
+state 99
+
+    (49) maybe_type -> COLON . tipo
+    (41) tipo -> . TYPE
+    (42) tipo -> . LBRACKET tipo RBRACKET
+    (43) tipo -> . BIT_AND tipo
+    (44) tipo -> . BIT_AND MUT tipo
+
+    TYPE            shift and go to state 118
+    LBRACKET        shift and go to state 119
+    BIT_AND         shift and go to state 120
+
+    tipo                           shift and go to state 117
+
+state 100
+
+    (50) maybe_type -> empty .
+
+    ASIGNED_TO      reduce using rule 50 (maybe_type -> empty .)
+    SEMICOLON       reduce using rule 50 (maybe_type -> empty .)
+
+
+state 101
+
+    (6) sentencia -> PRINTLN NOT LPAREN STRING RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 121
+
+
+state 102
+
+    (7) sentencia -> PRINTLN NOT LPAREN expresion RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 122
+
+
+state 103
+
+    (40) sentencia -> IF condicion LBRACE program_opt RBRACE .
+
+    PRINTLN         reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    IF              reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    RETURN          reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    LET             reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    IDENTIFICADOR   reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    $end            reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    FN              reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+    RBRACE          reduce using rule 40 (sentencia -> IF condicion LBRACE program_opt RBRACE .)
+
+
+state 104
+
+    (9) expresion -> expresion DOT IDENTIFICADOR LPAREN . argumentos_opt RPAREN
+    (10) argumentos_opt -> . lista_argumentos
+    (11) argumentos_opt -> . empty
+    (12) lista_argumentos -> . lista_argumentos COMMA expresion
+    (13) lista_argumentos -> . expresion
+    (5) empty -> .
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    RPAREN          reduce using rule 5 (empty -> .)
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 123
+    argumentos_opt                 shift and go to state 124
+    lista_argumentos               shift and go to state 125
+    empty                          shift and go to state 126
+
+state 105
+
+    (8) expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN . RPAREN
+
+    RPAREN          shift and go to state 127
+
+
+state 106
+
+    (57) expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .
+
+    EQUAL_TO        reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    NOT_EQUAL       reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    LESS_THAN       reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    GREATER_THAN    reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    DOT             reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    PLUS            reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    MINUS           reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    TIMES           reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    DIVIDE          reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    MOD             reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    AS              reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    SEMICOLON       reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    RPAREN          reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    RBRACKET        reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    COMMA           reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    LBRACE          reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    CONJUNCTION     reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+    DISJUNCTION     reduce using rule 57 (expresion -> IDENTIFICADOR LBRACKET expresion RBRACKET .)
+
+
+state 107
+
+    (58) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE . INTEGER RBRACKET
+
+    INTEGER         shift and go to state 128
+
+
+state 108
+
+    (59) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE . INTEGER RBRACKET
+
+    INTEGER         shift and go to state 129
+
+
+state 109
+
+    (60) expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos . RBRACKET
+    (53) lista_elementos -> lista_elementos . COMMA expresion
+
+    RBRACKET        shift and go to state 130
+    COMMA           shift and go to state 95
+
+
+state 110
+
+    (54) lista_elementos -> expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RBRACKET        reduce using rule 54 (lista_elementos -> expresion .)
+    COMMA           reduce using rule 54 (lista_elementos -> expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 111
+
+    (53) lista_elementos -> lista_elementos COMMA expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    RBRACKET        reduce using rule 53 (lista_elementos -> lista_elementos COMMA expresion .)
+    COMMA           reduce using rule 53 (lista_elementos -> lista_elementos COMMA expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 112
+
+    (56) expresion -> LBRACKET expresion SEMICOLON INTEGER . RBRACKET
+
+    RBRACKET        shift and go to state 131
+
+
+state 113
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN . MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN . LBRACE program_opt RBRACE
+
+    MINUS           shift and go to state 132
+    LBRACE          shift and go to state 133
+
+
+state 114
+
+    (46) let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init . SEMICOLON
+
+    SEMICOLON       shift and go to state 134
+
+
+state 115
+
+    (51) maybe_init -> ASIGNED_TO . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 135
+
+state 116
+
+    (52) maybe_init -> empty .
+
+    SEMICOLON       reduce using rule 52 (maybe_init -> empty .)
+
+
+state 117
+
+    (49) maybe_type -> COLON tipo .
+
+    ASIGNED_TO      reduce using rule 49 (maybe_type -> COLON tipo .)
+    SEMICOLON       reduce using rule 49 (maybe_type -> COLON tipo .)
+
+
+state 118
+
+    (41) tipo -> TYPE .
+
+    ASIGNED_TO      reduce using rule 41 (tipo -> TYPE .)
+    SEMICOLON       reduce using rule 41 (tipo -> TYPE .)
+    RBRACKET        reduce using rule 41 (tipo -> TYPE .)
+
+
+state 119
+
+    (42) tipo -> LBRACKET . tipo RBRACKET
+    (41) tipo -> . TYPE
+    (42) tipo -> . LBRACKET tipo RBRACKET
+    (43) tipo -> . BIT_AND tipo
+    (44) tipo -> . BIT_AND MUT tipo
+
+    TYPE            shift and go to state 118
+    LBRACKET        shift and go to state 119
+    BIT_AND         shift and go to state 120
+
+    tipo                           shift and go to state 136
+
+state 120
+
+    (43) tipo -> BIT_AND . tipo
+    (44) tipo -> BIT_AND . MUT tipo
+    (41) tipo -> . TYPE
+    (42) tipo -> . LBRACKET tipo RBRACKET
+    (43) tipo -> . BIT_AND tipo
+    (44) tipo -> . BIT_AND MUT tipo
+
+    MUT             shift and go to state 138
+    TYPE            shift and go to state 118
+    LBRACKET        shift and go to state 119
+    BIT_AND         shift and go to state 120
+
+    tipo                           shift and go to state 137
+
+state 121
+
+    (6) sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .
+
+    PRINTLN         reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    IF              reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    RETURN          reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    LET             reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    IDENTIFICADOR   reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    $end            reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    FN              reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 6 (sentencia -> PRINTLN NOT LPAREN STRING RPAREN SEMICOLON .)
+
+
+state 122
+
+    (7) sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .
+
+    PRINTLN         reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    IF              reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    RETURN          reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    LET             reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    IDENTIFICADOR   reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    $end            reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    FN              reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+    RBRACE          reduce using rule 7 (sentencia -> PRINTLN NOT LPAREN expresion RPAREN SEMICOLON .)
+
+
+state 123
+
+    (13) lista_argumentos -> expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    COMMA           reduce using rule 13 (lista_argumentos -> expresion .)
+    RPAREN          reduce using rule 13 (lista_argumentos -> expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 124
+
+    (9) expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt . RPAREN
+
+    RPAREN          shift and go to state 139
+
+
+state 125
+
+    (10) argumentos_opt -> lista_argumentos .
+    (12) lista_argumentos -> lista_argumentos . COMMA expresion
+
+    RPAREN          reduce using rule 10 (argumentos_opt -> lista_argumentos .)
+    COMMA           shift and go to state 140
+
+
+state 126
+
+    (11) argumentos_opt -> empty .
+
+    RPAREN          reduce using rule 11 (argumentos_opt -> empty .)
+
+
+state 127
+
+    (8) expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .
+
+    EQUAL_TO        reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    NOT_EQUAL       reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    LESS_THAN       reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    GREATER_THAN    reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    DOT             reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    PLUS            reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    MINUS           reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    TIMES           reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    DIVIDE          reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    MOD             reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    AS              reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    RPAREN          reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    RBRACKET        reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    COMMA           reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    LBRACE          reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    CONJUNCTION     reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+    DISJUNCTION     reduce using rule 8 (expresion -> IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN .)
+
+
+state 128
+
+    (58) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER . RBRACKET
+
+    RBRACKET        shift and go to state 141
+
+
+state 129
+
+    (59) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER . RBRACKET
+
+    RBRACKET        shift and go to state 142
+
+
+state 130
+
+    (60) expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .
+
+    EQUAL_TO        reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    NOT_EQUAL       reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    LESS_THAN       reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    GREATER_THAN    reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    DOT             reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    PLUS            reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    MINUS           reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    TIMES           reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    DIVIDE          reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    MOD             reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    AS              reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    SEMICOLON       reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    RPAREN          reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    RBRACKET        reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    COMMA           reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    LBRACE          reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    CONJUNCTION     reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+    DISJUNCTION     reduce using rule 60 (expresion -> IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET .)
+
+
+state 131
+
+    (56) expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .
+
+    EQUAL_TO        reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    NOT_EQUAL       reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    LESS_THAN       reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    GREATER_THAN    reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    DOT             reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    PLUS            reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    MINUS           reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    TIMES           reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    DIVIDE          reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    MOD             reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    AS              reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    SEMICOLON       reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    RPAREN          reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    RBRACKET        reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    COMMA           reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    LBRACE          reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    CONJUNCTION     reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+    DISJUNCTION     reduce using rule 56 (expresion -> LBRACKET expresion SEMICOLON INTEGER RBRACKET .)
+
+
+state 132
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS . GREATER_THAN TYPE LBRACE program_opt RBRACE
+
+    GREATER_THAN    shift and go to state 143
+
+
+state 133
+
+    (66) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE . program_opt RBRACE
+    (3) program_opt -> . program
+    (4) program_opt -> . empty
+    (1) program -> . program sentencia
+    (2) program -> . sentencia
+    (5) empty -> .
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+
+    RBRACE          reduce using rule 5 (empty -> .)
+    FN              reduce using rule 5 (empty -> .)
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+
+    maybe_pub                      shift and go to state 6
+    program_opt                    shift and go to state 144
+    program                        shift and go to state 70
+    empty                          shift and go to state 71
+    sentencia                      shift and go to state 2
+    let_decl                       shift and go to state 5
+
+state 134
+
+    (46) let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .
+
+    PRINTLN         reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    IF              reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    RETURN          reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    LET             reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    IDENTIFICADOR   reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    $end            reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    FN              reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+    RBRACE          reduce using rule 46 (let_decl -> LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON .)
+
+
+state 135
+
+    (51) maybe_init -> ASIGNED_TO expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    SEMICOLON       reduce using rule 51 (maybe_init -> ASIGNED_TO expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 136
+
+    (42) tipo -> LBRACKET tipo . RBRACKET
+
+    RBRACKET        shift and go to state 145
+
+
+state 137
+
+    (43) tipo -> BIT_AND tipo .
+
+    ASIGNED_TO      reduce using rule 43 (tipo -> BIT_AND tipo .)
+    SEMICOLON       reduce using rule 43 (tipo -> BIT_AND tipo .)
+    RBRACKET        reduce using rule 43 (tipo -> BIT_AND tipo .)
+
+
+state 138
+
+    (44) tipo -> BIT_AND MUT . tipo
+    (41) tipo -> . TYPE
+    (42) tipo -> . LBRACKET tipo RBRACKET
+    (43) tipo -> . BIT_AND tipo
+    (44) tipo -> . BIT_AND MUT tipo
+
+    TYPE            shift and go to state 118
+    LBRACKET        shift and go to state 119
+    BIT_AND         shift and go to state 120
+
+    tipo                           shift and go to state 146
+
+state 139
+
+    (9) expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .
+
+    EQUAL_TO        reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    NOT_EQUAL       reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    LESS_THAN       reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    GREATER_THAN    reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    DOT             reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    PLUS            reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    MINUS           reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    TIMES           reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    DIVIDE          reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    MOD             reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    AS              reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    SEMICOLON       reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    RPAREN          reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    RBRACKET        reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    COMMA           reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    LBRACE          reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    CONJUNCTION     reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+    DISJUNCTION     reduce using rule 9 (expresion -> expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN .)
+
+
+state 140
+
+    (12) lista_argumentos -> lista_argumentos COMMA . expresion
+    (8) expresion -> . IDENTIFICADOR DOUBLE_COLON IDENTIFICADOR LPAREN RPAREN
+    (9) expresion -> . expresion DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (14) expresion -> . LPAREN expresion RPAREN
+    (15) expresion -> . expresion PLUS expresion
+    (16) expresion -> . expresion MINUS expresion
+    (17) expresion -> . expresion TIMES expresion
+    (18) expresion -> . expresion DIVIDE expresion
+    (19) expresion -> . expresion MOD expresion
+    (20) expresion -> . NOT expresion
+    (21) expresion -> . INTEGER
+    (22) expresion -> . FLOAT
+    (23) expresion -> . STRING
+    (24) expresion -> . CHAR
+    (25) expresion -> . BOOLEAN
+    (26) expresion -> . IDENTIFICADOR
+    (27) expresion -> . BIT_AND expresion
+    (28) expresion -> . BIT_AND MUT IDENTIFICADOR
+    (29) expresion -> . expresion AS TYPE
+    (55) expresion -> . LBRACKET lista_elementos RBRACKET
+    (56) expresion -> . LBRACKET expresion SEMICOLON INTEGER RBRACKET
+    (57) expresion -> . IDENTIFICADOR LBRACKET expresion RBRACKET
+    (58) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET
+    (59) expresion -> . IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET
+    (60) expresion -> . IDENTIFICADOR NOT LBRACKET lista_elementos RBRACKET
+
+    IDENTIFICADOR   shift and go to state 17
+    LPAREN          shift and go to state 27
+    NOT             shift and go to state 28
+    INTEGER         shift and go to state 18
+    FLOAT           shift and go to state 19
+    STRING          shift and go to state 20
+    CHAR            shift and go to state 21
+    BOOLEAN         shift and go to state 22
+    BIT_AND         shift and go to state 23
+    LBRACKET        shift and go to state 24
+
+    expresion                      shift and go to state 147
+
+state 141
+
+    (58) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .
+
+    EQUAL_TO        reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    NOT_EQUAL       reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    LESS_THAN       reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    GREATER_THAN    reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    DOT             reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    PLUS            reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    MINUS           reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    TIMES           reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    DIVIDE          reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    MOD             reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    AS              reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    SEMICOLON       reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    RPAREN          reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    RBRACKET        reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    COMMA           reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    LBRACE          reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    CONJUNCTION     reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+    DISJUNCTION     reduce using rule 58 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE INTEGER RBRACKET .)
+
+
+state 142
+
+    (59) expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .
+
+    EQUAL_TO        reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    NOT_EQUAL       reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    LESS_THAN       reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    GREATER_THAN    reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    LESS_THAN_OR_EQUAL_TO reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    GREATER_THAN_OR_EQUAL_TO reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    DOT             reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    PLUS            reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    MINUS           reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    TIMES           reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    DIVIDE          reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    MOD             reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    AS              reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    SEMICOLON       reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    RPAREN          reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    RBRACKET        reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    COMMA           reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    LBRACE          reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    CONJUNCTION     reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+    DISJUNCTION     reduce using rule 59 (expresion -> IDENTIFICADOR LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET .)
+
+
+state 143
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN . TYPE LBRACE program_opt RBRACE
+
+    TYPE            shift and go to state 148
+
+
+state 144
+
+    (66) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt . RBRACE
+
+    RBRACE          shift and go to state 149
+
+
+state 145
+
+    (42) tipo -> LBRACKET tipo RBRACKET .
+
+    ASIGNED_TO      reduce using rule 42 (tipo -> LBRACKET tipo RBRACKET .)
+    SEMICOLON       reduce using rule 42 (tipo -> LBRACKET tipo RBRACKET .)
+    RBRACKET        reduce using rule 42 (tipo -> LBRACKET tipo RBRACKET .)
+
+
+state 146
+
+    (44) tipo -> BIT_AND MUT tipo .
+
+    ASIGNED_TO      reduce using rule 44 (tipo -> BIT_AND MUT tipo .)
+    SEMICOLON       reduce using rule 44 (tipo -> BIT_AND MUT tipo .)
+    RBRACKET        reduce using rule 44 (tipo -> BIT_AND MUT tipo .)
+
+
+state 147
+
+    (12) lista_argumentos -> lista_argumentos COMMA expresion .
+    (9) expresion -> expresion . DOT IDENTIFICADOR LPAREN argumentos_opt RPAREN
+    (15) expresion -> expresion . PLUS expresion
+    (16) expresion -> expresion . MINUS expresion
+    (17) expresion -> expresion . TIMES expresion
+    (18) expresion -> expresion . DIVIDE expresion
+    (19) expresion -> expresion . MOD expresion
+    (29) expresion -> expresion . AS TYPE
+
+    COMMA           reduce using rule 12 (lista_argumentos -> lista_argumentos COMMA expresion .)
+    RPAREN          reduce using rule 12 (lista_argumentos -> lista_argumentos COMMA expresion .)
+    DOT             shift and go to state 42
+    PLUS            shift and go to state 43
+    MINUS           shift and go to state 44
+    TIMES           shift and go to state 45
+    DIVIDE          shift and go to state 46
+    MOD             shift and go to state 47
+    AS              shift and go to state 48
+
+
+state 148
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE . LBRACE program_opt RBRACE
+
+    LBRACE          shift and go to state 150
+
+
+state 149
+
+    (66) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .
+
+    PRINTLN         reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    IF              reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    RETURN          reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    LET             reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    IDENTIFICADOR   reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    $end            reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    FN              reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+    RBRACE          reduce using rule 66 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE .)
+
+
+state 150
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE . program_opt RBRACE
+    (3) program_opt -> . program
+    (4) program_opt -> . empty
+    (1) program -> . program sentencia
+    (2) program -> . sentencia
+    (5) empty -> .
+    (6) sentencia -> . PRINTLN NOT LPAREN STRING RPAREN SEMICOLON
+    (7) sentencia -> . PRINTLN NOT LPAREN expresion RPAREN SEMICOLON
+    (40) sentencia -> . IF condicion LBRACE program_opt RBRACE
+    (45) sentencia -> . let_decl
+    (65) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE
+    (66) sentencia -> . maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE
+    (67) sentencia -> . RETURN expresion SEMICOLON
+    (46) let_decl -> . LET maybe_mut IDENTIFICADOR maybe_type maybe_init SEMICOLON
+    (61) maybe_pub -> . IDENTIFICADOR
+    (62) maybe_pub -> . empty
+
+    RBRACE          reduce using rule 5 (empty -> .)
+    FN              reduce using rule 5 (empty -> .)
+    PRINTLN         shift and go to state 3
+    IF              shift and go to state 4
+    RETURN          shift and go to state 7
+    LET             shift and go to state 8
+    IDENTIFICADOR   shift and go to state 9
+
+    maybe_pub                      shift and go to state 6
+    program_opt                    shift and go to state 151
+    program                        shift and go to state 70
+    empty                          shift and go to state 71
+    sentencia                      shift and go to state 2
+    let_decl                       shift and go to state 5
+
+state 151
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt . RBRACE
+
+    RBRACE          shift and go to state 152
+
+
+state 152
+
+    (65) sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .
+
+    PRINTLN         reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    IF              reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    RETURN          reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    LET             reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    IDENTIFICADOR   reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    $end            reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    FN              reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+    RBRACE          reduce using rule 65 (sentencia -> maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN TYPE LBRACE program_opt RBRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for DOT in state 56 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 56 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 56 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 56 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 56 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 56 resolved as shift
+WARNING: shift/reduce conflict for AS in state 56 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 67 resolved as shift

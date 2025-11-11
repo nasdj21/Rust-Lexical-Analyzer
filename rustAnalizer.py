@@ -195,34 +195,34 @@ archivos = {"Carlos Flores":["algoritmoVariables.rs"],
 # Build the lexer
 lexer = lex.lex()
 
-ahora = datetime.datetime.now()
-fecha = ahora.strftime("%d-%m-%Y")
-hora = ahora.strftime("%Hh%M")
+if __name__ == "__main__":
+    ahora = datetime.datetime.now()
+    fecha = ahora.strftime("%d-%m-%Y")
+    hora = ahora.strftime("%Hh%M")
 
-for name, lista_archivos in archivos.items():
+    for name, lista_archivos in archivos.items():
+        carpeta = f"./logs/{name.replace(' ', '_')}"
+        os.makedirs(carpeta, exist_ok=True)
 
-    carpeta = f"./logs/{name.replace(' ', '_')}"
-    os.makedirs(carpeta, exist_ok=True)
-
-    nombre_log = f"{carpeta}/lexico-{name.replace(' ', '')}-{fecha}-{hora}.txt"
-    log = open(nombre_log, "w", encoding="utf-8")
-
-
-
-for archivo in lista_archivos:
-        if not os.path.exists(archivo):
-            print(f"ALERTA: El archivo '{archivo}' no existe.")
-        else:
-                with open(archivo, "r", encoding="utf-8") as file:
-                    for num_linea, linea in enumerate(file, start=1):
-                        print(f"\nLínea {num_linea}: {linea.strip()}")
-                        log.write(f"\nLínea {num_linea}: {linea.strip()}\n")
-                        lexer.input(linea)
-                        while True:
-                            tok = lexer.token()
-                            if not tok:
-                                break
-                            linea_log = f"[TOKEN] Tipo: {tok.type:<15} | Valor: {tok.value:<15} | Línea: {num_linea:<3} | Posición: {tok.lexpos}\n"
-                            print(linea_log.strip())
-                            log.write(linea_log)
-log.close()
+        nombre_log = f"{carpeta}/lexico-{name.replace(' ', '')}-{fecha}-{hora}.txt"
+        with open(nombre_log, "w", encoding="utf-8") as log:
+            for archivo in lista_archivos:
+                if not os.path.exists(archivo):
+                    print(f"ALERTA: El archivo '{archivo}' no existe.")
+                else:
+                    with open(archivo, "r", encoding="utf-8") as file:
+                        for num_linea, linea in enumerate(file, start=1):
+                            print(f"\nLínea {num_linea}: {linea.strip()}")
+                            log.write(f"\nLínea {num_linea}: {linea.strip()}\n")
+                            lexer.input(linea)
+                            while True:
+                                tok = lexer.token()
+                                if not tok:
+                                    break
+                                linea_log = (
+                                    f"[TOKEN] Tipo: {tok.type:<15} | "
+                                    f"Valor: {str(tok.value):<15} | "
+                                    f"Línea: {num_linea:<3} | Posición: {tok.lexpos}\n"
+                                )
+                                print(linea_log.strip())
+                                log.write(linea_log)

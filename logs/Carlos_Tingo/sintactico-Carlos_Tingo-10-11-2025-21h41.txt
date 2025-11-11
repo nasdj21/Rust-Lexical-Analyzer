@@ -1,0 +1,4 @@
+=== FILE: avance2CarlosTingo.rs ===
+[ERROR] Sintaxis inválida en ':' (línea 10)
+[ERROR] Sintaxis inválida en '}' (línea 12)
+
