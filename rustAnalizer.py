@@ -24,6 +24,8 @@ reserved = {
     'fn':'FN',        
     'for':'FOR',
     'in':'IN',
+    'async':'ASYNC'
+
     # AVANCE DE PALABRAS RESERVADAS: Nicolas Sierra - FIN
 }
 
@@ -115,6 +117,17 @@ t_BIT_NOT = r'~'
 t_SHIFT_LEFT = r'<<'
 t_SHIFT_RIGHT = r'>>'
 
+
+
+# Rangos y ::  (el ORDEN importa: primero ..=, luego .., luego ::, luego . y :)
+t_RANGE_INCLUSIVE = r'\.\.='   # ..=
+t_RANGE           = r'\.\.'    # ..
+t_DOT             = r'\.'      #.
+t_DOUBLE_COLON    = r'::'      # ::
+
+
+
+
 # AVANCE SIGNOS: Carlos Flores - INICIO
 # SIGNOS
 t_SEMICOLON = r'\;'
@@ -132,13 +145,9 @@ t_RBRACE   = r'\}'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 
-# Rangos y ::  (el ORDEN importa: primero ..=, luego .., luego ::, luego . y :)
-t_RANGE_INCLUSIVE = r'\.\.='   # ..=
-t_RANGE           = r'\.\.'    # ..
-t_DOUBLE_COLON    = r'::'      # ::
 
 
-t_DOT = r'\.'
+
 #AVANCE ARRAY CARLOS TINGO - Fin
 
 

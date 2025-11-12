@@ -1,0 +1,5 @@
+===== Análisis Sintáctico (11-11-2025 - 23h37) =====
+
+=== Archivo: algoritmoVariables.rs ===
+✅ Sin errores sintácticos.
+

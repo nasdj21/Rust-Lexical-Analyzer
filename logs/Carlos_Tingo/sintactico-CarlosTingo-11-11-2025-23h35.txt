@@ -1,0 +1,5 @@
+===== Análisis Sintáctico (11-11-2025 - 23h35) =====
+
+=== Archivo: algoritmoVectoresArreglos.rs ===
+🔥 Error crítico al analizar algoritmoVectoresArreglos.rs: list index out of range
+

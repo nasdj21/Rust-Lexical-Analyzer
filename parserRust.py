@@ -56,13 +56,41 @@ def p_println_expr(p):
     'sentencia : PRINTLN NOT LPAREN expresion RPAREN SEMICOLON'
     p[0] = ("println_expr", p[4])
 
+# ---------------- HashMap ----------------
+#Avance de hashmaps por Nicolás Sierra
+def p_hashmap_insert(p):
+    'expresion : expresion DOT IDENTIFIER LPAREN expresion COMMA expresion RPAREN'
+
+    if p[3] == 'insert':
+        p[0] = ("hashmap_insert", p[1], p[5], p[7])
+    else:
+        p[0] = ("call", p[1], p[3], [p[5], p[7]])
+
+def p_hashmap_get(p):
+    'expresion : expresion DOT IDENTIFIER LPAREN expresion RPAREN'
+    if p[3] == 'get':
+        p[0] = ("hashmap_get", p[1], p[5])
+    else:
+        p[0] = ("call", p[1], p[3], [p[5]])
+
 # ---------------- Entrada por teclado ----------------
 # Acepto algo tipo: io::stdin().read_line(&mut nombre);
 # Primero la llamada de path con ::
 def p_path_call_noargs(p):
     'expresion : IDENTIFIER DOUBLE_COLON IDENTIFIER LPAREN RPAREN'
-    # ej: io::stdin()
-    p[0] = ("path_call", p[1], p[3], [])
+    
+    if p[1] == 'HashMap' and p[3] == 'new':
+        #HashMap::new() 
+        p[0] = ("hashmap_new", [])
+    else:
+        # ej: io::stdin()
+        p[0] = ("path_call", p[1], p[3], [])
+
+def p_expr_stmt(p):
+    'sentencia : expresion SEMICOLON'
+    p[0] = ("expr_stmt", p[1])
+
+
 
 # Luego método encadenado con o sin argumentos: expr.metodo(args)
 def p_call_method(p):
@@ -154,6 +182,29 @@ def p_cond_parentesis(p):
 def p_if_simple(p):
     'sentencia : IF condicion LBRACE program_opt RBRACE'
     p[0] = ("if", p[2], p[4])
+
+#Inicio 2do Avance Nicolás Sierra
+# Asignación simple: identificador = expresión;
+def p_asignacion(p):
+    'sentencia : IDENTIFIER ASIGNED_TO expresion SEMICOLON'
+    p[0] = ("asignacion", p[1], p[3])
+
+# ---------------- Bucle while ----------------
+# while(CONDICION){Operacion}
+def p_while(p):
+    'sentencia : WHILE condicion LBRACE program_opt RBRACE'
+    p[0] = ("while", p[2], p[4])
+
+
+# ---------------- Funciones async ----------------
+def p_funcion_con_retorno_async(p):
+    'sentencia : ASYNC FN nombre_fn LPAREN RPAREN ARROW tipo LBRACE program_opt RBRACE'
+    p[0] = ("async_fn_ret", p[3], p[7], p[9])
+
+def p_funcion_sin_retorno_async(p):
+    'sentencia : ASYNC FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE'
+    p[0] = ("async_fn", p[3], p[7])
+# Fin 2do avance Nicolas Sierra
 
 # ---------------- Tipos (anotaciones) ----------------
 # Regla base: acepta cualquiera de los tipos definidos en el lexer
@@ -301,10 +352,12 @@ def p_lista_valores_tupla(p):
 
 # Acceso a elemento de tupla: mi_tupla.0
 def p_exp_acceso_tupla(p):
-    '''expresion : IDENTIFIER DOT INTEGER'''
+    '''expresion : expresion DOT INTEGER'''
     p[0] = ("tuple_access", ("id", p[1]), p[3])
 
 # Fin 2do Avance Carlos Flores
+
+
 
 # ---------------- Funciones y return ----------------
 
@@ -325,8 +378,8 @@ def p_nombre_fn_main(p):
 
 # fn con retorno: fn nombre() -> T { ... }
 def p_funcion_con_retorno(p):
-    'sentencia : maybe_pub FN nombre_fn LPAREN RPAREN MINUS GREATER_THAN tipo LBRACE program_opt RBRACE'
-    p[0] = ("fn_ret", p[3], p[8], p[11])
+    'sentencia : maybe_pub FN nombre_fn LPAREN RPAREN ARROW tipo LBRACE program_opt RBRACE'
+    p[0] = ("fn_ret", p[3], p[7], p[9])
 
 # fn sin retorno: fn nombre() { ... }
 def p_funcion_sin_retorno(p):
@@ -357,7 +410,7 @@ import os
 # Diccionario de archivos por usuario
 archivos = {
     "Carlos Flores": ["algoritmoVariables.rs"],
-    "Nicolas Sierra": ["algoritmoOperadores.rs"],
+    "Nicolas Sierra": ["avance2NicolasSierra.rs"],
     "Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
 }
 
