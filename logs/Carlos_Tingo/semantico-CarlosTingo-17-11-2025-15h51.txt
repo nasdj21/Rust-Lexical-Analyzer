@@ -1,0 +1,17 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized
+  tercero: immutable, initialized
+  zeros: immutable, initialized
+  s1: immutable, initialized
+  s2: immutable, initialized
+  v: mutable, initialized
+  primero: immutable, initialized
+  sv: immutable, initialized

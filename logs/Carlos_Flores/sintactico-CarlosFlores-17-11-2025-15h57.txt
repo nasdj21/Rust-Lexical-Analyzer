@@ -1,0 +1,10 @@
+===== Syntactic Analysis (17-11-2025 - 15h57) =====
+
+=== File: avance3CarlosFlores.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '&&' (line 52)
+   - [ERROR] Invalid syntax at '|' (line 53)
+   - [ERROR] Invalid syntax at '>' (line 56)
+   - [ERROR] Invalid syntax at '==' (line 57)
+   - [ERROR] Invalid syntax at '!=' (line 58)
+

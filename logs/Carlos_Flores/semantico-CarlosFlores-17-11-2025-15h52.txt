@@ -1,0 +1,25 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 4
+  [SEMANTIC ERROR] Variable 'factor' is not declared
+  [SEMANTIC ERROR] Variable 'a' is not declared
+  [SEMANTIC ERROR] Variable 'b' is not declared
+  [SEMANTIC ERROR] Variable 'c' is not declared
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  suma: immutable, initialized
+  resultado: immutable, initialized
+  valor: immutable, initialized
+  total: immutable, initialized
+  multiplicar: immutable, initialized
+  aplicar: immutable, initialized
+  foo: immutable, initialized
+  lista: immutable, initialized
+  pi: immutable, initialized
+  res: immutable, initialized
+  x: immutable, initialized
+  y: immutable, initialized

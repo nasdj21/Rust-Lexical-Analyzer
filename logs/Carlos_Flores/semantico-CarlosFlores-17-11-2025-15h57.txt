@@ -1,0 +1,61 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  x: immutable, initialized
+  y: immutable, initialized
+  suma: mutable, initialized
+  contador: mutable, initialized
+  acumulador: mutable, initialized
+  PI: immutable, initialized
+  MAX: immutable, initialized
+  edad: immutable, initialized
+  precio: immutable, initialized
+  activo: immutable, initialized
+  inicial: immutable, initialized
+  a: immutable, initialized
+  b: immutable, initialized
+  suma_ab: immutable, initialized
+  resta: immutable, initialized
+  mult: immutable, initialized
+  div: immutable, initialized
+  mod: immutable, initialized
+  verdadero: immutable, initialized
+  falso: immutable, initialized
+  numeros: immutable, initialized
+  letras: immutable, initialized
+  ceros: immutable, initialized
+  sumar: immutable, initialized
+  resultado_lambda: immutable, initialized
+  multiplicar: immutable, initialized
+  resultado_mult: immutable, initialized
+  sin_params: immutable, initialized
+  valor: immutable, initialized
+  factor: immutable, initialized
+  duplicar: immutable, initialized
+  duplicado: immutable, initialized
+  i: mutable, initialized
+  num: immutable, initialized
+  res: immutable, initialized
+  res_lambda: immutable, initialized
+  referencia: immutable, initialized
+  mutable: mutable, initialized
+  ref_mutable: immutable, initialized
+  entero: immutable, initialized
+  flotante: immutable, initialized
+  total: mutable, initialized
+  datos: immutable, initialized
+  dato: immutable, initialized
+  promedio: immutable, initialized
+  calcular_complejo: immutable, initialized
+  resultado_complejo: immutable, initialized
+  primero: immutable, initialized
+  segundo: immutable, initialized
+  tercero: immutable, initialized
+  suma_tres: immutable, initialized
+  resultado_fn: immutable, initialized

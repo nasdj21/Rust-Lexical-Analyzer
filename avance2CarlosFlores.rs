@@ -1,3 +1,8 @@
+let verdadero = true;
+let falso = false;
+let resultado_and = verdadero && falso;
+let resultado_or = verdadero || falso;
+let negacion = !verdadero;
 /// Suma dos números enteros.
 ///
 /// # Ejemplo

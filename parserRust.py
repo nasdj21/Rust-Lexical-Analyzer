@@ -439,7 +439,7 @@ parser = yacc.yacc(start='program')
 
 # ---------------- Runner + logs ----------------
 files = {
-    "Carlos Flores": ["algo.rs"],
+    "Carlos Flores": ["avance3CarlosFlores.rs"],
     "Nicolas Sierra": ["avance2NicolasSierra.rs"],
     "Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
 }

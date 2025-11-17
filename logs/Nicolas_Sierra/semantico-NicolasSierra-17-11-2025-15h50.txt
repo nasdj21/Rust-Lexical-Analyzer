@@ -1,0 +1,13 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  edades: mutable, initialized
+  id: mutable, initialized
+  valor: immutable, initialized
+  x: immutable, initialized
