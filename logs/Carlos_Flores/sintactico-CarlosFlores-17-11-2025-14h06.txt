@@ -1,0 +1,5 @@
+===== Syntactic Analysis (17-11-2025 - 14h06) =====
+
+=== File: algo.rs ===
+✅ No syntax errors.
+

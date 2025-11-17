@@ -1,0 +1,10 @@
+===== Syntactic Analysis (17-11-2025 - 13h16) =====
+
+=== File: algo.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '|' (line 1)
+   - [ERROR] Invalid syntax at '|' (line 2)
+   - [ERROR] Invalid syntax at '}' (line 4)
+   - [ERROR] Invalid syntax at '|' (line 6)
+   - [ERROR] Invalid syntax at '||' (line 8)
+

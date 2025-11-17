@@ -1,0 +1,6 @@
+===== Syntactic Analysis (17-11-2025 - 14h09) =====
+
+=== File: algo.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '(' (line 15)
+

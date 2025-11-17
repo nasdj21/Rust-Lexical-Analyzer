@@ -1,0 +1,8 @@
+===== Syntactic Analysis (17-11-2025 - 12h12) =====
+
+=== File: algoritmoVariables.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at ',' (line 9)
+   - [ERROR] Invalid syntax at ',' (line 13)
+   - [ERROR] Invalid syntax at ',' (line 17)
+

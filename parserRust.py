@@ -2,12 +2,13 @@
 # println, entrada por teclado tipo io::stdin().read_line(...),
 # expresiones aritméticas y lógicas, let/let mut (con o sin tipo e init),
 # arrays, vec![], indexación, slices, cast, referencias (& y &mut),
-# funciones (con/sin retorno) y return.
+# funciones (con/sin retorno), return y CLOSURES/LAMBDAS.
 
 import argparse
 import datetime
 from pathlib import Path
 import ply.yacc as yacc
+import os
 
 # Traigo el lexer del Avance 1
 import rustAnalizer
@@ -27,13 +28,13 @@ precedence = (
     ('right', 'AS'),                                 # cast: expr as TYPE
 )
 
-ERRORES = []  # acumulo errores de parseo
+ERRORS = []  # acumulo errores de parseo
 
 # ---------------- Programa ----------------
 
 def p_program(p):
-    '''program : program sentencia
-               | sentencia'''
+    '''program : program statement
+               | statement'''
     p[0] = p[1] + [p[2]] if len(p) == 3 else [p[1]]
 
 def p_program_opt(p):
@@ -48,18 +49,22 @@ def p_empty(p):
 # ---------------- Impresión ----------------
 # println!("texto");
 def p_println_string(p):
-    'sentencia : PRINTLN NOT LPAREN STRING RPAREN SEMICOLON'
+    'statement : PRINTLN NOT LPAREN STRING RPAREN SEMICOLON'
     p[0] = ("println", p[4])
 
 # println!(expr);
 def p_println_expr(p):
-    'sentencia : PRINTLN NOT LPAREN expresion RPAREN SEMICOLON'
+    'statement : PRINTLN NOT LPAREN expression RPAREN SEMICOLON'
     p[0] = ("println_expr", p[4])
+
+def p_println_format(p):
+    '''statement : PRINTLN NOT LPAREN STRING COMMA argument_list RPAREN SEMICOLON'''    
+    p[0] = ("println_format", p[4], p[6])
 
 # ---------------- HashMap ----------------
 #Avance de hashmaps por Nicolás Sierra
 def p_hashmap_insert(p):
-    'expresion : expresion DOT IDENTIFIER LPAREN expresion COMMA expresion RPAREN'
+    'expression : expression DOT IDENTIFIER LPAREN expression COMMA expression RPAREN'
 
     if p[3] == 'insert':
         p[0] = ("hashmap_insert", p[1], p[5], p[7])
@@ -67,7 +72,7 @@ def p_hashmap_insert(p):
         p[0] = ("call", p[1], p[3], [p[5], p[7]])
 
 def p_hashmap_get(p):
-    'expresion : expresion DOT IDENTIFIER LPAREN expresion RPAREN'
+    'expression : expression DOT IDENTIFIER LPAREN expression RPAREN'
     if p[3] == 'get':
         p[0] = ("hashmap_get", p[1], p[5])
     else:
@@ -77,7 +82,7 @@ def p_hashmap_get(p):
 # Acepto algo tipo: io::stdin().read_line(&mut nombre);
 # Primero la llamada de path con ::
 def p_path_call_noargs(p):
-    'expresion : IDENTIFIER DOUBLE_COLON IDENTIFIER LPAREN RPAREN'
+    'expression : IDENTIFIER DOUBLE_COLON IDENTIFIER LPAREN RPAREN'
     
     if p[1] == 'HashMap' and p[3] == 'new':
         #HashMap::new() 
@@ -87,129 +92,177 @@ def p_path_call_noargs(p):
         p[0] = ("path_call", p[1], p[3], [])
 
 def p_expr_stmt(p):
-    'sentencia : expresion SEMICOLON'
+    'statement : expression SEMICOLON'
     p[0] = ("expr_stmt", p[1])
-
-
 
 # Luego método encadenado con o sin argumentos: expr.metodo(args)
 def p_call_method(p):
-    'expresion : expresion DOT IDENTIFIER LPAREN argumentos_opt RPAREN'
+    'expression : expression DOT IDENTIFIER LPAREN arguments_opt RPAREN'
     p[0] = ("call", p[1], p[3], p[5])
 
-def p_argumentos_opt(p):
-    '''argumentos_opt : lista_argumentos
+def p_arguments_opt(p):
+    '''arguments_opt : argument_list
                       | empty'''
     p[0] = p[1] if p[1] is not None else []
 
-def p_lista_argumentos(p):
-    '''lista_argumentos : lista_argumentos COMMA expresion
-                        | expresion'''
+def p_argument_list(p):
+    '''argument_list : argument_list COMMA expression
+                        | expression'''
     p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
-# ---------------- Expresiones ----------------
+# ---------------- CLOSURES/LAMBDAS (CORREGIDO) ----------------
 
-def p_exp_paren(p):
-    'expresion : LPAREN expresion RPAREN'
+# Parámetros del closure
+def p_closure_params_empty(p):
+    'closure_params : '
+    p[0] = []
+
+def p_closure_params_single(p):
+    'closure_params : IDENTIFIER'
+    p[0] = [("param", p[1], None)]
+
+def p_closure_params_single_typed(p):
+    'closure_params : IDENTIFIER COLON type'
+    p[0] = [("param", p[1], p[3])]
+
+def p_closure_params_multiple(p):
+    'closure_params : IDENTIFIER COMMA closure_params'
+    p[0] = [("param", p[1], None)] + p[3]
+
+def p_closure_params_multiple_typed(p):
+    'closure_params : IDENTIFIER COLON type COMMA closure_params'
+    p[0] = [("param", p[1], p[3])] + p[5]
+
+# Cuerpo del closure: expresión simple (sin llaves)
+def p_closure_body_expr(p):
+    'closure_body : expression'
+    p[0] = ("expr_body", p[1])
+
+# Cuerpo del closure: bloque { expr } o { statements; expr }
+def p_closure_body_block(p):
+    'closure_body : LBRACE closure_block_content RBRACE'
     p[0] = p[2]
 
-def p_exp_binaria(p):
-    '''expresion : expresion PLUS expresion
-                 | expresion MINUS expresion
-                 | expresion TIMES expresion
-                 | expresion DIVIDE expresion
-                 | expresion MOD expresion'''
+# Contenido del bloque: puede ser solo expresión o statements + expresión
+def p_closure_block_content_expr(p):
+    'closure_block_content : expression'
+    p[0] = ("block_body", [], p[1])  # sin statements previos
+
+def p_closure_block_content_stmts_expr(p):
+    'closure_block_content : program expression'
+    p[0] = ("block_body", p[1], p[2])  # con statements previos
+
+def p_closure_block_content_stmts(p):
+    'closure_block_content : program_opt'
+    p[0] = ("block_body", p[1], None)  # solo statements, sin expresión final
+
+# Closure SIN tipo de retorno
+def p_expression_closure(p):
+    'expression : CLOSURE_PIPE closure_params CLOSURE_PIPE closure_body'
+    p[0] = ("closure", p[2], None, p[4])
+
+# Closure CON tipo de retorno
+def p_expression_closure_ret(p):
+    'expression : CLOSURE_PIPE closure_params CLOSURE_PIPE ARROW type closure_body'
+    p[0] = ("closure", p[2], p[5], p[6])
+
+# ---------------- Expresiones ----------------
+def p_exp_paren(p):
+    'expression : LPAREN expression RPAREN'
+    p[0] = p[2]
+
+def p_exp_binary(p):
+    '''expression : expression PLUS expression
+                 | expression MINUS expression
+                 | expression TIMES expression
+                 | expression DIVIDE expression
+                 | expression MOD expression'''
     p[0] = ("op", p[2], p[1], p[3])
 
-def p_exp_unaria_not(p):
-    'expresion : NOT expresion'
+def p_exp_unary_not(p):
+    'expression : NOT expression'
     p[0] = ("not", p[2])
 
 def p_exp_literal_num(p):
-    '''expresion : INTEGER
+    '''expression : INTEGER
                  | FLOAT'''
     p[0] = ("num", p[1])
 
 def p_exp_literal_str_char_bool(p):
-    '''expresion : STRING
+    '''expression : STRING
                  | CHAR
                  | BOOLEAN'''
     p[0] = ("lit", p[1])
 
 def p_exp_ident(p):
-    'expresion : IDENTIFIER'
+    'expression : IDENTIFIER'
     p[0] = ("id", p[1])
 
 # &expr
-def p_ref_unario(p):
-    'expresion : BIT_AND expresion'
+def p_ref_unary(p):
+    'expression : BIT_AND expression'
     p[0] = ("ref", p[2])
 
 # &mut nombre
 def p_ref_mut_ident(p):
-    'expresion : BIT_AND MUT IDENTIFIER'
+    'expression : BIT_AND MUT IDENTIFIER'
     p[0] = ("ref_mut", ("id", p[3]))
 
 # cast: expr as TYPE
 def p_cast_as(p):
-    'expresion : expresion AS tipo'
+    'expression : expression AS type'
     p[0] = ("cast", p[1], p[3])
 
 # ---------------- Condiciones ----------------
 def p_cond_rel(p):
-    '''condicion : expresion EQUAL_TO expresion
-                 | expresion NOT_EQUAL expresion
-                 | expresion LESS_THAN expresion
-                 | expresion GREATER_THAN expresion
-                 | expresion LESS_THAN_OR_EQUAL_TO expresion
-                 | expresion GREATER_THAN_OR_EQUAL_TO expresion'''
+    '''condition : expression EQUAL_TO expression
+                 | expression NOT_EQUAL expression
+                 | expression LESS_THAN expression
+                 | expression GREATER_THAN expression
+                 | expression LESS_THAN_OR_EQUAL_TO expression
+                 | expression GREATER_THAN_OR_EQUAL_TO expression'''
     p[0] = ("rel", p[2], p[1], p[3])
 
-def p_cond_logica_bin(p):
-    '''condicion : condicion CONJUNCTION condicion
-                 | condicion DISJUNCTION condicion'''
+def p_cond_logic_bin(p):
+    '''condition : condition CONJUNCTION condition
+                 | condition DISJUNCTION condition'''
     p[0] = ("logic", p[2], p[1], p[3])
 
-def p_cond_logica_not(p):
-    'condicion : NOT condicion'
+def p_cond_logic_not(p):
+    'condition : NOT condition'
     p[0] = ("not", p[2])
 
-def p_cond_parentesis(p):
-    'condicion : LPAREN condicion RPAREN'
+def p_cond_parenthesis(p):
+    'condition : LPAREN condition RPAREN'
     p[0] = p[2]
 
 # if simple para pruebas
 def p_if_simple(p):
-    'sentencia : IF condicion LBRACE program_opt RBRACE'
+    'statement : IF condition LBRACE program_opt RBRACE'
     p[0] = ("if", p[2], p[4])
 
-#Inicio 2do Avance Nicolás Sierra
 # Asignación simple: identificador = expresión;
-def p_asignacion(p):
-    'sentencia : IDENTIFIER ASIGNED_TO expresion SEMICOLON'
-    p[0] = ("asignacion", p[1], p[3])
+def p_assignment(p):
+    'statement : IDENTIFIER ASIGNED_TO expression SEMICOLON'
+    p[0] = ("assignment", p[1], p[3])
 
 # ---------------- Bucle while ----------------
-# while(CONDICION){Operacion}
 def p_while(p):
-    'sentencia : WHILE condicion LBRACE program_opt RBRACE'
+    'statement : WHILE condition LBRACE program_opt RBRACE'
     p[0] = ("while", p[2], p[4])
 
-
 # ---------------- Funciones async ----------------
-def p_funcion_con_retorno_async(p):
-    'sentencia : ASYNC FN nombre_fn LPAREN RPAREN ARROW tipo LBRACE program_opt RBRACE'
+def p_function_with_return_async(p):
+    'statement : ASYNC FN function_name LPAREN RPAREN ARROW type LBRACE program_opt RBRACE'
     p[0] = ("async_fn_ret", p[3], p[7], p[9])
 
-def p_funcion_sin_retorno_async(p):
-    'sentencia : ASYNC FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE'
+def p_function_without_return_async(p):
+    'statement : ASYNC FN function_name LPAREN RPAREN LBRACE program_opt RBRACE'
     p[0] = ("async_fn", p[3], p[7])
-# Fin 2do avance Nicolas Sierra
 
 # ---------------- Tipos (anotaciones) ----------------
-# Regla base: acepta cualquiera de los tipos definidos en el lexer
-def p_tipo_base(p):
-    '''tipo : TYPE_I32
+def p_type_base(p):
+    '''type : TYPE_I32
             | TYPE_U64
             | TYPE_F64
             | TYPE_CHAR
@@ -218,40 +271,32 @@ def p_tipo_base(p):
             | TYPE_TUPLE'''
     p[0] = ("type", p[1])
 
-# Arreglo/slice anidado: [T]  (permite [i32], [[i32]], etc.)
-def p_tipo_array_rec(p):
-    'tipo : LBRACKET tipo RBRACKET'
+# Arreglo/slice anidado: [T]
+def p_type_array_rec(p):
+    'type : LBRACKET type RBRACKET'
     p[0] = ("type_array", p[2])
 
 # Referencia: &T
-def p_tipo_ref_rec(p):
-    'tipo : BIT_AND tipo'
+def p_type_ref_rec(p):
+    'type : BIT_AND type'
     p[0] = ("type_ref", p[2])
 
 # Referencia mutable: &mut T
-def p_tipo_ref_mut_rec(p):
-    'tipo : BIT_AND MUT tipo'
+def p_type_ref_mut_rec(p):
+    'type : BIT_AND MUT type'
     p[0] = ("type_ref_mut", p[3])
 
 # ---------------- Declaraciones let ----------------
-# Lo manejo con una regla general para soportar:
-# let x;
-# let x = expr;
-# let x: T;
-# let x: T = expr;
-# let mut x = expr;
-# let mut x: T = expr;
-
-def p_sentencia_let(p):
-    'sentencia : let_decl'
+def p_statement_let(p):
+    'statement : let_decl'
     p[0] = p[1]
 
 def p_let_decl(p):
     'let_decl : LET maybe_mut IDENTIFIER maybe_type maybe_init SEMICOLON'
     ident = p[3]
     is_mut = p[2] is not None
-    tipe   = p[4]           # None o ("type", ...)
-    init   = p[5]           # None o ("init", expr)
+    tipe   = p[4]
+    init   = p[5]
 
     if tipe and init:
         p[0] = ("let_mut_typed_assign", ident, tipe, init[1]) if is_mut else ("let_typed_assign", ident, tipe, init[1])
@@ -268,202 +313,187 @@ def p_maybe_mut(p):
     p[0] = p[1] if p[1] is not None else None
 
 def p_maybe_type(p):
-    '''maybe_type : COLON tipo
+    '''maybe_type : COLON type
                   | empty'''
     p[0] = p[2] if len(p) == 3 else None
 
 def p_maybe_init(p):
-    '''maybe_init : ASIGNED_TO expresion
+    '''maybe_init : ASIGNED_TO expression
                   | empty'''
     p[0] = ("init", p[2]) if len(p) == 3 else None
 
 # ---------------- Arrays / vectores / slices ----------------
-
-def p_lista_elementos(p):
-    '''lista_elementos : lista_elementos COMMA expresion
-                       | expresion'''
+def p_element_list(p):
+    '''element_list : element_list COMMA expression
+                       | expression'''
     p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
 def p_array_literal(p):
-    'expresion : LBRACKET lista_elementos RBRACKET'
+    'expression : LBRACKET element_list RBRACKET'
     p[0] = ("array", p[2])
 
 def p_array_repeat(p):
-    'expresion : LBRACKET expresion SEMICOLON INTEGER RBRACKET'
+    'expression : LBRACKET expression SEMICOLON INTEGER RBRACKET'
     p[0] = ("array_repeat", p[2], p[4])
 
 def p_index(p):
-    'expresion : IDENTIFIER LBRACKET expresion RBRACKET'
+    'expression : IDENTIFIER LBRACKET expression RBRACKET'
     p[0] = ("index", ("id", p[1]), p[3])
 
 def p_slice_open(p):
-    'expresion : IDENTIFIER LBRACKET INTEGER RANGE INTEGER RBRACKET'
+    'expression : IDENTIFIER LBRACKET INTEGER RANGE INTEGER RBRACKET'
     p[0] = ("slice", ("id", p[1]), p[3], p[5], False)
 
 def p_slice_inclusive(p):
-    'expresion : IDENTIFIER LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET'
+    'expression : IDENTIFIER LBRACKET INTEGER RANGE_INCLUSIVE INTEGER RBRACKET'
     p[0] = ("slice", ("id", p[1]), p[3], p[5], True)
 
 def p_vec_macro(p):
-    'expresion : IDENTIFIER NOT LBRACKET lista_elementos RBRACKET'
-    # ej: vec![1,2,3]
+    'expression : IDENTIFIER NOT LBRACKET element_list RBRACKET'
     p[0] = ("vec_macro", p[1], p[4])
 
-# 2do Avance Carlos Flores
 # ---------------- Declaraciones const ----------------
-# const NOMBRE: TIPO = expresion;
-
-def p_sentencia_const(p):
-    'sentencia : const_decl'
+def p_statement_const(p):
+    'statement : const_decl'
     p[0] = p[1]
 
 def p_const_decl(p):
-    '''const_decl : CONST IDENTIFIER COLON tipo ASIGNED_TO expresion SEMICOLON'''
+    '''const_decl : CONST IDENTIFIER COLON type ASIGNED_TO expression SEMICOLON'''
     p[0] = ("const_decl", p[2], p[4], p[6])
 
 # ---------------- Tuplas ----------------
-# Tipo de tupla: (i32, f64, bool)
-def p_tipo_tupla(p):
-    '''tipo : LPAREN lista_tipos_tupla RPAREN'''
+def p_type_tuple(p):
+    '''type : LPAREN tuple_type_list RPAREN'''
     p[0] = ("type_tuple", p[2])
 
-def p_lista_tipos_tupla(p):
-    '''lista_tipos_tupla : tipo
-                         | tipo COMMA lista_tipos_tupla'''
+def p_tuple_type_list(p):
+    '''tuple_type_list : type
+                         | type COMMA tuple_type_list'''
     if len(p) == 2:
         p[0] = [p[1]]
     else:
         p[0] = [p[1]] + p[3]
 
-
-# Valor literal de tupla: (5, 3.14, true)
-def p_exp_tupla_literal(p):
-    '''expresion : LPAREN lista_valores_tupla RPAREN'''
+def p_exp_tuple_literal(p):
+    '''expression : LPAREN tuple_value_list RPAREN'''
     p[0] = ("tuple_literal", p[2])
 
-def p_lista_valores_tupla(p):
-    '''lista_valores_tupla : expresion
-                           | expresion COMMA lista_valores_tupla'''
+def p_tuple_value_list(p):
+    '''tuple_value_list : expression
+                           | expression COMMA tuple_value_list'''
     if len(p) == 2:
         p[0] = [p[1]]
     else:
         p[0] = [p[1]] + p[3]
 
-
-# Acceso a elemento de tupla: mi_tupla.0
-def p_exp_acceso_tupla(p):
-    '''expresion : expresion DOT INTEGER'''
+def p_exp_tuple_access(p):
+    '''expression : expression DOT INTEGER'''
     p[0] = ("tuple_access", ("id", p[1]), p[3])
 
-# Fin 2do Avance Carlos Flores
-
-
+# ---------------- Bucle for ----------------
+def p_for_loop(p):
+    'statement : FOR IDENTIFIER IN expression LBRACE program_opt RBRACE'
+    p[0] = ("for", p[2], p[4], p[6])
 
 # ---------------- Funciones y return ----------------
-
-# opcional "pub" antes de fn: lo dejo genérico como IDENTIFIER para no complicar
 def p_maybe_pub(p):
     '''maybe_pub : IDENTIFIER
                  | empty'''
     p[0] = p[1] if p[1] is not None else None
 
-# nombre de función: main o IDENTIFIER cualquiera
-def p_nombre_fn_ident(p):
-    'nombre_fn : IDENTIFIER'
+def p_function_name_ident(p):
+    'function_name : IDENTIFIER'
     p[0] = p[1]
 
-def p_nombre_fn_main(p):
-    'nombre_fn : MAIN'
+def p_function_name_main(p):
+    'function_name : MAIN'
     p[0] = p[1]
 
-# fn con retorno: fn nombre() -> T { ... }
-def p_funcion_con_retorno(p):
-    'sentencia : maybe_pub FN nombre_fn LPAREN RPAREN ARROW tipo LBRACE program_opt RBRACE'
+def p_function_with_return(p):
+    'statement : maybe_pub FN function_name LPAREN RPAREN ARROW type LBRACE program_opt RBRACE'
     p[0] = ("fn_ret", p[3], p[7], p[9])
 
-# fn sin retorno: fn nombre() { ... }
-def p_funcion_sin_retorno(p):
-    'sentencia : maybe_pub FN nombre_fn LPAREN RPAREN LBRACE program_opt RBRACE'
+def p_function_without_return(p):
+    'statement : maybe_pub FN function_name LPAREN RPAREN LBRACE program_opt RBRACE'
     p[0] = ("fn", p[3], p[7])
 
 def p_return(p):
-    'sentencia : RETURN expresion SEMICOLON'
+    'statement : RETURN expression SEMICOLON'
     p[0] = ("return", p[2])
-    
+
+def p_function_call(p):
+    'expression : IDENTIFIER LPAREN arguments_opt RPAREN'
+    p[0] = ("fn_call", p[1], p[3])
 
 # ---------------- Errores ----------------
-
 def p_error(tok):
     if tok:
-        msg = f"[ERROR] Sintaxis inválida en '{tok.value}' (línea {tok.lineno})"
+        msg = f"[ERROR] Invalid syntax at '{tok.value}' (line {tok.lineno})"
     else:
-        msg = "[ERROR] Fin de archivo inesperado"
+        msg = "[ERROR] Unexpected end of file"
     print(msg)
-    ERRORES.append(msg)
+    ERRORS.append(msg)
 
 # Construyo el parser
 parser = yacc.yacc(start='program')
 
 # ---------------- Runner + logs ----------------
-import os
-
-# Diccionario de archivos por usuario
-archivos = {
-    "Carlos Flores": ["algoritmoVariables.rs"],
+files = {
+    "Carlos Flores": ["algo.rs"],
     "Nicolas Sierra": ["avance2NicolasSierra.rs"],
     "Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
 }
 
-def analizar():
-    ahora = datetime.datetime.now()
-    fecha = ahora.strftime("%d-%m-%Y")
-    hora = ahora.strftime("%Hh%M")
+def analyze():
+    now = datetime.datetime.now()
+    date = now.strftime("%d-%m-%Y")
+    time = now.strftime("%Hh%M")
 
-    # Recorre los archivos de cada persona
-    for name, lista_archivos in archivos.items():
-        carpeta = f"./logs/{name.replace(' ', '_')}"
-        os.makedirs(carpeta, exist_ok=True)
+    for name, file_list in files.items():
+        folder = f"./logs/{name.replace(' ', '_')}"
+        os.makedirs(folder, exist_ok=True)
 
-        nombre_log = f"{carpeta}/sintactico-{name.replace(' ', '')}-{fecha}-{hora}.txt"
-        with open(nombre_log, "w", encoding="utf-8") as log:
-            log.write(f"===== Análisis Sintáctico ({fecha} - {hora}) =====\n\n")
+        log_name = f"{folder}/sintactico-{name.replace(' ', '')}-{date}-{time}.txt"
+        with open(log_name, "w", encoding="utf-8") as log:
+            log.write(f"===== Syntactic Analysis ({date} - {time}) =====\n\n")
 
-            for archivo in lista_archivos:
-                if not os.path.exists(archivo):
-                    alerta = f"⚠️ ALERTA: El archivo '{archivo}' no existe.\n"
-                    print(alerta.strip())
-                    log.write(alerta + "\n")
+            for file in file_list:
+                if not os.path.exists(file):
+                    alert = f"⚠️ ALERT: The file '{file}' does not exist.\n"
+                    print(alert.strip())
+                    log.write(alert + "\n")
                     continue
 
-                with open(archivo, "r", encoding="utf-8") as file:
-                    data = file.read()
+                with open(file, "r", encoding="utf-8") as f:
+                    data = f.read()
 
-                print(f"\n📂 Analizando archivo: {archivo}")
-                log.write(f"=== Archivo: {archivo} ===\n")
+                print(f"\n📂 Analyzing file: {file}")
+                log.write(f"=== File: {file} ===\n")
 
-                # Reinicia errores por archivo
-                ERRORES.clear()
+                ERRORS.clear()
                 lexer.lineno = 1
 
                 try:
                     result = parser.parse(data, lexer=lexer)
-                    if ERRORES:
-                        log.write("❌ Errores sintácticos encontrados:\n")
-                        for e in ERRORES:
+                    if ERRORS:
+                        log.write("❌ Syntax errors found:\n")
+                        for e in ERRORS:
                             log.write(f"   - {e}\n")
-                        print(f"❌ Errores sintácticos en {archivo}")
+                        print(f"❌ Syntax errors in {file}")
                     else:
-                        log.write("✅ Sin errores sintácticos.\n")
-                        print(f"✅ {archivo} analizado correctamente.")
+                        log.write("✅ No syntax errors.\n")
+                        print(f"✅ {file} analyzed successfully.")
+                        # Opcional: imprimir el AST
+                        # log.write(f"\nAST: {result}\n")
                 except Exception as e:
-                    error_msg = f"🔥 Error crítico al analizar {archivo}: {e}\n"
+                    error_msg = f"🔥 Critical error analyzing {file}: {e}\n"
                     print(error_msg.strip())
                     log.write(error_msg)
 
                 log.write("\n")
 
-        print(f"📝 Log generado en: {nombre_log}\n")
+        print(f"📄 Log generated at: {log_name}\n")
 
 
 if __name__ == "__main__":
-    analizar()
+    analyze()

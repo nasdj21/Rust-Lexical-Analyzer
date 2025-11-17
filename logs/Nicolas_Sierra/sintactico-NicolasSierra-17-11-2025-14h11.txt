@@ -1,0 +1,5 @@
+===== Syntactic Analysis (17-11-2025 - 14h11) =====
+
+=== File: avance2NicolasSierra.rs ===
+✅ No syntax errors.
+

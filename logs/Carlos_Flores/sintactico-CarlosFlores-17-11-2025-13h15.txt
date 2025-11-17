@@ -1,0 +1,13 @@
+===== Syntactic Analysis (17-11-2025 - 13h15) =====
+
+=== File: algoritmoVariables.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '|' (line 20)
+   - [ERROR] Invalid syntax at '(' (line 21)
+   - [ERROR] Invalid syntax at '}' (line 25)
+   - [ERROR] Invalid syntax at '|' (line 27)
+   - [ERROR] Invalid syntax at '|' (line 29)
+   - [ERROR] Invalid syntax at '}' (line 32)
+   - [ERROR] Invalid syntax at '|' (line 35)
+   - [ERROR] Invalid syntax at '(' (line 37)
+

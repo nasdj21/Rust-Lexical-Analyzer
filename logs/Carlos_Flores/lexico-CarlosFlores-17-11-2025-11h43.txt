@@ -1,0 +1,62 @@
+
+Line 1: let edad: i32 = 25;
+[TOKEN] Type: LET             | Value: let             | Line: 1   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: edad            | Line: 1   | Position: 4
+[TOKEN] Type: COLON           | Value: :               | Line: 1   | Position: 8
+[TOKEN] Type: TYPE_I32        | Value: i32             | Line: 1   | Position: 10
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 1   | Position: 14
+[TOKEN] Type: INTEGER         | Value: 25              | Line: 1   | Position: 16
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 1   | Position: 18
+
+Line 2: let mut nombre: String = "Carlos";
+[TOKEN] Type: LET             | Value: let             | Line: 2   | Position: 0
+[TOKEN] Type: MUT             | Value: mut             | Line: 2   | Position: 4
+[TOKEN] Type: IDENTIFIER      | Value: nombre          | Line: 2   | Position: 8
+[TOKEN] Type: COLON           | Value: :               | Line: 2   | Position: 14
+[TOKEN] Type: TYPE_STRING     | Value: String          | Line: 2   | Position: 16
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 2   | Position: 23
+[TOKEN] Type: STRING          | Value: Carlos          | Line: 2   | Position: 25
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 2   | Position: 33
+
+Line 3: const PI: f64 = 3.14159;
+[TOKEN] Type: CONST           | Value: const           | Line: 3   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: PI              | Line: 3   | Position: 6
+[TOKEN] Type: COLON           | Value: :               | Line: 3   | Position: 8
+[TOKEN] Type: TYPE_F64        | Value: f64             | Line: 3   | Position: 10
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 3   | Position: 14
+[TOKEN] Type: FLOAT           | Value: 3.14159         | Line: 3   | Position: 16
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 3   | Position: 23
+
+Line 4: let activo: bool = true;
+[TOKEN] Type: LET             | Value: let             | Line: 4   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: activo          | Line: 4   | Position: 4
+[TOKEN] Type: COLON           | Value: :               | Line: 4   | Position: 10
+[TOKEN] Type: TYPE_BOOL       | Value: bool            | Line: 4   | Position: 12
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 4   | Position: 17
+[TOKEN] Type: BOOLEAN         | Value: true            | Line: 4   | Position: 19
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 4   | Position: 23
+
+Line 5: let mut tupla = (10, 3.14, true, 'A');
+[TOKEN] Type: LET             | Value: let             | Line: 5   | Position: 0
+[TOKEN] Type: MUT             | Value: mut             | Line: 5   | Position: 4
+[TOKEN] Type: IDENTIFIER      | Value: tupla           | Line: 5   | Position: 8
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 5   | Position: 14
+[TOKEN] Type: LPAREN          | Value: (               | Line: 5   | Position: 16
+[TOKEN] Type: INTEGER         | Value: 10              | Line: 5   | Position: 17
+[TOKEN] Type: COMMA           | Value: ,               | Line: 5   | Position: 19
+[TOKEN] Type: FLOAT           | Value: 3.14            | Line: 5   | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 5   | Position: 25
+[TOKEN] Type: BOOLEAN         | Value: true            | Line: 5   | Position: 27
+[TOKEN] Type: COMMA           | Value: ,               | Line: 5   | Position: 31
+[TOKEN] Type: CHAR            | Value: A               | Line: 5   | Position: 33
+[TOKEN] Type: RPAREN          | Value: )               | Line: 5   | Position: 36
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 5   | Position: 37
+
+Line 6: let letra: char = 'A';
+[TOKEN] Type: LET             | Value: let             | Line: 6   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: letra           | Line: 6   | Position: 4
+[TOKEN] Type: COLON           | Value: :               | Line: 6   | Position: 9
+[TOKEN] Type: TYPE_CHAR       | Value: char            | Line: 6   | Position: 11
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 6   | Position: 16
+[TOKEN] Type: CHAR            | Value: A               | Line: 6   | Position: 18
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 6   | Position: 21

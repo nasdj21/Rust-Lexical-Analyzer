@@ -1,0 +1,11 @@
+===== Syntactic Analysis (17-11-2025 - 14h13) =====
+
+=== File: algo.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '/' (line 20)
+   - [ERROR] Invalid syntax at '/' (line 23)
+   - [ERROR] Invalid syntax at '/' (line 26)
+   - [ERROR] Invalid syntax at '/' (line 29)
+   - [ERROR] Invalid syntax at '/' (line 33)
+   - [ERROR] Invalid syntax at '/' (line 36)
+

@@ -1,0 +1,5 @@
+===== Syntactic Analysis (17-11-2025 - 14h00) =====
+
+=== File: algoritmoVectoresArreglos.rs ===
+✅ No syntax errors.
+

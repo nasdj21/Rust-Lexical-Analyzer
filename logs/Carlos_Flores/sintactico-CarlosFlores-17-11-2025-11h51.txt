@@ -1,0 +1,5 @@
+===== Syntactic Analysis (17-11-2025 - 11h51) =====
+
+=== File: algoritmoVariables.rs ===
+✅ No syntax errors.
+

@@ -1,0 +1,5 @@
+===== Análisis Sintáctico (17-11-2025 - 11h21) =====
+
+=== Archivo: algoritmoVectoresArreglos.rs ===
+✅ Sin errores sintácticos.
+

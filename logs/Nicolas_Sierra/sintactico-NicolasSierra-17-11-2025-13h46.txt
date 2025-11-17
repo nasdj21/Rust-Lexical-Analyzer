@@ -1,0 +1,9 @@
+===== Syntactic Analysis (17-11-2025 - 13h46) =====
+
+=== File: avance2NicolasSierra.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at 'insert' (line 4)
+   - [ERROR] Invalid syntax at 'insert' (line 5)
+   - [ERROR] Invalid syntax at 'get' (line 10)
+   - [ERROR] Invalid syntax at '}' (line 13)
+

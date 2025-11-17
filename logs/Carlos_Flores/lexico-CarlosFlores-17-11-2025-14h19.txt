@@ -1,0 +1,420 @@
+
+Line 1: let suma = |a, b| a + b;
+[TOKEN] Type: LET             | Value: let             | Line: 1   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 1   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 1   | Position: 9
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 1   | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 1   | Position: 12
+[TOKEN] Type: COMMA           | Value: ,               | Line: 1   | Position: 13
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 1   | Position: 15
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 1   | Position: 16
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 1   | Position: 18
+[TOKEN] Type: PLUS            | Value: +               | Line: 1   | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 1   | Position: 22
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 1   | Position: 23
+
+Line 2: let resultado = suma(3, 5);
+[TOKEN] Type: LET             | Value: let             | Line: 2   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 2   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 2   | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 2   | Position: 16
+[TOKEN] Type: LPAREN          | Value: (               | Line: 2   | Position: 20
+[TOKEN] Type: INTEGER         | Value: 3               | Line: 2   | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 2   | Position: 22
+[TOKEN] Type: INTEGER         | Value: 5               | Line: 2   | Position: 24
+[TOKEN] Type: RPAREN          | Value: )               | Line: 2   | Position: 25
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 2   | Position: 26
+
+Line 3: let valor = obtener_numero();
+[TOKEN] Type: LET             | Value: let             | Line: 3   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: valor           | Line: 3   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 3   | Position: 10
+[TOKEN] Type: IDENTIFIER      | Value: obtener_numero  | Line: 3   | Position: 12
+[TOKEN] Type: LPAREN          | Value: (               | Line: 3   | Position: 26
+[TOKEN] Type: RPAREN          | Value: )               | Line: 3   | Position: 27
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 3   | Position: 28
+
+Line 4: let total = calcular(10, resultado);
+[TOKEN] Type: LET             | Value: let             | Line: 4   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: total           | Line: 4   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 4   | Position: 10
+[TOKEN] Type: IDENTIFIER      | Value: calcular        | Line: 4   | Position: 12
+[TOKEN] Type: LPAREN          | Value: (               | Line: 4   | Position: 20
+[TOKEN] Type: INTEGER         | Value: 10              | Line: 4   | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 4   | Position: 23
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 4   | Position: 25
+[TOKEN] Type: RPAREN          | Value: )               | Line: 4   | Position: 34
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 4   | Position: 35
+
+Line 5: let suma = |a, b| a + b;
+[TOKEN] Type: LET             | Value: let             | Line: 5   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 5   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 5   | Position: 9
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 5   | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 5   | Position: 12
+[TOKEN] Type: COMMA           | Value: ,               | Line: 5   | Position: 13
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 5   | Position: 15
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 5   | Position: 16
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 5   | Position: 18
+[TOKEN] Type: PLUS            | Value: +               | Line: 5   | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 5   | Position: 22
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 5   | Position: 23
+
+Line 6: let multiplicar = |x, y| -> i32 { x * y };
+[TOKEN] Type: LET             | Value: let             | Line: 6   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: multiplicar     | Line: 6   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 6   | Position: 16
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 6   | Position: 18
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 6   | Position: 19
+[TOKEN] Type: COMMA           | Value: ,               | Line: 6   | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 6   | Position: 22
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 6   | Position: 23
+[TOKEN] Type: ARROW           | Value: ->              | Line: 6   | Position: 25
+[TOKEN] Type: TYPE_I32        | Value: i32             | Line: 6   | Position: 28
+[TOKEN] Type: LBRACE          | Value: {               | Line: 6   | Position: 32
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 6   | Position: 34
+[TOKEN] Type: TIMES           | Value: *               | Line: 6   | Position: 36
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 6   | Position: 38
+[TOKEN] Type: RBRACE          | Value: }               | Line: 6   | Position: 40
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 6   | Position: 41
+
+Line 7: let multiplicar = |x, y| -> i32 {
+[TOKEN] Type: LET             | Value: let             | Line: 7   | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: multiplicar     | Line: 7   | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 7   | Position: 16
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 7   | Position: 18
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 7   | Position: 19
+[TOKEN] Type: COMMA           | Value: ,               | Line: 7   | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 7   | Position: 22
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 7   | Position: 23
+[TOKEN] Type: ARROW           | Value: ->              | Line: 7   | Position: 25
+[TOKEN] Type: TYPE_I32        | Value: i32             | Line: 7   | Position: 28
+[TOKEN] Type: LBRACE          | Value: {               | Line: 7   | Position: 32
+
+Line 8: x * y
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 8   | Position: 4
+[TOKEN] Type: TIMES           | Value: *               | Line: 8   | Position: 6
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 8   | Position: 8
+
+Line 9: };
+[TOKEN] Type: RBRACE          | Value: }               | Line: 9   | Position: 0
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 9   | Position: 1
+
+Line 10: let aplicar = |x| x * factor;
+[TOKEN] Type: LET             | Value: let             | Line: 10  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: aplicar         | Line: 10  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 10  | Position: 12
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 10  | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 10  | Position: 15
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 10  | Position: 16
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 10  | Position: 18
+[TOKEN] Type: TIMES           | Value: *               | Line: 10  | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: factor          | Line: 10  | Position: 22
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 10  | Position: 28
+
+Line 11: let foo = || 10;
+[TOKEN] Type: LET             | Value: let             | Line: 11  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: foo             | Line: 11  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 11  | Position: 8
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 11  | Position: 10
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 11  | Position: 11
+[TOKEN] Type: INTEGER         | Value: 10              | Line: 11  | Position: 13
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 11  | Position: 15
+
+Line 12: println!("Hola Mundo!");
+[TOKEN] Type: PRINTLN         | Value: println         | Line: 12  | Position: 0
+[TOKEN] Type: NOT             | Value: !               | Line: 12  | Position: 7
+[TOKEN] Type: LPAREN          | Value: (               | Line: 12  | Position: 8
+[TOKEN] Type: STRING          | Value: Hola Mundo!     | Line: 12  | Position: 9
+[TOKEN] Type: RPAREN          | Value: )               | Line: 12  | Position: 22
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 12  | Position: 23
+
+Line 13: println!("Mi nombre es {}", nombre);
+[TOKEN] Type: PRINTLN         | Value: println         | Line: 13  | Position: 0
+[TOKEN] Type: NOT             | Value: !               | Line: 13  | Position: 7
+[TOKEN] Type: LPAREN          | Value: (               | Line: 13  | Position: 8
+[TOKEN] Type: STRING          | Value: Mi nombre es {} | Line: 13  | Position: 9
+[TOKEN] Type: COMMA           | Value: ,               | Line: 13  | Position: 26
+[TOKEN] Type: IDENTIFIER      | Value: nombre          | Line: 13  | Position: 28
+[TOKEN] Type: RPAREN          | Value: )               | Line: 13  | Position: 34
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 13  | Position: 35
+
+Line 14: println!("{} tiene {} años", nombre, edad);
+[TOKEN] Type: PRINTLN         | Value: println         | Line: 14  | Position: 0
+[TOKEN] Type: NOT             | Value: !               | Line: 14  | Position: 7
+[TOKEN] Type: LPAREN          | Value: (               | Line: 14  | Position: 8
+[TOKEN] Type: STRING          | Value: {} tiene {} años | Line: 14  | Position: 9
+[TOKEN] Type: COMMA           | Value: ,               | Line: 14  | Position: 27
+[TOKEN] Type: IDENTIFIER      | Value: nombre          | Line: 14  | Position: 29
+[TOKEN] Type: COMMA           | Value: ,               | Line: 14  | Position: 35
+[TOKEN] Type: IDENTIFIER      | Value: edad            | Line: 14  | Position: 37
+[TOKEN] Type: RPAREN          | Value: )               | Line: 14  | Position: 41
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 14  | Position: 42
+
+Line 15: let lista = vec![1, 2, 3];
+[TOKEN] Type: LET             | Value: let             | Line: 15  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: lista           | Line: 15  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 15  | Position: 10
+[TOKEN] Type: IDENTIFIER      | Value: vec             | Line: 15  | Position: 12
+[TOKEN] Type: NOT             | Value: !               | Line: 15  | Position: 15
+[TOKEN] Type: LBRACKET        | Value: [               | Line: 15  | Position: 16
+[TOKEN] Type: INTEGER         | Value: 1               | Line: 15  | Position: 17
+[TOKEN] Type: COMMA           | Value: ,               | Line: 15  | Position: 18
+[TOKEN] Type: INTEGER         | Value: 2               | Line: 15  | Position: 20
+[TOKEN] Type: COMMA           | Value: ,               | Line: 15  | Position: 21
+[TOKEN] Type: INTEGER         | Value: 3               | Line: 15  | Position: 23
+[TOKEN] Type: RBRACKET        | Value: ]               | Line: 15  | Position: 24
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 15  | Position: 25
+
+Line 16: println!("Lista completa: {:?}", lista);
+[TOKEN] Type: PRINTLN         | Value: println         | Line: 16  | Position: 0
+[TOKEN] Type: NOT             | Value: !               | Line: 16  | Position: 7
+[TOKEN] Type: LPAREN          | Value: (               | Line: 16  | Position: 8
+[TOKEN] Type: STRING          | Value: Lista completa: {:?} | Line: 16  | Position: 9
+[TOKEN] Type: COMMA           | Value: ,               | Line: 16  | Position: 31
+[TOKEN] Type: IDENTIFIER      | Value: lista           | Line: 16  | Position: 33
+[TOKEN] Type: RPAREN          | Value: )               | Line: 16  | Position: 38
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 16  | Position: 39
+
+Line 17: let pi = 3.14159;
+[TOKEN] Type: LET             | Value: let             | Line: 17  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: pi              | Line: 17  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 17  | Position: 7
+[TOKEN] Type: FLOAT           | Value: 3.14159         | Line: 17  | Position: 9
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 17  | Position: 16
+
+Line 18: println!("Pi redondeado: {:.2}", pi);
+[TOKEN] Type: PRINTLN         | Value: println         | Line: 18  | Position: 0
+[TOKEN] Type: NOT             | Value: !               | Line: 18  | Position: 7
+[TOKEN] Type: LPAREN          | Value: (               | Line: 18  | Position: 8
+[TOKEN] Type: STRING          | Value: Pi redondeado: {:.2} | Line: 18  | Position: 9
+[TOKEN] Type: COMMA           | Value: ,               | Line: 18  | Position: 31
+[TOKEN] Type: IDENTIFIER      | Value: pi              | Line: 18  | Position: 33
+[TOKEN] Type: RPAREN          | Value: )               | Line: 18  | Position: 35
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 18  | Position: 36
+
+Line 19: let resultado = suma(3, 5);
+[TOKEN] Type: LET             | Value: let             | Line: 19  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 19  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 19  | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 19  | Position: 16
+[TOKEN] Type: LPAREN          | Value: (               | Line: 19  | Position: 20
+[TOKEN] Type: INTEGER         | Value: 3               | Line: 19  | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 19  | Position: 22
+[TOKEN] Type: INTEGER         | Value: 5               | Line: 19  | Position: 24
+[TOKEN] Type: RPAREN          | Value: )               | Line: 19  | Position: 25
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 19  | Position: 26
+
+Line 20: // Llamada simple
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 20  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 20  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamada         | Line: 20  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: simple          | Line: 20  | Position: 11
+
+Line 21: let resultado = suma(3, 5);
+[TOKEN] Type: LET             | Value: let             | Line: 21  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 21  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 21  | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 21  | Position: 16
+[TOKEN] Type: LPAREN          | Value: (               | Line: 21  | Position: 20
+[TOKEN] Type: INTEGER         | Value: 3               | Line: 21  | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 21  | Position: 22
+[TOKEN] Type: INTEGER         | Value: 5               | Line: 21  | Position: 24
+[TOKEN] Type: RPAREN          | Value: )               | Line: 21  | Position: 25
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 21  | Position: 26
+
+Line 22: 
+
+Line 23: // Llamada sin argumentos
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 23  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 23  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamada         | Line: 23  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: sin             | Line: 23  | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: argumentos      | Line: 23  | Position: 15
+
+Line 24: let valor = obtener_valor();
+[TOKEN] Type: LET             | Value: let             | Line: 24  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: valor           | Line: 24  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 24  | Position: 10
+[TOKEN] Type: IDENTIFIER      | Value: obtener_valor   | Line: 24  | Position: 12
+[TOKEN] Type: LPAREN          | Value: (               | Line: 24  | Position: 25
+[TOKEN] Type: RPAREN          | Value: )               | Line: 24  | Position: 26
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 24  | Position: 27
+
+Line 25: 
+
+Line 26: // Llamada con expresiones complejas
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 26  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 26  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamada         | Line: 26  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: con             | Line: 26  | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: expresiones     | Line: 26  | Position: 15
+[TOKEN] Type: IDENTIFIER      | Value: complejas       | Line: 26  | Position: 27
+
+Line 27: let total = calcular(a + b, c * 2);
+[TOKEN] Type: LET             | Value: let             | Line: 27  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: total           | Line: 27  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 27  | Position: 10
+[TOKEN] Type: IDENTIFIER      | Value: calcular        | Line: 27  | Position: 12
+[TOKEN] Type: LPAREN          | Value: (               | Line: 27  | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 27  | Position: 21
+[TOKEN] Type: PLUS            | Value: +               | Line: 27  | Position: 23
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 27  | Position: 25
+[TOKEN] Type: COMMA           | Value: ,               | Line: 27  | Position: 26
+[TOKEN] Type: IDENTIFIER      | Value: c               | Line: 27  | Position: 28
+[TOKEN] Type: TIMES           | Value: *               | Line: 27  | Position: 30
+[TOKEN] Type: INTEGER         | Value: 2               | Line: 27  | Position: 32
+[TOKEN] Type: RPAREN          | Value: )               | Line: 27  | Position: 33
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 27  | Position: 34
+
+Line 28: 
+
+Line 29: // Llamada a closure guardado en variable
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 29  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 29  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamada         | Line: 29  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 29  | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: closure         | Line: 29  | Position: 13
+[TOKEN] Type: IDENTIFIER      | Value: guardado        | Line: 29  | Position: 21
+[TOKEN] Type: IDENTIFIER      | Value: en              | Line: 29  | Position: 30
+[TOKEN] Type: IDENTIFIER      | Value: variable        | Line: 29  | Position: 33
+
+Line 30: let suma = |a, b| a + b;
+[TOKEN] Type: LET             | Value: let             | Line: 30  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 30  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 30  | Position: 9
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 30  | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 30  | Position: 12
+[TOKEN] Type: COMMA           | Value: ,               | Line: 30  | Position: 13
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 30  | Position: 15
+[TOKEN] Type: CLOSURE_PIPE    | Value: |               | Line: 30  | Position: 16
+[TOKEN] Type: IDENTIFIER      | Value: a               | Line: 30  | Position: 18
+[TOKEN] Type: PLUS            | Value: +               | Line: 30  | Position: 20
+[TOKEN] Type: IDENTIFIER      | Value: b               | Line: 30  | Position: 22
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 30  | Position: 23
+
+Line 31: let resultado = suma(3, 5);
+[TOKEN] Type: LET             | Value: let             | Line: 31  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 31  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 31  | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: suma            | Line: 31  | Position: 16
+[TOKEN] Type: LPAREN          | Value: (               | Line: 31  | Position: 20
+[TOKEN] Type: INTEGER         | Value: 3               | Line: 31  | Position: 21
+[TOKEN] Type: COMMA           | Value: ,               | Line: 31  | Position: 22
+[TOKEN] Type: INTEGER         | Value: 5               | Line: 31  | Position: 24
+[TOKEN] Type: RPAREN          | Value: )               | Line: 31  | Position: 25
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 31  | Position: 26
+
+Line 32: 
+
+Line 33: // Llamadas anidadas
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 33  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 33  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamadas        | Line: 33  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: anidadas        | Line: 33  | Position: 12
+
+Line 34: let res = procesar(obtener_datos(10));
+[TOKEN] Type: LET             | Value: let             | Line: 34  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: res             | Line: 34  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 34  | Position: 8
+[TOKEN] Type: IDENTIFIER      | Value: procesar        | Line: 34  | Position: 10
+[TOKEN] Type: LPAREN          | Value: (               | Line: 34  | Position: 18
+[TOKEN] Type: IDENTIFIER      | Value: obtener_datos   | Line: 34  | Position: 19
+[TOKEN] Type: LPAREN          | Value: (               | Line: 34  | Position: 32
+[TOKEN] Type: INTEGER         | Value: 10              | Line: 34  | Position: 33
+[TOKEN] Type: RPAREN          | Value: )               | Line: 34  | Position: 35
+[TOKEN] Type: RPAREN          | Value: )               | Line: 34  | Position: 36
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 34  | Position: 37
+
+Line 35: 
+
+Line 36: // Llamada con variables
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 36  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 36  | Position: 1
+[TOKEN] Type: IDENTIFIER      | Value: Llamada         | Line: 36  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: con             | Line: 36  | Position: 11
+[TOKEN] Type: IDENTIFIER      | Value: variables       | Line: 36  | Position: 15
+
+Line 37: let x = 10;
+[TOKEN] Type: LET             | Value: let             | Line: 37  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 37  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 37  | Position: 6
+[TOKEN] Type: INTEGER         | Value: 10              | Line: 37  | Position: 8
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 37  | Position: 10
+
+Line 38: let y = 20;
+[TOKEN] Type: LET             | Value: let             | Line: 38  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 38  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 38  | Position: 6
+[TOKEN] Type: INTEGER         | Value: 20              | Line: 38  | Position: 8
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 38  | Position: 10
+
+Line 39: let resultado = sumar(x, y);
+[TOKEN] Type: LET             | Value: let             | Line: 39  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: resultado       | Line: 39  | Position: 4
+[TOKEN] Type: ASIGNED_TO      | Value: =               | Line: 39  | Position: 14
+[TOKEN] Type: IDENTIFIER      | Value: sumar           | Line: 39  | Position: 16
+[TOKEN] Type: LPAREN          | Value: (               | Line: 39  | Position: 21
+[TOKEN] Type: IDENTIFIER      | Value: x               | Line: 39  | Position: 22
+[TOKEN] Type: COMMA           | Value: ,               | Line: 39  | Position: 23
+[TOKEN] Type: IDENTIFIER      | Value: y               | Line: 39  | Position: 25
+[TOKEN] Type: RPAREN          | Value: )               | Line: 39  | Position: 26
+[TOKEN] Type: SEMICOLON       | Value: ;               | Line: 39  | Position: 27
+
+Line 40: 
+
+Line 41: 
+
+Line 42: /*
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 42  | Position: 0
+[TOKEN] Type: TIMES           | Value: *               | Line: 42  | Position: 1
+
+Line 43: Hola
+[TOKEN] Type: IDENTIFIER      | Value: Hola            | Line: 43  | Position: 0
+
+Line 44: Este
+[TOKEN] Type: IDENTIFIER      | Value: Este            | Line: 44  | Position: 0
+
+Line 45: es un comentario
+[TOKEN] Type: IDENTIFIER      | Value: es              | Line: 45  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: un              | Line: 45  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: comentario      | Line: 45  | Position: 6
+
+Line 46: */
+[TOKEN] Type: TIMES           | Value: *               | Line: 46  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 46  | Position: 1
+
+Line 47: 
+
+Line 48: /*
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 48  | Position: 0
+[TOKEN] Type: TIMES           | Value: *               | Line: 48  | Position: 1
+
+Line 49: Hola
+[TOKEN] Type: IDENTIFIER      | Value: Hola            | Line: 49  | Position: 0
+
+Line 50: Este
+[TOKEN] Type: IDENTIFIER      | Value: Este            | Line: 50  | Position: 0
+
+Line 51: es un comentario
+[TOKEN] Type: IDENTIFIER      | Value: es              | Line: 51  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: un              | Line: 51  | Position: 3
+[TOKEN] Type: IDENTIFIER      | Value: comentario      | Line: 51  | Position: 6
+
+Line 52: /*
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 52  | Position: 0
+[TOKEN] Type: TIMES           | Value: *               | Line: 52  | Position: 1
+
+Line 53: Y este un anidado
+[TOKEN] Type: IDENTIFIER      | Value: Y               | Line: 53  | Position: 0
+[TOKEN] Type: IDENTIFIER      | Value: este            | Line: 53  | Position: 2
+[TOKEN] Type: IDENTIFIER      | Value: un              | Line: 53  | Position: 7
+[TOKEN] Type: IDENTIFIER      | Value: anidado         | Line: 53  | Position: 10
+
+Line 54: */
+[TOKEN] Type: TIMES           | Value: *               | Line: 54  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 54  | Position: 1
+
+Line 55: */
+[TOKEN] Type: TIMES           | Value: *               | Line: 55  | Position: 0
+[TOKEN] Type: DIVIDE          | Value: /               | Line: 55  | Position: 1
