@@ -7,7 +7,8 @@ from parserRust import parser, lexer, ERRORS as PARSER_ERRORS
 
 # Variables globales para el análisis
 errors = []
-symbol_table = {}  # {nombre: {'mutable': bool, 'initialized': bool}}
+symbol_table = {}  # {nombre: {'mutable': bool, 'initialized': bool, 'type': 'num', 'bool', 'String (por incluir)','unknown'}}
+function_stack = [] # {'name' : str, 'ret_type' _ str[None, 'found_return': bool]}
 
 
 def add_error(msg):
@@ -29,11 +30,9 @@ def check_variable_initialized(var_name):
     if var_name not in symbol_table:
         add_error(f"Variable '{var_name}' is not declared")
         return False
-    
     if not symbol_table[var_name]['initialized']:
         add_error(f"Variable '{var_name}' used before initialization")
-        return False
-    
+        return False   
     return True
 
 
@@ -44,13 +43,66 @@ def check_variable_mutable(var_name):
     if var_name not in symbol_table:
         add_error(f"Variable '{var_name}' is not declared")
         return False
-    
     if not symbol_table[var_name]['mutable']:
         add_error(f"Cannot assign to immutable variable '{var_name}'")
         return False
-    
     return True
 
+# ============== HELPERS ==============
+
+def type_name_from_ast(t):
+    """
+    Convierte el nodo de tipo del AST en un nombre sencillo: 'num', 'bool' o 'unknown'.
+    Ajusta esto a cómo tu parser represente los tipos.
+    """
+    if isinstance(t, str):
+        return t
+    if isinstance(t, tuple) and len(t) > 1 and isinstance(t[1], str):
+        # Ejemplo: ('type', 'num')
+        return t[1]
+    return "unknown"
+
+def combine_arimethic_types(op, left_t, right_t):
+    """
+    Reglas simples de operaciones aritméticas.
+    Genera errores si se usan booleanos en +, -, *, /, %.
+    """
+    if left_t == "bool" or right_t == "bool":
+        add_error(
+            f"Invalid operands for arithmetic operator '{op}' "
+            f"(SEM-TYPE-MISMATCH: bool is not allowed here)"
+        )
+        return "unknown"
+    if left_t == "num" and right_t == "num":
+        #Si es que son numeros que quieren operar en enteros
+        return "num"
+
+def combine_logic_types(left_t, right_t, op):
+    """
+    Reglas para && y ||. Ambos deberían ser bool si se conocen.
+    """
+    if left_t not in ("bool", "unknown"):
+        add_error(
+            f"Left operand of '{op}' should be boolean, got {left_t} (SEM-TYPE-MISMATCH)"
+        )
+    if right_t not in ("bool", "unknown"):
+        add_error(
+            f"Right operand of '{op}' should be boolean, got {right_t} (SEM-TYPE-MISMATCH)"
+        )
+    return "bool"
+
+def combine_rel_types(left_t, right_t, op):
+    """
+    Reglas para ==, !=, <, >, <=, >=.
+    Si ambos tipos son conocidos y distintos, marcamos error.
+    """
+    if left_t != "unknown" and right_t != "unknown" and left_t != right_t:
+        add_error(
+            f"Incompatible types for comparison '{op}': {left_t} and {right_t} "
+            f"(SEM-TYPE-MISMATCH)"
+        )
+    # Comparaciones devuelven bool
+    return "bool"
 
 # ============== ANÁLISIS DE EXPRESIONES ==============
 
@@ -61,19 +113,33 @@ def analyze_expression(expr):
     
     expr_type = expr[0]
     
-    # Variable: verificar que esté declarada e inicializada
+    # ===== VARIABLE (id) =====
     if expr_type == "id":
         var_name = expr[1]
         check_variable_initialized(var_name)
     
-    # Operación binaria: analizar ambos lados
+    # ===== OPERACIÓN BINARIA (op): Analizar ambos lados =====
     elif expr_type == "op":
+        # Estructura esperada: ("op", operador, left, right). Left y right deberian ser "lit" y "BOOLEAN" para esto
+        op = expr[1]
         left = expr[2]
         right = expr[3]
-        analyze_expression(left)
-        analyze_expression(right)
-    
-    # Llamada a función: analizar argumentos
+
+        left_t = analyze_expression(left)
+        right_t = analyze_expression(right)
+
+        if op in ("+", "-", "*", "/", "%"):
+            return combine_arimethic_types(left_t, right_t, op)
+
+    elif expr_type == "lit":
+        value = expr[1]
+        # Aquí distinguimos literales booleanos
+        if isinstance(value, bool):
+            return "bool"
+        #Aqui mas adelant deberia definir la diferencia entre string y char
+        
+
+    # ===== LLAMADA A FUNCIÓN: Analizar argumentos =====
     elif expr_type == "fn_call":
         args = expr[2]
         for arg in args:
@@ -139,6 +205,11 @@ def analyze_expression(expr):
         for elem in elements:
             analyze_expression(elem)
 
+    # ===== LITERALES NUMÉRICOS =====
+    elif expr_type == "num":
+        return "num"
+    
+
 
 # ============== ANÁLISIS DE STATEMENTS ==============
 
@@ -156,64 +227,85 @@ def analyze_statement(stmt):
         var_name = stmt[1]
         symbol_table[var_name] = {
             'mutable': False,
-            'initialized': False
+            'initialized': False,
+            'type': "unknown"
         }
     
     elif stmt_type == "let_assign":
         # let x = expr;
         var_name = stmt[1]
         expr = stmt[2]
+        expr_t = analyze_expression(expr)
         symbol_table[var_name] = {
             'mutable': False,
-            'initialized': True
+            'initialized': True,
+            'type': expr_t
         }
-        analyze_expression(expr)
     
     elif stmt_type == "let_mut_assign":
         # let mut x = expr;
         var_name = stmt[1]
         expr = stmt[2]
+        expr_t = analyze_expression(expr)
         symbol_table[var_name] = {
             'mutable': True,
-            'initialized': True
+            'initialized': True,
+            'type': expr_t
         }
-        analyze_expression(expr)
     
     elif stmt_type == "let_typed_decl":
         # let x: T;
         var_name = stmt[1]
+        tipo_ast = stmt[2]      # normalmente el parser pone aquí el tipo
+        tipo = type_name_from_ast(tipo_ast)
         symbol_table[var_name] = {
             'mutable': False,
-            'initialized': False
+            'initialized': False,
+            'type': tipo
         }
     
     elif stmt_type == "let_typed_assign":
         # let x: T = expr;
         var_name = stmt[1]
+        tipo_ast = stmt[2]
         expr = stmt[3]
+
+        tipo = type_name_from_ast(tipo_ast)
+        expr_t = analyze_expression(expr) 
+
         symbol_table[var_name] = {
             'mutable': False,
-            'initialized': True
+            'initialized': True,
+            'type': tipo or expr_t
         }
-        analyze_expression(expr)
     
     elif stmt_type == "let_mut_typed_assign":
         # let mut x: T = expr;
         var_name = stmt[1]
+        tipo_ast = stmt[2]
         expr = stmt[3]
+
+        tipo = type_name_from_ast(tipo_ast)
+        expr_t = analyze_expression(expr)
+
         symbol_table[var_name] = {
             'mutable': True,
-            'initialized': True
+            'initialized': True,
+            'type': tipo or expr_t
         }
-        analyze_expression(expr)
     
     elif stmt_type == "let_mut_typed_decl":
         # let mut x: T;
         var_name = stmt[1]
+        tipo_ast = stmt[2]
+        tipo = type_name_from_ast(tipo_ast)
+
         symbol_table[var_name] = {
             'mutable': True,
-            'initialized': False
+            'initialized': False,
+            'type': tipo
         }
+
     
     # ===== ASIGNACIÓN =====
     
@@ -234,14 +326,18 @@ def analyze_statement(stmt):
     elif stmt_type == "const_decl":
         # const X: T = expr;
         const_name = stmt[1]
+        tipo_ast = stmt[2]
         const_value = stmt[3]
+
+        tipo = type_name_from_ast(tipo_ast)
+        expr_t = analyze_expression(const_value)
         
         # Registrar constante (siempre inicializada e inmutable)
         symbol_table[const_name] = {
             'mutable': False,
-            'initialized': True
+            'initialized': True,
+            'type': tipo or expr_t
         }
-        analyze_expression(const_value)
     
     # ===== ESTRUCTURAS DE CONTROL =====
     
@@ -308,6 +404,17 @@ def analyze_statement(stmt):
         if len(stmt) > 1:
             analyze_expression(stmt[1])
 
+# ============== ANÁLISIS DE RETORNO DE FUNCIONES ==============
+def expression_type(expression):
+    """
+    Devuelve un tipo aproximado: 'num', 'bool', 'string'.
+    """
+    if not isinstance(expression, tuple):
+        return 'unknown'
+    tag = expression[0]
+
+    if tag in ('number', 'numero', 'init_lit'):
+        return 'num'
 
 # ============== ANÁLISIS DEL AST COMPLETO ==============
 
@@ -352,7 +459,8 @@ def generate_report(name):
         for var_name, var_info in symbol_table.items():
             mutable = "mutable" if var_info['mutable'] else "immutable"
             initialized = "initialized" if var_info['initialized'] else "NOT initialized"
-            report.append(f"  {var_name}: {mutable}, {initialized}")
+            var_type = var_info.get('type', 'unknown')
+            report.append(f"  {var_name}: {mutable}, {initialized}, type={var_type}")
     else:
         report.append("  (empty)")
     
@@ -419,9 +527,9 @@ def analyze_file(filename, autor):
 if __name__ == "__main__":
     # Archivos de prueba
     files = {
-        "Carlos Flores": "avance3CarlosFlores.rs",
-        "Nicolas Sierra": "avance2NicolasSierra.rs",
-        "Carlos Tingo": "algoritmoVectoresArreglos.rs"
+        #"Carlos Flores": "avance3CarlosFlores.rs",
+        "Nicolas Sierra": "avance3NicolasSierra.rs", #Como solo estaba probando yo, deje mi nombre nomas. PILAS
+        #"Carlos Tingo": "algoritmoVectoresArreglos.rs"
     }
 
     for name, filename in files.items():

@@ -7,7 +7,5 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  edades: mutable, initialized
-  id: mutable, initialized
-  valor: immutable, initialized
-  x: immutable, initialized
+  valor: immutable, initialized, type=i32
+  referencia: immutable, initialized, type=None

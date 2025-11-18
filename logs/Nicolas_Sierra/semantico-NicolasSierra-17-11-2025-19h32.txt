@@ -7,7 +7,4 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  edades: mutable, initialized
-  id: mutable, initialized
-  valor: immutable, initialized
-  x: immutable, initialized
+  is_active: immutable, initialized, type=None

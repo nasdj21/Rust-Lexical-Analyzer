@@ -2,12 +2,10 @@
 SEMANTIC ANALYSIS REPORT
 ============================================================
 
-✅ NO SEMANTIC ERRORS
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Variable 'Hola' is not declared
 
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  edades: mutable, initialized
-  id: mutable, initialized
-  valor: immutable, initialized
-  x: immutable, initialized
+  string: immutable, initialized

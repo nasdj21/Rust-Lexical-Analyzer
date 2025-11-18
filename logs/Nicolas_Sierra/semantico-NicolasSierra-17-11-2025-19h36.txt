@@ -1,0 +1,11 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  valor: immutable, initialized, type=num
+  referencia: immutable, initialized, type=None

@@ -236,6 +236,10 @@ def p_cond_parenthesis(p):
     'condition : LPAREN condition RPAREN'
     p[0] = p[2]
 
+def p_cond_boolean(p):
+    'condition : BOOLEAN'
+    p[0] = ("bool", p[1])
+
 # if simple para pruebas
 def p_if_simple(p):
     'statement : IF condition LBRACE program_opt RBRACE'
@@ -439,9 +443,9 @@ parser = yacc.yacc(start='program')
 
 # ---------------- Runner + logs ----------------
 files = {
-    "Carlos Flores": ["avance3CarlosFlores.rs"],
-    "Nicolas Sierra": ["avance2NicolasSierra.rs"],
-    "Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
+    #"Carlos Flores": ["avance3CarlosFlores.rs"],
+    "Nicolas Sierra": ["avance3NicolasSierra.rs"],
+    #"Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
 }
 
 def analyze():

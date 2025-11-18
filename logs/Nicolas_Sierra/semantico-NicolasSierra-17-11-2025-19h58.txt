@@ -1,0 +1,12 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized, type=None
+  b: immutable, initialized, type=None
+  c: immutable, initialized, type=None
