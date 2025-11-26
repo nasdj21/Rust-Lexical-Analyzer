@@ -7,4 +7,7 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  (empty)
+  x: immutable, initialized, type=unknown
+  y: immutable, initialized, type=unknown
+  z: immutable, initialized, type=bool
+  s: immutable, initialized, type=unknown

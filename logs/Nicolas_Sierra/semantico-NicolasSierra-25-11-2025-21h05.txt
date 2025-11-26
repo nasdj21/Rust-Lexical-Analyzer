@@ -7,4 +7,9 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  is_active: immutable, initialized, type=None
+  a: immutable, initialized, type=bool
+  b: immutable, initialized, type=bool
+  st: immutable, initialized, type=unknown
+  suma: mutable, initialized, type=num
+  i: mutable, initialized, type=num
+  resultado_fn: immutable, initialized, type=None

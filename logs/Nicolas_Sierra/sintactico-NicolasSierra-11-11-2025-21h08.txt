@@ -1,5 +1,0 @@
-===== Análisis Sintáctico (11-11-2025 - 21h08) =====
-
-=== Archivo: avance2NicolasSierra.rs ===
-✅ Sin errores sintácticos.
-

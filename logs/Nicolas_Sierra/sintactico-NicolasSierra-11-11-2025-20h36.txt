@@ -1,6 +1,0 @@
-===== Análisis Sintáctico (11-11-2025 - 20h36) =====
-
-=== Archivo: avance2NicolasSierra.rs ===
-❌ Errores sintácticos encontrados:
-   - [ERROR] Sintaxis inválida en '=' (línea 6)
-

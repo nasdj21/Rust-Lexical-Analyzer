@@ -2,9 +2,12 @@
 SEMANTIC ANALYSIS REPORT
 ============================================================
 
-✅ NO SEMANTIC ERRORS
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Invalid operands for arithmetic operator '+' (SEM-TYPE-MISMATCH: bool is not allowed here)
 
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  is_active: immutable, initialized, type=None
+  a: immutable, initialized, type=bool
+  b: immutable, initialized, type=bool
+  c: immutable, initialized, type=unknown

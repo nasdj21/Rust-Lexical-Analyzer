@@ -45,7 +45,7 @@ tokens = (
     'ASIGNED_TO', 'PLUS_EQUAL', 'MINUS_EQUAL', 'TIMES_EQUAL', 'DIVIDE_EQUAL', 'MOD_EQUAL',
 
     # Bit a bit
-    'BIT_AND', 'BIT_OR', 'BIT_XOR', 'BIT_NOT', 'SHIFT_LEFT', 'SHIFT_RIGHT',
+    'BIT_AND', 'BIT_XOR', 'BIT_NOT', 'SHIFT_LEFT', 'SHIFT_RIGHT',
 
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - INICIO
     'IDENTIFIER',    
@@ -54,6 +54,7 @@ tokens = (
     'TYPE_F64',
     'TYPE_CHAR',
     'TYPE_STRING',
+    'TYPE_STR',
     'TYPE_BOOL',
     'TYPE_TUPLE',
     'SEMICOLON',
@@ -176,7 +177,6 @@ t_MOD_EQUAL = r'%='
 
 # ============== OPERADORES BIT A BIT ==============
 t_BIT_AND = r'&'
-t_BIT_OR = r'\|'
 t_BIT_XOR = r'\^'
 t_BIT_NOT = r'~'
 t_SHIFT_LEFT = r'<<'
@@ -246,6 +246,10 @@ def t_TYPE_STRING(t):
     r'String'
     return t
 
+def t_TYPE_STR(t):
+    r'str'
+    return t
+
 def t_TYPE_BOOL(t):
     r'bool'
     return t
@@ -284,7 +288,7 @@ def t_newline(t):
 # ============== PIPE PARA CLOSURES ==============
 
 def t_CLOSURE_PIPE(t):
-    r'\|'
+    r'\|(?!\|)'
     return t
 
 # ============== MANEJO DE ERRORES ==============

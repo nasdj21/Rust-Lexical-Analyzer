@@ -3,9 +3,13 @@ SEMANTIC ANALYSIS REPORT
 ============================================================
 
 ❌ ERRORS FOUND: 1
-  [SEMANTIC ERROR] Variable 'Hola' is not declared
+  [SEMANTIC ERROR] Variable 'hola' is not declared
 
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  string: immutable, initialized
+  a: immutable, initialized, type=bool
+  b: immutable, initialized, type=bool
+  suma: mutable, initialized, type=num
+  i: mutable, initialized, type=num
+  resultado_fn: immutable, initialized, type=None

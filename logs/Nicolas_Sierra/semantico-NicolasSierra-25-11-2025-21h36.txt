@@ -7,4 +7,8 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  (empty)
+  a: immutable, initialized, type=num
+  b: immutable, initialized, type=num
+  c: immutable, initialized, type=num
+  d: immutable, initialized, type=bool
+  e: immutable, initialized, type=bool

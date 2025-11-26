@@ -3,12 +3,14 @@
 
 import datetime
 import os
-from parserRust import parser, lexer, ERRORS as PARSER_ERRORS
+from syntaxAnalyzer import parser, lexer, ERRORS as PARSER_ERRORS
 
 # Variables globales para el análisis
 errors = []
 symbol_table = {}  # {nombre: {'mutable': bool, 'initialized': bool, 'type': 'num', 'bool', 'String (por incluir)','unknown'}}
 function_stack = [] # {'name' : str, 'ret_type' _ str[None, 'found_return': bool]}
+type_map = {"i32":"num","u64":"num","f64":"num","bool":"bool","String":"string","char":"char","tuple":"tuple"}
+type_map["str"] = "string"
 
 
 def add_error(msg):
@@ -55,27 +57,26 @@ def type_name_from_ast(t):
     Convierte el nodo de tipo del AST en un nombre sencillo: 'num', 'bool' o 'unknown'.
     Ajusta esto a cómo tu parser represente los tipos.
     """
-    if isinstance(t, str):
-        return t
-    if isinstance(t, tuple) and len(t) > 1 and isinstance(t[1], str):
-        # Ejemplo: ('type', 'num')
-        return t[1]
+    if isinstance(t, str): 
+        return type_map.get(t, t)
+    if isinstance(t, tuple) and len(t) > 1:
+        tag = t[0]
+        if tag in ("type_ref", "type_ref_mut", "type_array"):
+            return type_name_from_ast(t[1])
+        if isinstance(t[1], str):
+            return type_map.get(t[1], "unknown")
     return "unknown"
 
 def combine_arimethic_types(op, left_t, right_t):
     """
-    Reglas simples de operaciones aritméticas.
-    Genera errores si se usan booleanos en +, -, *, /, %.
+    Combina operaciones ariméticas en los casos de booleanos
     """
     if left_t == "bool" or right_t == "bool":
-        add_error(
-            f"Invalid operands for arithmetic operator '{op}' "
-            f"(SEM-TYPE-MISMATCH: bool is not allowed here)"
-        )
+        add_error(f"Invalid operands for arithmetic operator '{op}' (SEM-TYPE-MISMATCH: bool is not allowed here)")
         return "unknown"
     if left_t == "num" and right_t == "num":
-        #Si es que son numeros que quieren operar en enteros
         return "num"
+    return "unknown"
 
 def combine_logic_types(left_t, right_t, op):
     """
@@ -116,27 +117,37 @@ def analyze_expression(expr):
     # ===== VARIABLE (id) =====
     if expr_type == "id":
         var_name = expr[1]
-        check_variable_initialized(var_name)
+        if not check_variable_initialized(var_name): #Si es que la variable no ha sido inizializada
+            return "unknown"
+        return symbol_table.get(var_name, {}).get("type", "unknown")
     
     # ===== OPERACIÓN BINARIA (op): Analizar ambos lados =====
+    # Estructura esperada: ("op", operador, left, right). Left y right deberian ser "lit" y "BOOLEAN" para esto
     elif expr_type == "op":
-        # Estructura esperada: ("op", operador, left, right). Left y right deberian ser "lit" y "BOOLEAN" para esto
-        op = expr[1]
-        left = expr[2]
-        right = expr[3]
-
-        left_t = analyze_expression(left)
-        right_t = analyze_expression(right)
-
+        op, left, right = expr[1], expr[2], expr[3]
+        left_t = analyze_expression(left) or "unknown"
+        right_t = analyze_expression(right) or "unknown"
         if op in ("+", "-", "*", "/", "%"):
-            return combine_arimethic_types(left_t, right_t, op)
+            return combine_arimethic_types(op, left_t, right_t)
+        return "unknown"
 
     elif expr_type == "lit":
         value = expr[1]
-        # Aquí distinguimos literales booleanos
-        if isinstance(value, bool):
+        if isinstance(value, bool) or value in ("true", "false"):
             return "bool"
-        #Aqui mas adelant deberia definir la diferencia entre string y char
+        if isinstance(value, (int, float)):
+            return "num"
+        if isinstance(value,str):
+            if len(value)==1: 
+                return "char"
+            return "string"
+        return "unknown"
+    #Revisar bien estos 2 elifs de abajo
+    elif expr_type == "rel":
+        analyze_expression(expr[2]); analyze_expression(expr[3]); return "bool"
+    
+    elif expr_type == "logic":
+        analyze_expression(expr[2]); analyze_expression(expr[3]); return "bool"
         
 
     # ===== LLAMADA A FUNCIÓN: Analizar argumentos =====

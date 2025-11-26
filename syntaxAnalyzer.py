@@ -11,9 +11,9 @@ import ply.yacc as yacc
 import os
 
 # Traigo el lexer del Avance 1
-import rustAnalizer
-tokens = rustAnalizer.tokens
-lexer  = rustAnalizer.lexer
+import lexicalAnalyzer
+tokens = lexicalAnalyzer.tokens
+lexer  = lexicalAnalyzer.lexer
 
 # Precedencias básicas para quitar ambigüedades
 precedence = (
@@ -83,7 +83,6 @@ def p_hashmap_get(p):
 # Primero la llamada de path con ::
 def p_path_call_noargs(p):
     'expression : IDENTIFIER DOUBLE_COLON IDENTIFIER LPAREN RPAREN'
-    
     if p[1] == 'HashMap' and p[3] == 'new':
         #HashMap::new() 
         p[0] = ("hashmap_new", [])
@@ -179,6 +178,20 @@ def p_exp_binary(p):
                  | expression MOD expression'''
     p[0] = ("op", p[2], p[1], p[3])
 
+def p_exp_relational(p):
+    '''expression : expression EQUAL_TO expression
+                  | expression NOT_EQUAL expression
+                  | expression LESS_THAN expression
+                  | expression GREATER_THAN expression
+                  | expression LESS_THAN_OR_EQUAL_TO expression
+                  | expression GREATER_THAN_OR_EQUAL_TO expression'''
+    p[0] = ("rel", p[2], p[1], p[3])
+
+def p_exp_logic(p):
+    '''expression : expression CONJUNCTION expression
+                  | expression DISJUNCTION expression'''
+    p[0] = ("logic", p[2], p[1], p[3])
+
 def p_exp_unary_not(p):
     'expression : NOT expression'
     p[0] = ("not", p[2])
@@ -271,6 +284,7 @@ def p_type_base(p):
             | TYPE_F64
             | TYPE_CHAR
             | TYPE_STRING
+            | TYPE_STR
             | TYPE_BOOL
             | TYPE_TUPLE'''
     p[0] = ("type", p[1])

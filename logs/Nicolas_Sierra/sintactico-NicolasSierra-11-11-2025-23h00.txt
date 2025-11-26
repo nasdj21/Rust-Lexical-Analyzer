@@ -1,8 +1,0 @@
-===== Análisis Sintáctico (11-11-2025 - 23h00) =====
-
-=== Archivo: avance2NicolasSierra.rs ===
-❌ Errores sintácticos encontrados:
-   - [ERROR] Sintaxis inválida en ':' (línea 2)
-   - [ERROR] Sintaxis inválida en 'get' (línea 8)
-   - [ERROR] Sintaxis inválida en '}' (línea 11)
-

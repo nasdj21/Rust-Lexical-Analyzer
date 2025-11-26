@@ -7,5 +7,7 @@ SEMANTIC ANALYSIS REPORT
 ------------------------------------------------------------
 SYMBOL TABLE
 ------------------------------------------------------------
-  valor: immutable, initialized, type=i32
-  referencia: immutable, initialized, type=None
+  x: immutable, initialized, type=num
+  y: immutable, initialized, type=num
+  z: immutable, initialized, type=bool
+  s: immutable, initialized, type=string
