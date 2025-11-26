@@ -539,7 +539,7 @@ if __name__ == "__main__":
     # Archivos de prueba
     files = {
         #"Carlos Flores": "avance3CarlosFlores.rs",
-        "Nicolas Sierra": "avance3NicolasSierra.rs", #Como solo estaba probando yo, deje mi nombre nomas. PILAS
+        "Nicolas Sierra": "algoritmos_prueba/avance3NicolasSierra.rs", #Como solo estaba probando yo, deje mi nombre nomas. PILAS
         #"Carlos Tingo": "algoritmoVectoresArreglos.rs"
     }
 
