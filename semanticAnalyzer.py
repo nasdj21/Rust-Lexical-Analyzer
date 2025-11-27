@@ -9,8 +9,13 @@ from syntaxAnalyzer import parser, lexer, ERRORS as PARSER_ERRORS
 errors = []
 symbol_table = {}  # {nombre: {'mutable': bool, 'initialized': bool, 'type': 'num', 'bool', 'String (por incluir)','unknown'}}
 function_stack = [] # {'name' : str, 'ret_type' _ str[None, 'found_return': bool]}
-type_map = {"i32":"num","u64":"num","f64":"num","bool":"bool","String":"string","char":"char","tuple":"tuple"}
-type_map["str"] = "string"
+type_map = {
+    "i32":"num","u64":"num","f64":"num",
+    "u8":"num","u16":"num","u32":"num",
+    "bool":"bool","String":"string","str":"string",
+    "char":"char","tuple":"tuple"
+}
+unsigned_tokens = {"u8","u16","u32","u64","u128","usize"}
 
 
 def add_error(msg):
@@ -50,6 +55,33 @@ def check_variable_mutable(var_name):
         return False
     return True
 
+# Tipos y literales auxiliares
+def is_unsigned_type(t):
+    """Verifica si un tipo AST corresponde a un entero sin signo."""
+    if isinstance(t, str):
+        return t in unsigned_tokens
+    if isinstance(t, tuple) and len(t) > 1:
+        tag = t[0]
+        if tag in ("type_ref", "type_ref_mut"):
+            return is_unsigned_type(t[1])
+        if tag == "type_array":
+            return is_unsigned_type(t[1])
+        if tag == "type_tuple":
+            return False
+        if isinstance(t[1], str):
+            return t[1] in unsigned_tokens
+    return False
+
+def is_negative_literal(expr):
+    """Detecta si la expresión es un literal numérico negativo simple."""
+    if not isinstance(expr, tuple):
+        return False
+    if expr[0] == "uminus" and isinstance(expr[1], tuple) and expr[1][0] == "num":
+        return True
+    if expr[0] == "num" and isinstance(expr[1], (int, float)) and expr[1] < 0:
+        return True
+    return False
+
 # ============== HELPERS ==============
 
 def type_name_from_ast(t):
@@ -61,8 +93,13 @@ def type_name_from_ast(t):
         return type_map.get(t, t)
     if isinstance(t, tuple) and len(t) > 1:
         tag = t[0]
-        if tag in ("type_ref", "type_ref_mut", "type_array"):
+        if tag in ("type_ref", "type_ref_mut"):
             return type_name_from_ast(t[1])
+        if tag == "type_array":
+            inner = type_name_from_ast(t[1])
+            return f"array<{inner}>"
+        if tag == "type_tuple":
+            return "tuple"
         if isinstance(t[1], str):
             return type_map.get(t[1], "unknown")
     return "unknown"
@@ -142,6 +179,10 @@ def analyze_expression(expr):
                 return "char"
             return "string"
         return "unknown"
+    elif expr_type == "uminus":
+        inner_t = analyze_expression(expr[1])
+        # Si es número, sigue siendo num (marcará negativo en el literal mismo)
+        return inner_t
     #Revisar bien estos 2 elifs de abajo
     elif expr_type == "rel":
         analyze_expression(expr[2]); analyze_expression(expr[3]); return "bool"
@@ -159,8 +200,15 @@ def analyze_expression(expr):
     # Array: analizar elementos
     elif expr_type == "array":
         elements = expr[1]
+        elem_types = []
         for elem in elements:
-            analyze_expression(elem)
+            elem_types.append(analyze_expression(elem))
+        return "array"
+    
+    elif expr_type == "array_repeat":
+        analyze_expression(expr[1])
+        analyze_expression(("num", expr[2]))
+        return "array"
     
     # Indexación: analizar array e índice
     elif expr_type == "index":
@@ -215,6 +263,13 @@ def analyze_expression(expr):
         elements = expr[1]
         for elem in elements:
             analyze_expression(elem)
+        return "tuple"
+
+    elif expr_type == "vec_macro":
+        elements = expr[2]
+        for elem in elements:
+            analyze_expression(elem)
+        return "vector"
 
     # ===== LITERALES NUMÉRICOS =====
     elif expr_type == "num":
@@ -284,10 +339,13 @@ def analyze_statement(stmt):
         tipo = type_name_from_ast(tipo_ast)
         expr_t = analyze_expression(expr) 
 
+        if is_unsigned_type(tipo_ast) and is_negative_literal(expr):
+            add_error(f"Cannot assign negative literal to unsigned type in variable '{var_name}'")
+
         symbol_table[var_name] = {
             'mutable': False,
             'initialized': True,
-            'type': tipo or expr_t
+            'type': tipo if tipo != "unknown" else expr_t
         }
     
     elif stmt_type == "let_mut_typed_assign":
@@ -299,10 +357,13 @@ def analyze_statement(stmt):
         tipo = type_name_from_ast(tipo_ast)
         expr_t = analyze_expression(expr)
 
+        if is_unsigned_type(tipo_ast) and is_negative_literal(expr):
+            add_error(f"Cannot assign negative literal to unsigned type in variable '{var_name}'")
+
         symbol_table[var_name] = {
             'mutable': True,
             'initialized': True,
-            'type': tipo or expr_t
+            'type': tipo if tipo != "unknown" else expr_t
         }
     
     elif stmt_type == "let_mut_typed_decl":
@@ -342,7 +403,10 @@ def analyze_statement(stmt):
 
         tipo = type_name_from_ast(tipo_ast)
         expr_t = analyze_expression(const_value)
-        
+
+        if is_unsigned_type(tipo_ast) and is_negative_literal(const_value):
+            add_error(f"Cannot assign negative literal to unsigned type in const '{const_name}'")
+
         # Registrar constante (siempre inicializada e inmutable)
         symbol_table[const_name] = {
             'mutable': False,

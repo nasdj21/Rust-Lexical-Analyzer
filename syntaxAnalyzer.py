@@ -26,6 +26,7 @@ precedence = (
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE', 'MOD'),
     ('right', 'AS'),                                 # cast: expr as TYPE
+    ('right', 'UMINUS'),                             # unary minus
 )
 
 ERRORS = []  # acumulo errores de parseo
@@ -196,6 +197,10 @@ def p_exp_unary_not(p):
     'expression : NOT expression'
     p[0] = ("not", p[2])
 
+def p_exp_unary_minus(p):
+    'expression : MINUS expression %prec UMINUS'
+    p[0] = ("uminus", p[2])
+
 def p_exp_literal_num(p):
     '''expression : INTEGER
                  | FLOAT'''
@@ -280,6 +285,9 @@ def p_function_without_return_async(p):
 # ---------------- Tipos (anotaciones) ----------------
 def p_type_base(p):
     '''type : TYPE_I32
+            | TYPE_U8
+            | TYPE_U16
+            | TYPE_U32
             | TYPE_U64
             | TYPE_F64
             | TYPE_CHAR

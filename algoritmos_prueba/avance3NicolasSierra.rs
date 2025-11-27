@@ -1,7 +1,11 @@
-// Prueba 2: Operadores y expresiones
-fn main() {
-    let x: i32 = 42;
-    let y: f64 = 3.14;
-    let z: bool = true;
-    let s: &str = "Hola mundo";
-}
+
+let edad: i32 = -25;
+
+let count: u64 = 100;
+let tupla = ("H", 2, true);
+let mut list = vec![1, 2];
+let numeros = [1, 23, 4] ;
+
+
+
+

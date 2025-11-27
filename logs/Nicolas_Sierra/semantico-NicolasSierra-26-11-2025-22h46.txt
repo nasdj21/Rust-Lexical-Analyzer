@@ -1,0 +1,13 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  array: immutable, initialized, type=None
+  list: mutable, initialized, type=None
+  persona: immutable, initialized, type=unknown
+  capitalCities: mutable, initialized, type=None

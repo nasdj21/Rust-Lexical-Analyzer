@@ -1,0 +1,13 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  x: immutable, initialized, type=num
+  y: immutable, initialized, type=num
+  z: immutable, initialized, type=bool
+  _cadena: immutable, initialized, type=string

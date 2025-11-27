@@ -50,6 +50,9 @@ tokens = (
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - INICIO
     'IDENTIFIER',    
     'TYPE_I32',
+    'TYPE_U8',
+    'TYPE_U16',
+    'TYPE_U32',
     'TYPE_U64',
     'TYPE_F64',
     'TYPE_CHAR',
@@ -228,6 +231,18 @@ def t_STRING(t):
 
 def t_TYPE_I32(t):
     r'i32'
+    return t
+
+def t_TYPE_U8(t):
+    r'u8'
+    return t
+
+def t_TYPE_U16(t):
+    r'u16'
+    return t
+
+def t_TYPE_U32(t):
+    r'u32'
     return t
 
 def t_TYPE_U64(t):

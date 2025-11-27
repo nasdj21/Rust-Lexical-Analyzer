@@ -1,0 +1,19 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Cannot assign to immutable variable 'x'
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  x: immutable, initialized, type=num
+  y: immutable, initialized, type=num
+  z: immutable, initialized, type=bool
+  _cadena: immutable, initialized, type=string
+  nombre: immutable, initialized, type=string
+  tupla: immutable, initialized, type=None
+  list: mutable, initialized, type=None
+  numeros: immutable, initialized, type=None
+  cont: mutable, initialized, type=num

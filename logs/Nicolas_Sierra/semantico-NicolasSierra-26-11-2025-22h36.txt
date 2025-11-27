@@ -1,0 +1,13 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Invalid operands for arithmetic operator '+' (SEM-TYPE-MISMATCH: bool is not allowed here)
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized, type=num
+  b: immutable, initialized, type=bool
+  suma: immutable, initialized, type=unknown

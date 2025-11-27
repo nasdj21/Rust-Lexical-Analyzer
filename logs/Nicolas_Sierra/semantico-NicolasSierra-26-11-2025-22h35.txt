@@ -1,0 +1,12 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Variable 'b' is not declared
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized, type=num
+  suma: immutable, initialized, type=unknown

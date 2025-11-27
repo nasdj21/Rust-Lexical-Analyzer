@@ -1,0 +1,15 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Variable 'c' is not declared
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized, type=num
+  b: immutable, initialized, type=num
+  suma: immutable, initialized, type=num
+  residuo: immutable, initialized, type=num
+  op: immutable, initialized, type=unknown

@@ -1,0 +1,17 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  a: immutable, initialized, type=num
+  b: immutable, initialized, type=num
+  c: immutable, initialized, type=num
+  suma: immutable, initialized, type=num
+  residuo: immutable, initialized, type=num
+  op: immutable, initialized, type=num
+  mayor: immutable, initialized, type=bool
+  log: immutable, initialized, type=None
