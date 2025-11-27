@@ -13,7 +13,7 @@ type_map = {
     "i32":"num","u64":"num","f64":"num",
     "u8":"num","u16":"num","u32":"num",
     "bool":"bool","String":"string","str":"string",
-    "char":"char","tuple":"tuple"
+    "char":"char","tuple":"tuple","HashMap":"hashmap"
 }
 unsigned_tokens = {"u8","u16","u32","u64","u128","usize"}
 
@@ -64,7 +64,7 @@ def is_unsigned_type(t):
         tag = t[0]
         if tag in ("type_ref", "type_ref_mut"):
             return is_unsigned_type(t[1])
-        if tag == "type_array":
+        if tag in ("type_array", "type_array_len"):
             return is_unsigned_type(t[1])
         if tag == "type_tuple":
             return False
@@ -96,6 +96,9 @@ def type_name_from_ast(t):
         if tag in ("type_ref", "type_ref_mut"):
             return type_name_from_ast(t[1])
         if tag == "type_array":
+            inner = type_name_from_ast(t[1])
+            return f"array<{inner}>"
+        if tag == "type_array_len":
             inner = type_name_from_ast(t[1])
             return f"array<{inner}>"
         if tag == "type_tuple":
@@ -179,10 +182,17 @@ def analyze_expression(expr):
                 return "char"
             return "string"
         return "unknown"
+    elif expr_type == "bool":
+        return "bool"
     elif expr_type == "uminus":
         inner_t = analyze_expression(expr[1])
         # Si es número, sigue siendo num (marcará negativo en el literal mismo)
         return inner_t
+    elif expr_type == "not":
+        inner_t = analyze_expression(expr[1])
+        if inner_t not in ("bool", "unknown"):
+            add_error(f"Operand of '!' should be boolean, got {inner_t} (SEM-TYPE-MISMATCH)")
+        return "bool"
     #Revisar bien estos 2 elifs de abajo
     elif expr_type == "rel":
         analyze_expression(expr[2]); analyze_expression(expr[3]); return "bool"
@@ -196,6 +206,10 @@ def analyze_expression(expr):
         args = expr[2]
         for arg in args:
             analyze_expression(arg)
+        return "unknown"
+
+    elif expr_type == "hashmap_new":
+        return "hashmap"
     
     # Array: analizar elementos
     elif expr_type == "array":
@@ -270,6 +284,15 @@ def analyze_expression(expr):
         for elem in elements:
             analyze_expression(elem)
         return "vector"
+
+    elif expr_type == "range":
+        start_t = analyze_expression(expr[1])
+        end_t = analyze_expression(expr[2])
+        if start_t not in ("num", "unknown"):
+            add_error("Range start should be numeric")
+        if end_t not in ("num", "unknown"):
+            add_error("Range end should be numeric")
+        return "range"
 
     # ===== LITERALES NUMÉRICOS =====
     elif expr_type == "num":
@@ -423,6 +446,19 @@ def analyze_statement(stmt):
         analyze_expression(condition)
         if isinstance(body, list):
             for s in body:
+                analyze_statement(s)
+
+    elif stmt_type == "if_else":
+        # if condition { body } else { body2 }
+        condition = stmt[1]
+        then_body = stmt[2]
+        else_body = stmt[3]
+        analyze_expression(condition)
+        if isinstance(then_body, list):
+            for s in then_body:
+                analyze_statement(s)
+        if isinstance(else_body, list):
+            for s in else_body:
                 analyze_statement(s)
     
     elif stmt_type == "while":

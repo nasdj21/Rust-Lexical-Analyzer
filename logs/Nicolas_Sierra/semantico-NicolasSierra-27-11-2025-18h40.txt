@@ -1,0 +1,16 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+✅ NO SEMANTIC ERRORS
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  edad: immutable, initialized, type=num
+  count: immutable, initialized, type=num
+  tupla: immutable, initialized, type=tuple
+  list: mutable, initialized, type=vector
+  numeros: immutable, initialized, type=array
+  a: immutable, initialized, type=bool
+  log: immutable, initialized, type=bool

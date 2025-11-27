@@ -23,6 +23,7 @@ precedence = (
     ('nonassoc', 'EQUAL_TO', 'NOT_EQUAL',
                  'LESS_THAN', 'LESS_THAN_OR_EQUAL_TO',
                  'GREATER_THAN', 'GREATER_THAN_OR_EQUAL_TO'),
+    ('nonassoc', 'RANGE', 'RANGE_INCLUSIVE'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE', 'MOD'),
     ('right', 'AS'),                                 # cast: expr as TYPE
@@ -179,6 +180,12 @@ def p_exp_binary(p):
                  | expression MOD expression'''
     p[0] = ("op", p[2], p[1], p[3])
 
+def p_exp_range(p):
+    '''expression : expression RANGE expression
+                  | expression RANGE_INCLUSIVE expression'''
+    inclusive = (p[2] == '..=')
+    p[0] = ("range", p[1], p[3], inclusive)
+
 def p_exp_relational(p):
     '''expression : expression EQUAL_TO expression
                   | expression NOT_EQUAL expression
@@ -254,6 +261,10 @@ def p_cond_parenthesis(p):
     'condition : LPAREN condition RPAREN'
     p[0] = p[2]
 
+def p_cond_expression(p):
+    'condition : expression'
+    p[0] = p[1]
+
 def p_cond_boolean(p):
     'condition : BOOLEAN'
     p[0] = ("bool", p[1])
@@ -262,6 +273,10 @@ def p_cond_boolean(p):
 def p_if_simple(p):
     'statement : IF condition LBRACE program_opt RBRACE'
     p[0] = ("if", p[2], p[4])
+
+def p_if_else(p):
+    'statement : IF condition LBRACE program_opt RBRACE ELSE LBRACE program_opt RBRACE'
+    p[0] = ("if_else", p[2], p[4], p[8])
 
 # Asignación simple: identificador = expresión;
 def p_assignment(p):
@@ -301,6 +316,11 @@ def p_type_base(p):
 def p_type_array_rec(p):
     'type : LBRACKET type RBRACKET'
     p[0] = ("type_array", p[2])
+
+# Arreglo con longitud anotada: [T, N]
+def p_type_array_len(p):
+    'type : LBRACKET type COMMA INTEGER RBRACKET'
+    p[0] = ("type_array_len", p[2], p[4])
 
 # Referencia: &T
 def p_type_ref_rec(p):
