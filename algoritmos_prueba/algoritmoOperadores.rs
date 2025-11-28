@@ -4,9 +4,9 @@ fn main() {
     let mut contador = 0;
 
     
-    if a && !b {
+    if a && !b ? false{
         println!("Caso 1: a && !b es verdadero");
-    }
+    } 
 
    
     if a || b {

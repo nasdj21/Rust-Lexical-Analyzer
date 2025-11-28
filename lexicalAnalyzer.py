@@ -6,20 +6,13 @@ LEX_ERRORS = []  # aquí guardamos los errores léxicos para mostrarlos en la GU
 reserved = {
     # AVANCE DE PALABRAS RESERVADAS: Nicolas Sierra - INICIO
     'as': 'AS',
-    'break': 'BREAK',
     'const': 'CONST',
-    'continue': 'CONTINUE',
-    'enum': 'ENUM',
-    'loop': 'LOOP',
-    'where': 'WHERE',
     'let': 'LET',
     'mut': 'MUT',
     'if': 'IF',
     'else': 'ELSE',
     'while': 'WHILE',
     'return': 'RETURN',
-    'match': 'MATCH',
-    'then': 'THEN',
     'main': 'MAIN',
     'println': 'PRINTLN',
     'fn':'FN',        
@@ -43,10 +36,10 @@ tokens = (
     'CONJUNCTION', 'DISJUNCTION', 'NOT',
 
     # Asignación
-    'ASIGNED_TO', 'PLUS_EQUAL', 'MINUS_EQUAL', 'TIMES_EQUAL', 'DIVIDE_EQUAL', 'MOD_EQUAL',
+    'ASIGNED_TO',
 
     # Bit a bit
-    'BIT_AND', 'BIT_XOR', 'BIT_NOT', 'SHIFT_LEFT', 'SHIFT_RIGHT',
+    'BIT_AND',
 
     # AVANCE DE TOKENS PARA VARIABLES: Carlos Flores - INICIO
     'IDENTIFIER',    
@@ -173,18 +166,11 @@ t_NOT = r'!'
 
 # ============== OPERADORES DE ASIGNACIÓN ==============
 t_ASIGNED_TO = r'='
-t_PLUS_EQUAL = r'\+='
-t_MINUS_EQUAL = r'-='
-t_TIMES_EQUAL = r'\*='
-t_DIVIDE_EQUAL = r'/='
-t_MOD_EQUAL = r'%='
+
 
 # ============== OPERADORES BIT A BIT ==============
 t_BIT_AND = r'&'
-t_BIT_XOR = r'\^'
-t_BIT_NOT = r'~'
-t_SHIFT_LEFT = r'<<'
-t_SHIFT_RIGHT = r'>>'
+
 
 # ============== RANGOS Y SEPARADORES ==============
 t_RANGE_INCLUSIVE = r'\.\.='   # ..=
@@ -357,7 +343,7 @@ def analizar_lexico(codigo: str) -> str:
 # ============== ARCHIVOS DE PRUEBA ==============
 files = {
     "Carlos Flores": ["algo.rs"], 
-    "Nicolas Sierra": ["algoritmoOperadores.rs"],    
+    "Nicolas Sierra": ["algoritmos_prueba/algoritmoOperadores.rs"],    
     "Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
 }
 
