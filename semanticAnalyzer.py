@@ -583,10 +583,10 @@ def generate_report(name):
     date = now.strftime("%d-%m-%Y")
     time = now.strftime("%Hh%M")
     
-    log_folder = f"./logs/{name.replace(" ", "_")}"
+    log_folder = f"./logs/{name.replace(' ', '_')}"
     os.makedirs(log_folder, exist_ok=True)
     
-    log_name = f"{log_folder}/semantico-{name.replace(" ", "")}-{date}-{time}.txt"
+    log_name = f"{log_folder}/semantico-{name.replace(' ', '')}-{date}-{time}.txt"
     with open(log_name, "w", encoding="utf-8") as log:
         log.write(report)
     return log_name
@@ -632,6 +632,31 @@ def analyze_file(filename, autor):
     
     return len(errors) == 0
 
+# ========= FUNCIÓN PARA USAR EN LA INTERFAZ GRÁFICA =========
+def analizar_semantico(codigo: str, autor="EditorGUI"):
+    reset_analyzer()
+    PARSER_ERRORS.clear()
+    lexer.lineno = 1
+
+    try:
+        ast = parser.parse(codigo, lexer=lexer)
+    except Exception as e:
+        return f"❌ Critical error in syntax analysis: {e}"
+
+    if PARSER_ERRORS:
+        texto = "❌ Syntax errors found:\n"
+        texto += "\n".join(f"  {e}" for e in PARSER_ERRORS)
+        return texto
+
+    analyze_ast(ast)
+
+    log_path = generate_report(autor)
+
+    with open(log_path, "r", encoding="utf-8") as f:
+        report = f.read()
+
+    report += f"\n\n📄 Log generated at: {log_path}"
+    return report
 
 # ============== EJECUCIÓN ==============
 

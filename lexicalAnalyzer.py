@@ -1,6 +1,7 @@
 from ply import lex
 import datetime
 import os
+LEX_ERRORS = []  # aquí guardamos los errores léxicos para mostrarlos en la GUI
 
 reserved = {
     # AVANCE DE PALABRAS RESERVADAS: Nicolas Sierra - INICIO
@@ -309,8 +310,49 @@ def t_CLOSURE_PIPE(t):
 # ============== MANEJO DE ERRORES ==============
 
 def t_error(t):
-    print("Lexical component '%s' does not exist in Rust language" % t.value[0])
+    msg = f"Componente léxico '{t.value[0]}' no existe en Rust (línea {t.lexer.lineno})"
+    print(msg)
+    LEX_ERRORS.append(msg)
     t.lexer.skip(1)
+
+# ============== FUNCIÓN PARA LA INTERFAZ GRÁFICA ==============
+
+def analizar_lexico(codigo: str) -> str:
+    """
+    Ejecuta el analizador léxico sobre el código recibido y
+    devuelve un texto con los tokens encontrados y/o errores léxicos.
+    Esta función es la que usará main.py.
+    """
+    # limpiar errores previos
+    LEX_ERRORS.clear()
+
+    # reiniciar lexer
+    lexer.lineno = 1
+    lexer.input(codigo)
+
+    salida = []
+
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+
+        linea = (
+            f"[TOKEN] Tipo: {tok.type:<15} | "
+            f"Valor: {str(tok.value):<15} | "
+            f"Línea: {tok.lineno:<3} | Posición: {tok.lexpos}"
+        )
+        salida.append(linea)
+
+    # si hubo errores léxicos, los agregamos al final
+    if LEX_ERRORS:
+        salida.append("\n=== ERRORES LÉXICOS ===")
+        salida.extend(LEX_ERRORS)
+
+    if not salida:
+        return "No se encontraron tokens.\n"
+
+    return "\n".join(salida)
 
 # ============== ARCHIVOS DE PRUEBA ==============
 files = {

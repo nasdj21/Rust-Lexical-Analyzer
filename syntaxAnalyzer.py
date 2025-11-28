@@ -483,6 +483,29 @@ def p_error(tok):
 # Construyo el parser
 parser = yacc.yacc(start='program')
 
+# --------- Función para usar desde la interfaz gráfica ---------
+def analizar_sintactico(codigo: str) -> str:
+    """
+    Ejecuta el analizador sintáctico sobre el código recibido
+    y devuelve un texto con el resultado o los errores encontrados.
+    Esta función la llama main.py.
+    """
+    ERRORS.clear()
+    lexer.lineno = 1
+
+    try:
+        parser.parse(codigo, lexer=lexer)
+    except Exception as e:
+        ERRORS.append(f"[ERROR] Excepción del parser: {e}")
+
+    if ERRORS:
+        salida = ["Se encontraron errores sintácticos:"]
+        salida.extend(ERRORS)
+        return "\n".join(salida)
+    else:
+        return "Análisis sintáctico completado. No se encontraron errores."
+
+
 # ---------------- Runner + logs ----------------
 files = {
     #"Carlos Flores": ["avance3CarlosFlores.rs"],

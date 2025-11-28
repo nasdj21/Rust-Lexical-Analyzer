@@ -1,0 +1,14 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 2
+  [SEMANTIC ERROR] Invalid operands for arithmetic operator '+' (SEM-TYPE-MISMATCH: bool is not allowed here)
+  [SEMANTIC ERROR] Variable 'y' is not declared
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  x: immutable, NOT initialized, type=num
+  b: immutable, initialized, type=bool
+  c: mutable, initialized, type=num
