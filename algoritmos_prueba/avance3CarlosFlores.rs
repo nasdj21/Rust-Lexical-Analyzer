@@ -6,6 +6,10 @@
 let x = 10;
 let y = 20;
 let suma = x + y;
+let edad:i32 = 23;
+fn suma (a: i32, b: i32) -> i32 {
+    return a + b;
+}
 
 // ============================================
 // Variables mutables correctas
@@ -73,7 +77,7 @@ let resultado_lambda = sumar(10, 5);
 let multiplicar = |a: i32, b: i32| -> i32 { a * b };
 let resultado_mult = multiplicar(3, 4);
 
-let sin_params = || 42;
+let sin_params = 23 || 42;
 let valor = sin_params();
 
 let factor = 2;

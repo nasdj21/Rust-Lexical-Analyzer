@@ -1,0 +1,6 @@
+===== Syntactic Analysis (27-11-2025 - 23h30) =====
+
+=== File: ./algoritmos_prueba/avance2CarlosFlores.rs ===
+❌ Syntax errors found:
+   - [ERROR] Invalid syntax at '||' (line 26)
+

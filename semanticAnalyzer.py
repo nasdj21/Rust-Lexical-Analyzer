@@ -82,6 +82,26 @@ def is_negative_literal(expr):
         return True
     return False
 
+def check_type_compatibility(declared_type, expr_type, var_name):
+    """
+    Verifica que el tipo de la expresión sea compatible con el tipo declarado.
+    declared_type: tipo declarado (ej: 'num', 'bool', 'string')
+    expr_type: tipo inferido de la expresión (ej: 'num', 'bool', 'string')
+    var_name: nombre de la variable (para el mensaje de error)
+    """
+    if declared_type == "unknown" or expr_type == "unknown":
+        return True  # No podemos verificar si alguno es desconocido
+    
+    if declared_type != expr_type:
+        add_error(
+            f"Type mismatch in variable '{var_name}': "
+            f"expected '{declared_type}', but got '{expr_type}'"
+        )
+        return False
+    
+    return True
+
+
 # ============== HELPERS ==============
 
 def type_name_from_ast(t):
@@ -353,14 +373,16 @@ def analyze_statement(stmt):
             'type': tipo
         }
     
-    elif stmt_type == "let_typed_assign":
-        # let x: T = expr;
+    if stmt_type == "let_typed_assign":
         var_name = stmt[1]
         tipo_ast = stmt[2]
         expr = stmt[3]
 
         tipo = type_name_from_ast(tipo_ast)
-        expr_t = analyze_expression(expr) 
+        expr_t = analyze_expression(expr)
+
+        # NUEVA REGLA: Verificar compatibilidad de tipos
+        check_type_compatibility(tipo, expr_t, var_name)
 
         if is_unsigned_type(tipo_ast) and is_negative_literal(expr):
             add_error(f"Cannot assign negative literal to unsigned type in variable '{var_name}'")
@@ -371,14 +393,17 @@ def analyze_statement(stmt):
             'type': tipo if tipo != "unknown" else expr_t
         }
     
+    # ===== let mut x: T = expr; (CON VERIFICACIÓN DE TIPOS) =====
     elif stmt_type == "let_mut_typed_assign":
-        # let mut x: T = expr;
         var_name = stmt[1]
         tipo_ast = stmt[2]
         expr = stmt[3]
 
         tipo = type_name_from_ast(tipo_ast)
         expr_t = analyze_expression(expr)
+
+        # NUEVA REGLA: Verificar compatibilidad de tipos
+        check_type_compatibility(tipo, expr_t, var_name)
 
         if is_unsigned_type(tipo_ast) and is_negative_literal(expr):
             add_error(f"Cannot assign negative literal to unsigned type in variable '{var_name}'")
@@ -389,18 +414,26 @@ def analyze_statement(stmt):
             'type': tipo if tipo != "unknown" else expr_t
         }
     
-    elif stmt_type == "let_mut_typed_decl":
-        # let mut x: T;
-        var_name = stmt[1]
+    # ===== CONSTANTES =====
+    elif stmt_type == "const_decl":
+        const_name = stmt[1]
         tipo_ast = stmt[2]
+        const_value = stmt[3]
+
         tipo = type_name_from_ast(tipo_ast)
+        expr_t = analyze_expression(const_value)
 
-        symbol_table[var_name] = {
-            'mutable': True,
-            'initialized': False,
-            'type': tipo
+        # NUEVA REGLA: Verificar compatibilidad de tipos
+        check_type_compatibility(tipo, expr_t, const_name)
+
+        if is_unsigned_type(tipo_ast) and is_negative_literal(const_value):
+            add_error(f"Cannot assign negative literal to unsigned type in const '{const_name}'")
+
+        symbol_table[const_name] = {
+            'mutable': False,
+            'initialized': True,
+            'type': tipo or expr_t
         }
-
     
     # ===== ASIGNACIÓN =====
     
@@ -415,27 +448,6 @@ def analyze_statement(stmt):
             symbol_table[var_name]['initialized'] = True
         
         analyze_expression(expr)
-    
-    # ===== CONSTANTES =====
-    
-    elif stmt_type == "const_decl":
-        # const X: T = expr;
-        const_name = stmt[1]
-        tipo_ast = stmt[2]
-        const_value = stmt[3]
-
-        tipo = type_name_from_ast(tipo_ast)
-        expr_t = analyze_expression(const_value)
-
-        if is_unsigned_type(tipo_ast) and is_negative_literal(const_value):
-            add_error(f"Cannot assign negative literal to unsigned type in const '{const_name}'")
-
-        # Registrar constante (siempre inicializada e inmutable)
-        symbol_table[const_name] = {
-            'mutable': False,
-            'initialized': True,
-            'type': tipo or expr_t
-        }
     
     # ===== ESTRUCTURAS DE CONTROL =====
     
@@ -663,9 +675,9 @@ def analizar_semantico(codigo: str, autor="EditorGUI"):
 if __name__ == "__main__":
     # Archivos de prueba
     files = {
-        #"Carlos Flores": "avance3CarlosFlores.rs",
+        "Carlos Flores": "algoritmos_prueba/avance3CarlosFlores.rs",
         "Nicolas Sierra": "algoritmos_prueba/avance3NicolasSierra.rs", #Como solo estaba probando yo, deje mi nombre nomas. PILAS
-        #"Carlos Tingo": "algoritmoVectoresArreglos.rs"
+        "Carlos Tingo": "algoritmos_prueba/algoritmoVectoresArreglos.rs"
     }
 
     for name, filename in files.items():

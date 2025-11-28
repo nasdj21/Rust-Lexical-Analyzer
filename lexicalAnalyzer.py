@@ -83,6 +83,8 @@ states = (
     ('blockcomment', 'exclusive'),
 )
 
+t_blockcomment_ignore = ''
+
 # Variable global para comentarios anidados
 comment_depth = 0
 

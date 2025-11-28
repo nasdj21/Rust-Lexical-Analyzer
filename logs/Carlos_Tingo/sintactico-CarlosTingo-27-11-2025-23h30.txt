@@ -1,0 +1,5 @@
+===== Syntactic Analysis (27-11-2025 - 23h30) =====
+
+=== File: ./algoritmos_prueba/avance2CarlosTingo.rs ===
+✅ No syntax errors.
+

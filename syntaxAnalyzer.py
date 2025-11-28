@@ -111,7 +111,7 @@ def p_argument_list(p):
                         | expression'''
     p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
 
-# ---------------- CLOSURES/LAMBDAS (CORREGIDO) ----------------
+# ---------------- CLOSURES/LAMBDAS ----------------
 
 # Parámetros del closure
 def p_closure_params_empty(p):
@@ -269,33 +269,33 @@ def p_cond_boolean(p):
     'condition : BOOLEAN'
     p[0] = ("bool", p[1])
 
-# if simple para pruebas
+# if simple para pruebas (usa expression en vez de condition)
 def p_if_simple(p):
-    'statement : IF condition LBRACE program_opt RBRACE'
+    'statement : IF expression LBRACE program_opt RBRACE'
     p[0] = ("if", p[2], p[4])
 
 def p_if_else(p):
-    'statement : IF condition LBRACE program_opt RBRACE ELSE LBRACE program_opt RBRACE'
+    'statement : IF expression LBRACE program_opt RBRACE ELSE LBRACE program_opt RBRACE'
     p[0] = ("if_else", p[2], p[4], p[8])
 
-# Asignación simple: identificador = expresión;
+# ---------------- Asignación simple: identificador = expresión; ----------------
 def p_assignment(p):
     'statement : IDENTIFIER ASIGNED_TO expression SEMICOLON'
     p[0] = ("assignment", p[1], p[3])
 
-# ---------------- Bucle while ----------------
+# ---------------- Bucle while (usa expression) ----------------
 def p_while(p):
-    'statement : WHILE condition LBRACE program_opt RBRACE'
+    'statement : WHILE expression LBRACE program_opt RBRACE'
     p[0] = ("while", p[2], p[4])
 
 # ---------------- Funciones async ----------------
 def p_function_with_return_async(p):
-    'statement : ASYNC FN function_name LPAREN RPAREN ARROW type LBRACE program_opt RBRACE'
-    p[0] = ("async_fn_ret", p[3], p[7], p[9])
+    'statement : ASYNC FN function_name LPAREN param_list_opt RPAREN ARROW type LBRACE function_body RBRACE'
+    p[0] = ("async_fn_ret", p[3], p[5], p[8], p[10])
 
 def p_function_without_return_async(p):
-    'statement : ASYNC FN function_name LPAREN RPAREN LBRACE program_opt RBRACE'
-    p[0] = ("async_fn", p[3], p[7])
+    'statement : ASYNC FN function_name LPAREN param_list_opt RPAREN LBRACE program_opt RBRACE'
+    p[0] = ("async_fn", p[3], p[5], p[8])
 
 # ---------------- Tipos (anotaciones) ----------------
 def p_type_base(p):
@@ -434,14 +434,44 @@ def p_tuple_value_list(p):
 
 def p_exp_tuple_access(p):
     '''expression : expression DOT INTEGER'''
-    p[0] = ("tuple_access", ("id", p[1]), p[3])
+    p[0] = ("tuple_access", p[1], p[3])
 
 # ---------------- Bucle for ----------------
 def p_for_loop(p):
     'statement : FOR IDENTIFIER IN expression LBRACE program_opt RBRACE'
     p[0] = ("for", p[2], p[4], p[6])
 
+# ---------------- Parámetros de funciones ----------------
+def p_param_list_opt(p):
+    '''param_list_opt : param_list
+                      | empty'''
+    p[0] = p[1] if p[1] is not None else []
+
+def p_param_list(p):
+    '''param_list : param_list COMMA param
+                  | param'''
+    p[0] = p[1] + [p[3]] if len(p) == 4 else [p[1]]
+
+def p_param(p):
+    '''param : IDENTIFIER COLON type'''
+    p[0] = ("param", p[1], p[3])
+
 # ---------------- Funciones y return ----------------
+def p_function_body_with_return(p):
+    '''function_body : program expression
+                     | expression'''
+    # Con statements previos + expresión final (retorno implícito)
+    if len(p) == 3:
+        p[0] = ("body", p[1], p[2])  # statements + expr final
+    # Solo expresión final (retorno implícito)
+    else:
+        p[0] = ("body", [], p[1])    # expr final directamente
+
+def p_function_body_statements(p):
+    'function_body : program_opt'
+    # Solo statements (sin retorno implícito)
+    p[0] = ("body", p[1], None)
+    
 def p_maybe_pub(p):
     '''maybe_pub : IDENTIFIER
                  | empty'''
@@ -456,12 +486,12 @@ def p_function_name_main(p):
     p[0] = p[1]
 
 def p_function_with_return(p):
-    'statement : maybe_pub FN function_name LPAREN RPAREN ARROW type LBRACE program_opt RBRACE'
-    p[0] = ("fn_ret", p[3], p[7], p[9])
+    'statement : maybe_pub FN function_name LPAREN param_list_opt RPAREN ARROW type LBRACE function_body RBRACE'
+    p[0] = ("fn_ret", p[3], p[5], p[8], p[10])
 
 def p_function_without_return(p):
-    'statement : maybe_pub FN function_name LPAREN RPAREN LBRACE program_opt RBRACE'
-    p[0] = ("fn", p[3], p[7])
+    'statement : maybe_pub FN function_name LPAREN param_list_opt RPAREN LBRACE program_opt RBRACE'
+    p[0] = ("fn", p[3], p[5], p[7])
 
 def p_return(p):
     'statement : RETURN expression SEMICOLON'
@@ -508,9 +538,9 @@ def analizar_sintactico(codigo: str) -> str:
 
 # ---------------- Runner + logs ----------------
 files = {
-    #"Carlos Flores": ["avance3CarlosFlores.rs"],
-    "Nicolas Sierra": ["avance3NicolasSierra.rs"],
-    #"Carlos Tingo": ["algoritmoVectoresArreglos.rs"]
+    "Nicolas Sierra": ["./algoritmos_prueba/avance2NicolasSierra.rs"],
+    "Carlos Flores": ["./algoritmos_prueba/avance2CarlosFlores.rs"],
+    "Carlos Tingo":["./algoritmos_prueba/avance2CarlosTingo.rs"]
 }
 
 def analyze():

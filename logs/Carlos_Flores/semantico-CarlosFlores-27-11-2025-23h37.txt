@@ -1,0 +1,68 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Type mismatch in variable 'edad': expected 'num', but got 'bool'
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  x: immutable, initialized, type=num
+  y: immutable, initialized, type=num
+  suma: immutable, initialized, type=num
+  edad: immutable, initialized, type=num
+  contador: mutable, initialized, type=num
+  acumulador: mutable, initialized, type=num
+  PI: immutable, initialized, type=num
+  MAX: immutable, initialized, type=num
+  precio: immutable, initialized, type=num
+  activo: immutable, initialized, type=bool
+  inicial: immutable, initialized, type=char
+  a: immutable, initialized, type=num
+  b: immutable, initialized, type=num
+  suma_ab: immutable, initialized, type=num
+  resta: immutable, initialized, type=num
+  mult: immutable, initialized, type=num
+  div: immutable, initialized, type=num
+  mod: immutable, initialized, type=num
+  verdadero: immutable, initialized, type=bool
+  falso: immutable, initialized, type=bool
+  resultado_and: immutable, initialized, type=bool
+  resultado_or: immutable, initialized, type=bool
+  negacion: immutable, initialized, type=bool
+  mayor: immutable, initialized, type=bool
+  igual: immutable, initialized, type=bool
+  diferente: immutable, initialized, type=bool
+  numeros: immutable, initialized, type=array
+  letras: immutable, initialized, type=array
+  ceros: immutable, initialized, type=array
+  sumar: immutable, initialized, type=None
+  resultado_lambda: immutable, initialized, type=unknown
+  multiplicar: immutable, initialized, type=None
+  resultado_mult: immutable, initialized, type=unknown
+  sin_params: immutable, initialized, type=bool
+  valor: immutable, initialized, type=num
+  factor: immutable, initialized, type=num
+  duplicar: immutable, initialized, type=None
+  duplicado: immutable, initialized, type=unknown
+  i: mutable, initialized, type=num
+  num: immutable, initialized, type=unknown
+  res: immutable, initialized, type=unknown
+  res_lambda: immutable, initialized, type=unknown
+  referencia: immutable, initialized, type=None
+  mutable: mutable, initialized, type=num
+  ref_mutable: immutable, initialized, type=None
+  entero: immutable, initialized, type=num
+  flotante: immutable, initialized, type=None
+  total: mutable, initialized, type=num
+  datos: immutable, initialized, type=array
+  dato: immutable, initialized, type=unknown
+  promedio: immutable, initialized, type=num
+  calcular_complejo: immutable, initialized, type=None
+  resultado_complejo: immutable, initialized, type=unknown
+  primero: immutable, initialized, type=num
+  segundo: immutable, initialized, type=num
+  tercero: immutable, initialized, type=num
+  suma_tres: immutable, initialized, type=num
+  resultado_fn: immutable, initialized, type=unknown

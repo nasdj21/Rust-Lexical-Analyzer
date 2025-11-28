@@ -23,7 +23,7 @@ let multiplicar = |x, y| -> i32 {
     x * y
 };
 let aplicar = |x| x * factor;
-let foo = || 10;
+let foo = 2 || 10;
 println!("Hola Mundo!"); 
 println!("Mi nombre es {}", nombre); 
 println!("{} tiene {} años", nombre, edad); 
