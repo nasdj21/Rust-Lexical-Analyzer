@@ -239,35 +239,7 @@ def p_cast_as(p):
     p[0] = ("cast", p[1], p[3])
 
 # ---------------- Condiciones ----------------
-def p_cond_rel(p):
-    '''condition : expression EQUAL_TO expression
-                 | expression NOT_EQUAL expression
-                 | expression LESS_THAN expression
-                 | expression GREATER_THAN expression
-                 | expression LESS_THAN_OR_EQUAL_TO expression
-                 | expression GREATER_THAN_OR_EQUAL_TO expression'''
-    p[0] = ("rel", p[2], p[1], p[3])
 
-def p_cond_logic_bin(p):
-    '''condition : condition CONJUNCTION condition
-                 | condition DISJUNCTION condition'''
-    p[0] = ("logic", p[2], p[1], p[3])
-
-def p_cond_logic_not(p):
-    'condition : NOT condition'
-    p[0] = ("not", p[2])
-
-def p_cond_parenthesis(p):
-    'condition : LPAREN condition RPAREN'
-    p[0] = p[2]
-
-def p_cond_expression(p):
-    'condition : expression'
-    p[0] = p[1]
-
-def p_cond_boolean(p):
-    'condition : BOOLEAN'
-    p[0] = ("bool", p[1])
 
 # if simple para pruebas (usa expression en vez de condition)
 def p_if_simple(p):

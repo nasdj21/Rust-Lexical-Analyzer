@@ -1,0 +1,20 @@
+============================================================
+SEMANTIC ANALYSIS REPORT
+============================================================
+
+❌ ERRORS FOUND: 1
+  [SEMANTIC ERROR] Type mismatch in variable 'nums': expected 'array<num>', but got 'array'
+
+------------------------------------------------------------
+SYMBOL TABLE
+------------------------------------------------------------
+  edad: immutable, initialized, type=num
+  count: immutable, initialized, type=num
+  tupla: immutable, initialized, type=tuple
+  list: mutable, initialized, type=vector
+  nums: immutable, initialized, type=array<num>
+  array: immutable, initialized, type=array
+  capitalCities: mutable, initialized, type=hashmap
+  a: immutable, initialized, type=bool
+  log: immutable, initialized, type=bool
+  i: immutable, initialized, type=unknown
